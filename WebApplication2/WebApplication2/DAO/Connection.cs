@@ -80,7 +80,6 @@ namespace WebApplication2.DAO
                 con.Dispose();
             }
         }
-
         [TestMethod]
         public void SelectReader()
         {
