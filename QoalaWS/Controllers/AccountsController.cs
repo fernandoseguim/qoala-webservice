@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebApplication2.Models;
+using QoalaWS.Models;
 
-namespace WebApplication2.Controllers
+namespace QoalaWS.Controllers
 {
     public class AccountsController : ApiController
     {

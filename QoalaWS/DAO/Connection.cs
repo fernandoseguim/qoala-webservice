@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace WebApplication2.DAO
+namespace QoalaWS.DAO
 {
     public class Connection
     {
@@ -40,7 +40,7 @@ namespace WebApplication2.DAO
             {
                 if (connectionString == null)
                     connectionString = ConfigurationManager.ConnectionStrings["ORCL"].ConnectionString;
-
+                
                 return connectionString;
             }
         }

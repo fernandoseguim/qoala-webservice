@@ -1,13 +1,35 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QoalaWS.DAO;
 
-namespace QoalaWSTest.DAO
+namespace QoalaWS.DAOTest
 {
     [TestClass]
-    class ConnectionTest
+    public class ConnectionTest
     {
+
+
         [TestMethod]
         public void ConnectAndDisconnect()
+        {
+
+            var con = Connection.getConnection();
+            try
+            {
+                Assert.IsNotNull(con);
+                con.Open();
+                Assert.AreEqual(con.State, System.Data.ConnectionState.Open);
+            }
+            finally
+            {
+                con.Close();
+                Assert.AreEqual(con.State, System.Data.ConnectionState.Closed);
+                con.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public void SelectScalar()
         {
             var con = Connection.getConnection();
             try
@@ -28,6 +50,7 @@ namespace QoalaWSTest.DAO
                 con.Dispose();
             }
         }
+
         [TestMethod]
         public void SelectReader()
         {
