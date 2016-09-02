@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{42B8C4D4-E750-44DA-899F-5067BA2A7926}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoalaWS", "WebApplication2\QoalaWS.csproj", "{42B8C4D4-E750-44DA-899F-5067BA2A7926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoalaWSTest", "..\QoalaWSTest\QoalaWSTest.csproj", "{9043C047-324B-4FFB-8FCB-F655B37DEC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{42B8C4D4-E750-44DA-899F-5067BA2A7926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B8C4D4-E750-44DA-899F-5067BA2A7926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42B8C4D4-E750-44DA-899F-5067BA2A7926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9043C047-324B-4FFB-8FCB-F655B37DEC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9043C047-324B-4FFB-8FCB-F655B37DEC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9043C047-324B-4FFB-8FCB-F655B37DEC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9043C047-324B-4FFB-8FCB-F655B37DEC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

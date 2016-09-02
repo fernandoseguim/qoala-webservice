@@ -10,8 +10,11 @@ namespace WebApplication2.DAO
 {
     public class Connection
     {
-        private static OracleConnection instance = null;
+        private Connection()
+        {
+        }
 
+        private static OracleConnection instance = null;
         /// <summary>
         /// Retorna objeto singleton da conexão, cria e mantem o mesmo em memória.
         /// Usar com cuidado para não deixar conexão presa.
@@ -25,6 +28,8 @@ namespace WebApplication2.DAO
                 return instance;
             }
         }
+
+
         private static String connectionString = null;
         /// <summary>
         /// Busca a string de conexão
@@ -40,9 +45,6 @@ namespace WebApplication2.DAO
             }
         }
 
-        private Connection()
-        {
-        }
 
         /// <summary>
         ///   Cria uma nova conexão do pool
@@ -52,54 +54,6 @@ namespace WebApplication2.DAO
         {
             OracleConnection conn = new OracleConnection(ConnectionString);
             return conn;
-        }
-    }
-
-    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
-    public class ConnectionTest
-    {
-        [TestMethod]
-        public void ConnectAndDisconnect()
-        {
-            var con = Connection.getConnection();
-            try
-            {
-                Assert.IsNotNull(con);
-                con.Open();
-                var cmd = con.CreateCommand();
-                Assert.IsNotNull(cmd);
-                cmd.CommandText = "select 1 + 2 as tres from dual";
-                cmd.CommandType = System.Data.CommandType.Text;
-                var tres = cmd.ExecuteScalar();
-                Assert.AreEqual(tres, Decimal.Parse("3"));
-            }
-            finally
-            {
-                con.Close();
-                Assert.AreEqual(con.State, System.Data.ConnectionState.Closed);
-                con.Dispose();
-            }
-        }
-        [TestMethod]
-        public void SelectReader()
-        {
-            using (var con = Connection.getConnection())
-            {
-                con.Open();
-                var cmd = con.CreateCommand();
-                cmd.CommandText = "select 1 as coluna from dual" +
-                " union select 2 as coluna from dual";
-                cmd.CommandType = System.Data.CommandType.Text;
-                using (var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
-                {
-                    Decimal i = 1;
-                    while (reader.Read())
-                    {
-                        var col = (Decimal)reader["coluna"];
-                        Assert.AreEqual(col, i++);
-                    }
-                }
-            }
         }
     }
 }
