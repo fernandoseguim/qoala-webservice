@@ -15,12 +15,11 @@ namespace QoalaWS.Models
 
         public ControlAccess register()
         {
-            User user = findByEmail(Email);
-            if (user != null)
+            if (!emailAlreadyExist(Email))
                 return null;
-
+           
             Id = 1;
-            return doLogin(Email, Password);
+            return doLogin();
         }
 
         public bool resetPassword()
@@ -52,7 +51,15 @@ namespace QoalaWS.Models
         public static User findByEmail(string email)
         {
             // Execute query to find user
+            //select * from users where email = email
+
             return new User { Id = 1, Email = "lucas@gmail.com", Name = "Lucas", Password = "senha" };
+        }
+
+        public static bool emailAlreadyExist(string email)
+        {
+            //select * from users where email = email
+            return false;
         }
     }
 }

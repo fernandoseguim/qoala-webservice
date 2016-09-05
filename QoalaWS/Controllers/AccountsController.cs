@@ -13,21 +13,31 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public IHttpActionResult Register(Models.User user)
         {
-            return Ok(user.register());
+            Models.ControlAccess ca = user.register();
+            if (ca == null)
+                return BadRequest();
+            else
+                return Ok(ca);
         }
 
         [HttpPost]
         public IHttpActionResult ResetPassword([FromBody] string email)
         {
             Models.User user = Models.User.findByEmail(email);
-            user.resetPassword();
-            return null;
+            if (user.resetPassword())
+                return Ok();
+            else
+                return BadRequest();
         }
 
         [HttpPost]
         public IHttpActionResult Login(Models.User user)
         {
-            return Ok(user.doLogin());
+            Models.ControlAccess ca = user.doLogin();
+            if (ca == null)
+                return BadRequest();
+            else
+                return Ok(ca);
         }
 
         [HttpPost]
