@@ -11,14 +11,13 @@ namespace QoalaWS.Controllers
     public class AccountsController : ApiController
     {
         [HttpPost]
-        public Models.ControlAccess Register([FromBody] string name, [FromBody] string email, [FromBody] string password)
+        public IHttpActionResult Register(Models.User user)
         {
-            Models.User user = new Models.User { Name = name, Email = email, Password = password };
-            return user.register();
+            return Ok(user.register());
         }
 
         [HttpPost]
-        public Models.ControlAccess ResetPassword([FromBody] string email)
+        public IHttpActionResult ResetPassword([FromBody] string email)
         {
             Models.User user = Models.User.findByEmail(email);
             user.resetPassword();
@@ -26,15 +25,18 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        public Models.ControlAccess Login([FromBody] string email, [FromBody] string password)
+        public IHttpActionResult Login(Models.User user)
         {
-            return Models.User.doLogin(email, password);
+            return Ok(user.doLogin());
         }
 
         [HttpPost]
-        public bool Logout([FromBody] string token)
+        public IHttpActionResult Logout([FromBody] string token)
         {
-            return Models.User.doLogout(token);
+            if (Models.User.doLogout(token))
+                return Ok();
+            else
+                return BadRequest();
         }
     }
 }

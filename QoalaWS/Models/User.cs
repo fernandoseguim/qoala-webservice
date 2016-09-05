@@ -29,12 +29,12 @@ namespace QoalaWS.Models
             return true;
         }
 
-        public static ControlAccess doLogin(string email, string password)
+        public ControlAccess doLogin()
         {
 
-            User user = findByEmail(email);
+            User user = findByEmail(Email);
 
-            if (user.Password.Equals(password))
+            if (user.Password.Equals(Password))
             {
                 ControlAccess controllAccess = new ControlAccess { Id = user.Id };
                 return controllAccess.createToken();
