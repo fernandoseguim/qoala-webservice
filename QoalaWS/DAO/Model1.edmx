@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.COMMENT_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="COMMENT_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="COMMENTS_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="clob" Nullable="false" />
+          <Property Name="COMMENTS_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMMENTS">
+          <Key>
+            <PropertyRef Name="ID_COMMENT" />
+          </Key>
+          <Property Name="ID_COMMENT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CONTENT" Type="clob" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="date" />
+          <Property Name="APPROVED_AT" Type="date" />
+          <Property Name="DELETED_AT" Type="date" />
+          <Property Name="POST_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.DEVICE_GEO_LOCATION_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DEVICE_GEO_LOCATION_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="DEVICE_GEO_LOCATION_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="clob" Nullable="false" />
+          <Property Name="DEVICE_GEO_LOCATION_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DEVICE_GEO_LOCATIONS">
+          <Key>
+            <PropertyRef Name="ID_DEVICE_GEO_LOCATION" />
+          </Key>
+          <Property Name="ID_DEVICE_GEO_LOCATION" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DEVICE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VERIFIED_AT" Type="date" Nullable="false" />
+          <Property Name="LATITUDE" Type="number" Precision="10" Scale="7" Nullable="false" />
+          <Property Name="LONGITUDE" Type="number" Precision="10" Scale="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.DEVICE_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DEVICE_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="DEVICE_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="clob" Nullable="false" />
+          <Property Name="DEVICE_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DEVICES">
+          <Key>
+            <PropertyRef Name="ID_DEVICE" />
+          </Key>
+          <Property Name="ID_DEVICE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ALIAS" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="COLOR" Type="varchar2" MaxLength="15" />
+          <Property Name="FREQUENCY_UPDATE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_LONGITUDE" Type="number" Precision="10" Scale="7" />
+          <Property Name="LAST_LATITUDE" Type="number" Precision="10" Scale="7" />
+          <Property Name="ALARM" Type="number" Precision="1" Scale="0" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="date" />
+          <Property Name="DELETED_AT" Type="date" />
+        </EntityType>
+        <EntityType Name="NET_ACCOUNTS">
+          <Key>
+            <PropertyRef Name="ACCESS_TOKEN_ID" />
+          </Key>
+          <Property Name="ACCESS_TOKEN_ID" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFIER" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PROVIDER" Type="varchar2" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="POST_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="POST_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="clob" Nullable="false" />
+          <Property Name="POST_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSTS">
+          <Key>
+            <PropertyRef Name="ID_POST" />
+          </Key>
+          <Property Name="ID_POST" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITLE" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="CONTENT" Type="clob" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="date" />
+          <Property Name="PUBLISHED_AT" Type="date" />
+          <Property Name="DELETED_AT" Type="date" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.USER_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="USER_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="clob" Nullable="false" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PERMISSION" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="date" />
+          <Property Name="DELETED_AT" Type="date" />
+        </EntityType>
+        <Association Name="COMMENTS_POST_FK">
+          <End Role="POSTS" Type="Self.POSTS" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTS">
+              <PropertyRef Name="ID_POST" />
+            </Principal>
+            <Dependent Role="COMMENTS">
+              <PropertyRef Name="POST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMMENTS_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="COMMENTS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DEVICE_GEO_LOCATION_DEVICE_FK">
+          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="1" />
+          <End Role="DEVICE_GEO_LOCATIONS" Type="Self.DEVICE_GEO_LOCATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVICES">
+              <PropertyRef Name="ID_DEVICE" />
+            </Principal>
+            <Dependent Role="DEVICE_GEO_LOCATIONS">
+              <PropertyRef Name="DEVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DEVICES_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="DEVICES">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POST_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="POSTS" Type="Self.POSTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="POSTS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        
+        
+        
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="NET_ACCOUNTS" EntityType="Self.NET_ACCOUNTS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="COMMENT_LOGS" EntityType="Self.COMMENT_LOGS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"COMMENT_LOGS"."LOG" AS "LOG", 
+"COMMENT_LOGS"."COMMENTS_ID" AS "COMMENTS_ID", 
+"COMMENT_LOGS"."CREATED_AT" AS "CREATED_AT"
+FROM "QOALA"."COMMENT_LOGS" "COMMENT_LOGS"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DEVICE_GEO_LOCATION_LOGS" EntityType="Self.DEVICE_GEO_LOCATION_LOGS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"DEVICE_GEO_LOCATION_LOGS"."LOG" AS "LOG", 
+"DEVICE_GEO_LOCATION_LOGS"."DEVICE_GEO_LOCATION_ID" AS "DEVICE_GEO_LOCATION_ID", 
+"DEVICE_GEO_LOCATION_LOGS"."CREATED_AT" AS "CREATED_AT"
+FROM "QOALA"."DEVICE_GEO_LOCATION_LOGS" "DEVICE_GEO_LOCATION_LOGS"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DEVICE_LOGS" EntityType="Self.DEVICE_LOGS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"DEVICE_LOGS"."LOG" AS "LOG", 
+"DEVICE_LOGS"."DEVICE_ID" AS "DEVICE_ID", 
+"DEVICE_LOGS"."CREATED_AT" AS "CREATED_AT"
+FROM "QOALA"."DEVICE_LOGS" "DEVICE_LOGS"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="POST_LOGS" EntityType="Self.POST_LOGS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"POST_LOGS"."LOG" AS "LOG", 
+"POST_LOGS"."POST_ID" AS "POST_ID", 
+"POST_LOGS"."CREATED_AT" AS "CREATED_AT"
+FROM "QOALA"."POST_LOGS" "POST_LOGS"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="USER_LOGS" EntityType="Self.USER_LOGS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"USER_LOGS"."LOG" AS "LOG", 
+"USER_LOGS"."USER_ID" AS "USER_ID", 
+"USER_LOGS"."CREATED_AT" AS "CREATED_AT"
+FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="COMMENTS_POST_FK" Association="Self.COMMENTS_POST_FK">
+            <End Role="POSTS" EntitySet="POSTS" />
+            <End Role="COMMENTS" EntitySet="COMMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="COMMENTS_USER_FK" Association="Self.COMMENTS_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="COMMENTS" EntitySet="COMMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="DEVICE_GEO_LOCATION_DEVICE_FK" Association="Self.DEVICE_GEO_LOCATION_DEVICE_FK">
+            <End Role="DEVICES" EntitySet="DEVICES" />
+            <End Role="DEVICE_GEO_LOCATIONS" EntitySet="DEVICE_GEO_LOCATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="DEVICES_USER_FK" Association="Self.DEVICES_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="DEVICES" EntitySet="DEVICES" />
+          </AssociationSet>
+          <AssociationSet Name="POST_USER_FK" Association="Self.POST_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="POSTS" EntitySet="POSTS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="COMMENTS">
+          <Key>
+            <PropertyRef Name="ID_COMMENT" />
+          </Key>
+          <Property Name="ID_COMMENT" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="DateTime" />
+          <Property Name="APPROVED_AT" Type="DateTime" />
+          <Property Name="DELETED_AT" Type="DateTime" />
+          <Property Name="POST_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="POSTS" Relationship="Self.COMMENTS_POST_FK" FromRole="COMMENTS" ToRole="POSTS" />
+          <NavigationProperty Name="USERS" Relationship="Self.COMMENTS_USER_FK" FromRole="COMMENTS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="DEVICE_GEO_LOCATIONS">
+          <Key>
+            <PropertyRef Name="ID_DEVICE_GEO_LOCATION" />
+          </Key>
+          <Property Name="ID_DEVICE_GEO_LOCATION" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DEVICE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VERIFIED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="LATITUDE" Type="Decimal" Precision="10" Scale="7" Nullable="false" />
+          <Property Name="LONGITUDE" Type="Decimal" Precision="10" Scale="7" Nullable="false" />
+          <NavigationProperty Name="DEVICES" Relationship="Self.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICE_GEO_LOCATIONS" ToRole="DEVICES" />
+        </EntityType>
+        <EntityType Name="DEVICES">
+          <Key>
+            <PropertyRef Name="ID_DEVICE" />
+          </Key>
+          <Property Name="ID_DEVICE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ALIAS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COLOR" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FREQUENCY_UPDATE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LAST_LONGITUDE" Type="Decimal" Precision="10" Scale="7" />
+          <Property Name="LAST_LATITUDE" Type="Decimal" Precision="10" Scale="7" />
+          <Property Name="ALARM" Type="Boolean" />
+          <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="DateTime" />
+          <Property Name="DELETED_AT" Type="DateTime" />
+          <NavigationProperty Name="DEVICE_GEO_LOCATIONS" Relationship="Self.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICES" ToRole="DEVICE_GEO_LOCATIONS" />
+          <NavigationProperty Name="USERS" Relationship="Self.DEVICES_USER_FK" FromRole="DEVICES" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="NET_ACCOUNTS">
+          <Key>
+            <PropertyRef Name="ACCESS_TOKEN_ID" />
+          </Key>
+          <Property Name="ACCESS_TOKEN_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFIER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PROVIDER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POSTS">
+          <Key>
+            <PropertyRef Name="ID_POST" />
+          </Key>
+          <Property Name="ID_POST" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="DateTime" />
+          <Property Name="PUBLISHED_AT" Type="DateTime" />
+          <Property Name="DELETED_AT" Type="DateTime" />
+          <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="COMMENTS" Relationship="Self.COMMENTS_POST_FK" FromRole="POSTS" ToRole="COMMENTS" />
+          <NavigationProperty Name="USERS" Relationship="Self.POST_USER_FK" FromRole="POSTS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID_USER" />
+          </Key>
+          <Property Name="ID_USER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PERMISSION" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="UPDATED_AT" Type="DateTime" />
+          <Property Name="DELETED_AT" Type="DateTime" />
+          <NavigationProperty Name="COMMENTS" Relationship="Self.COMMENTS_USER_FK" FromRole="USERS" ToRole="COMMENTS" />
+          <NavigationProperty Name="DEVICES" Relationship="Self.DEVICES_USER_FK" FromRole="USERS" ToRole="DEVICES" />
+          <NavigationProperty Name="POSTS" Relationship="Self.POST_USER_FK" FromRole="USERS" ToRole="POSTS" />
+        </EntityType>
+        <EntityType Name="COMMENT_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="COMMENTS_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COMMENTS_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DEVICE_GEO_LOCATION_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="DEVICE_GEO_LOCATION_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DEVICE_GEO_LOCATION_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DEVICE_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="DEVICE_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DEVICE_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="POST_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="POST_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="POST_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER_LOGS">
+          <Key>
+            <PropertyRef Name="LOG" />
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="CREATED_AT" />
+          </Key>
+          <Property Name="LOG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="COMMENTS_POST_FK">
+          <End Role="POSTS" Type="Self.POSTS" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSTS">
+              <PropertyRef Name="ID_POST" />
+            </Principal>
+            <Dependent Role="COMMENTS">
+              <PropertyRef Name="POST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="COMMENTS_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="COMMENTS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DEVICE_GEO_LOCATION_DEVICE_FK">
+          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="1" />
+          <End Role="DEVICE_GEO_LOCATIONS" Type="Self.DEVICE_GEO_LOCATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVICES">
+              <PropertyRef Name="ID_DEVICE" />
+            </Principal>
+            <Dependent Role="DEVICE_GEO_LOCATIONS">
+              <PropertyRef Name="DEVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DEVICES_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="DEVICES">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="POST_USER_FK">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="POSTS" Type="Self.POSTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
+            </Principal>
+            <Dependent Role="POSTS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QoalaEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" />
+          <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" />
+          <EntitySet Name="DEVICES" EntityType="Self.DEVICES" />
+          <EntitySet Name="NET_ACCOUNTS" EntityType="Self.NET_ACCOUNTS" />
+          <EntitySet Name="POSTS" EntityType="Self.POSTS" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <EntitySet Name="COMMENT_LOGS" EntityType="Self.COMMENT_LOGS" />
+          <EntitySet Name="DEVICE_GEO_LOCATION_LOGS" EntityType="Self.DEVICE_GEO_LOCATION_LOGS" />
+          <EntitySet Name="DEVICE_LOGS" EntityType="Self.DEVICE_LOGS" />
+          <EntitySet Name="POST_LOGS" EntityType="Self.POST_LOGS" />
+          <EntitySet Name="USER_LOGS" EntityType="Self.USER_LOGS" />
+          <AssociationSet Name="COMMENTS_POST_FK" Association="Self.COMMENTS_POST_FK">
+            <End Role="POSTS" EntitySet="POSTS" />
+            <End Role="COMMENTS" EntitySet="COMMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="COMMENTS_USER_FK" Association="Self.COMMENTS_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="COMMENTS" EntitySet="COMMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="DEVICE_GEO_LOCATION_DEVICE_FK" Association="Self.DEVICE_GEO_LOCATION_DEVICE_FK">
+            <End Role="DEVICES" EntitySet="DEVICES" />
+            <End Role="DEVICE_GEO_LOCATIONS" EntitySet="DEVICE_GEO_LOCATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="DEVICES_USER_FK" Association="Self.DEVICES_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="DEVICES" EntitySet="DEVICES" />
+          </AssociationSet>
+          <AssociationSet Name="POST_USER_FK" Association="Self.POST_USER_FK">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="POSTS" EntitySet="POSTS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="QoalaEntity">
+          <EntitySetMapping Name="COMMENTS">
+            <EntityTypeMapping TypeName="Model.COMMENTS">
+              <MappingFragment StoreEntitySet="COMMENTS">
+                <ScalarProperty Name="ID_COMMENT" ColumnName="ID_COMMENT" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="APPROVED_AT" ColumnName="APPROVED_AT" />
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVICE_GEO_LOCATIONS">
+            <EntityTypeMapping TypeName="Model.DEVICE_GEO_LOCATIONS">
+              <MappingFragment StoreEntitySet="DEVICE_GEO_LOCATIONS">
+                <ScalarProperty Name="ID_DEVICE_GEO_LOCATION" ColumnName="ID_DEVICE_GEO_LOCATION" />
+                <ScalarProperty Name="DEVICE_ID" ColumnName="DEVICE_ID" />
+                <ScalarProperty Name="VERIFIED_AT" ColumnName="VERIFIED_AT" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVICES">
+            <EntityTypeMapping TypeName="Model.DEVICES">
+              <MappingFragment StoreEntitySet="DEVICES">
+                <ScalarProperty Name="ID_DEVICE" ColumnName="ID_DEVICE" />
+                <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="FREQUENCY_UPDATE" ColumnName="FREQUENCY_UPDATE" />
+                <ScalarProperty Name="LAST_LONGITUDE" ColumnName="LAST_LONGITUDE" />
+                <ScalarProperty Name="LAST_LATITUDE" ColumnName="LAST_LATITUDE" />
+                <ScalarProperty Name="ALARM" ColumnName="ALARM" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NET_ACCOUNTS">
+            <EntityTypeMapping TypeName="Model.NET_ACCOUNTS">
+              <MappingFragment StoreEntitySet="NET_ACCOUNTS">
+                <ScalarProperty Name="ACCESS_TOKEN_ID" ColumnName="ACCESS_TOKEN_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="IDENTIFIER" ColumnName="IDENTIFIER" />
+                <ScalarProperty Name="PROVIDER" ColumnName="PROVIDER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSTS">
+            <EntityTypeMapping TypeName="Model.POSTS">
+              <MappingFragment StoreEntitySet="POSTS">
+                <ScalarProperty Name="ID_POST" ColumnName="ID_POST" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="PUBLISHED_AT" ColumnName="PUBLISHED_AT" />
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="Model.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PERMISSION" ColumnName="PERMISSION" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
+                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMENT_LOGS">
+            <EntityTypeMapping TypeName="Model.COMMENT_LOGS">
+              <MappingFragment StoreEntitySet="COMMENT_LOGS">
+                <ScalarProperty Name="LOG" ColumnName="LOG" />
+                <ScalarProperty Name="COMMENTS_ID" ColumnName="COMMENTS_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVICE_GEO_LOCATION_LOGS">
+            <EntityTypeMapping TypeName="Model.DEVICE_GEO_LOCATION_LOGS">
+              <MappingFragment StoreEntitySet="DEVICE_GEO_LOCATION_LOGS">
+                <ScalarProperty Name="LOG" ColumnName="LOG" />
+                <ScalarProperty Name="DEVICE_GEO_LOCATION_ID" ColumnName="DEVICE_GEO_LOCATION_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVICE_LOGS">
+            <EntityTypeMapping TypeName="Model.DEVICE_LOGS">
+              <MappingFragment StoreEntitySet="DEVICE_LOGS">
+                <ScalarProperty Name="LOG" ColumnName="LOG" />
+                <ScalarProperty Name="DEVICE_ID" ColumnName="DEVICE_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POST_LOGS">
+            <EntityTypeMapping TypeName="Model.POST_LOGS">
+              <MappingFragment StoreEntitySet="POST_LOGS">
+                <ScalarProperty Name="LOG" ColumnName="LOG" />
+                <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_LOGS">
+            <EntityTypeMapping TypeName="Model.USER_LOGS">
+              <MappingFragment StoreEntitySet="USER_LOGS">
+                <ScalarProperty Name="LOG" ColumnName="LOG" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

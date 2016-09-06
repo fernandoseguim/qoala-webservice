@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QoalaWS.DAO;
+using System.Linq;
 
 namespace QoalaWS.DAOTest
 {
@@ -71,6 +72,14 @@ namespace QoalaWS.DAOTest
                     }
                 }
             }
+        }
+
+        [TestMethod]
+        public void TestUsingEntity()
+        {
+            QoalaEntity qe = new QoalaEntity();
+            var posts = qe.POSTS.Select(s=> s.ID_POST);
+            Assert.AreEqual(0, posts.Count());            
         }
     }
 }
