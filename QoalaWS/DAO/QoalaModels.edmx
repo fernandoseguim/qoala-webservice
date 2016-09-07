@@ -309,7 +309,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="FREQUENCY_UPDATE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LAST_LONGITUDE" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="LAST_LATITUDE" Type="Decimal" Precision="10" Scale="7" />
-          <Property Name="ALARM" Type="Decimal" />
+          <Property Name="ALARM" Type="Decimal" Precision="1" Scale="0" DefaultValue="0" Nullable="false" />
           <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
