@@ -12,14 +12,14 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class USERS
+    public partial class USER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public USERS()
+        public USER()
         {
-            this.COMMENTS = new HashSet<COMMENTS>();
-            this.DEVICES = new HashSet<DEVICES>();
-            this.POSTS = new HashSet<POSTS>();
+            this.COMMENTS = new HashSet<COMMENT>();
+            this.DEVICES = new HashSet<DEVICE>();
+            this.POSTS = new HashSet<POST>();
         }
     
         public decimal ID_USER { get; set; }
@@ -32,10 +32,10 @@ namespace QoalaWS.DAO
         public Nullable<System.DateTime> DELETED_AT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMMENTS> COMMENTS { get; set; }
+        public virtual ICollection<COMMENT> COMMENTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DEVICES> DEVICES { get; set; }
+        public virtual ICollection<DEVICE> DEVICES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<POSTS> POSTS { get; set; }
+        public virtual ICollection<POST> POSTS { get; set; }
     }
 }

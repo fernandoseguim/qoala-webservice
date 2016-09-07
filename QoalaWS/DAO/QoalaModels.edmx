@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QOALA.COMMENT_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="COMMENT_LOGS">
@@ -80,6 +80,12 @@ warning 6002: The table/view 'QOALA.DEVICE_LOGS' does not have a primary key def
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'QOALA.INFO_COMPANY' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="INFO_COMPANY">
+          <Property Name="KEY" Type="varchar2" MaxLength="20" />
+          <Property Name="VALUE" Type="clob" />
+        </EntityType>-->
         <EntityType Name="NET_ACCOUNTS">
           <Key>
             <PropertyRef Name="ACCESS_TOKEN_ID" />
@@ -199,9 +205,6 @@ warning 6002: The table/view 'QOALA.USER_LOGS' does not have a primary key defin
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        
-        
-        
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
@@ -265,11 +268,12 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             <End Role="POSTS" EntitySet="POSTS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="COMMENTS">
+        <EntityType Name="COMMENT">
           <Key>
             <PropertyRef Name="ID_COMMENT" />
           </Key>
@@ -281,8 +285,8 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="DELETED_AT" Type="DateTime" />
           <Property Name="POST_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <NavigationProperty Name="POSTS" Relationship="Self.COMMENTS_POST_FK" FromRole="COMMENTS" ToRole="POSTS" />
-          <NavigationProperty Name="USERS" Relationship="Self.COMMENTS_USER_FK" FromRole="COMMENTS" ToRole="USERS" />
+          <NavigationProperty Name="POST" Relationship="Self.COMMENTS_POST_FK" FromRole="COMMENTS" ToRole="POSTS" />
+          <NavigationProperty Name="USER" Relationship="Self.COMMENTS_USER_FK" FromRole="COMMENTS" ToRole="USERS" />
         </EntityType>
         <EntityType Name="DEVICE_GEO_LOCATIONS">
           <Key>
@@ -293,9 +297,9 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="VERIFIED_AT" Type="DateTime" Nullable="false" />
           <Property Name="LATITUDE" Type="Decimal" Precision="10" Scale="7" Nullable="false" />
           <Property Name="LONGITUDE" Type="Decimal" Precision="10" Scale="7" Nullable="false" />
-          <NavigationProperty Name="DEVICES" Relationship="Self.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICE_GEO_LOCATIONS" ToRole="DEVICES" />
+          <NavigationProperty Name="DEVICE" Relationship="Self.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICE_GEO_LOCATIONS" ToRole="DEVICES" />
         </EntityType>
-        <EntityType Name="DEVICES">
+        <EntityType Name="DEVICE">
           <Key>
             <PropertyRef Name="ID_DEVICE" />
           </Key>
@@ -305,13 +309,13 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="FREQUENCY_UPDATE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LAST_LONGITUDE" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="LAST_LATITUDE" Type="Decimal" Precision="10" Scale="7" />
-          <Property Name="ALARM" Type="Boolean" />
+          <Property Name="ALARM" Type="Decimal" />
           <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
           <Property Name="DELETED_AT" Type="DateTime" />
           <NavigationProperty Name="DEVICE_GEO_LOCATIONS" Relationship="Self.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICES" ToRole="DEVICE_GEO_LOCATIONS" />
-          <NavigationProperty Name="USERS" Relationship="Self.DEVICES_USER_FK" FromRole="DEVICES" ToRole="USERS" />
+          <NavigationProperty Name="USER" Relationship="Self.DEVICES_USER_FK" FromRole="DEVICES" ToRole="USERS" />
         </EntityType>
         <EntityType Name="NET_ACCOUNTS">
           <Key>
@@ -322,7 +326,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="IDENTIFIER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PROVIDER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="POSTS">
+        <EntityType Name="POST">
           <Key>
             <PropertyRef Name="ID_POST" />
           </Key>
@@ -335,9 +339,9 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="DELETED_AT" Type="DateTime" />
           <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <NavigationProperty Name="COMMENTS" Relationship="Self.COMMENTS_POST_FK" FromRole="POSTS" ToRole="COMMENTS" />
-          <NavigationProperty Name="USERS" Relationship="Self.POST_USER_FK" FromRole="POSTS" ToRole="USERS" />
+          <NavigationProperty Name="USER" Relationship="Self.POST_USER_FK" FromRole="POSTS" ToRole="USERS" />
         </EntityType>
-        <EntityType Name="USERS">
+        <EntityType Name="USER">
           <Key>
             <PropertyRef Name="ID_USER" />
           </Key>
@@ -404,8 +408,8 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="COMMENTS_POST_FK">
-          <End Role="POSTS" Type="Self.POSTS" Multiplicity="1" />
-          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <End Role="POSTS" Type="Self.POST" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POSTS">
               <PropertyRef Name="ID_POST" />
@@ -416,8 +420,8 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="COMMENTS_USER_FK">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
-          <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+          <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+          <End Role="COMMENTS" Type="Self.COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USERS">
               <PropertyRef Name="ID_USER" />
@@ -428,7 +432,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="DEVICE_GEO_LOCATION_DEVICE_FK">
-          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="1" />
+          <End Role="DEVICES" Type="Self.DEVICE" Multiplicity="1" />
           <End Role="DEVICE_GEO_LOCATIONS" Type="Self.DEVICE_GEO_LOCATIONS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DEVICES">
@@ -440,8 +444,8 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="DEVICES_USER_FK">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
-          <End Role="DEVICES" Type="Self.DEVICES" Multiplicity="*" />
+          <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+          <End Role="DEVICES" Type="Self.DEVICE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USERS">
               <PropertyRef Name="ID_USER" />
@@ -452,8 +456,8 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <Association Name="POST_USER_FK">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
-          <End Role="POSTS" Type="Self.POSTS" Multiplicity="*" />
+          <End Role="USERS" Type="Self.USER" Multiplicity="1" />
+          <End Role="POSTS" Type="Self.POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USERS">
               <PropertyRef Name="ID_USER" />
@@ -463,13 +467,13 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QoalaEntity" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" />
+        <EntityContainer Name="QoalaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="COMMENTS" EntityType="Self.COMMENT" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" />
-          <EntitySet Name="DEVICES" EntityType="Self.DEVICES" />
+          <EntitySet Name="DEVICES" EntityType="Self.DEVICE" />
           <EntitySet Name="NET_ACCOUNTS" EntityType="Self.NET_ACCOUNTS" />
-          <EntitySet Name="POSTS" EntityType="Self.POSTS" />
-          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <EntitySet Name="POSTS" EntityType="Self.POST" />
+          <EntitySet Name="USERS" EntityType="Self.USER" />
           <EntitySet Name="COMMENT_LOGS" EntityType="Self.COMMENT_LOGS" />
           <EntitySet Name="DEVICE_GEO_LOCATION_LOGS" EntityType="Self.DEVICE_GEO_LOCATION_LOGS" />
           <EntitySet Name="DEVICE_LOGS" EntityType="Self.DEVICE_LOGS" />
@@ -501,9 +505,9 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="QoalaEntity">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="QoalaEntities">
           <EntitySetMapping Name="COMMENTS">
-            <EntityTypeMapping TypeName="Model.COMMENTS">
+            <EntityTypeMapping TypeName="Model.COMMENT">
               <MappingFragment StoreEntitySet="COMMENTS">
                 <ScalarProperty Name="ID_COMMENT" ColumnName="ID_COMMENT" />
                 <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
@@ -528,7 +532,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DEVICES">
-            <EntityTypeMapping TypeName="Model.DEVICES">
+            <EntityTypeMapping TypeName="Model.DEVICE">
               <MappingFragment StoreEntitySet="DEVICES">
                 <ScalarProperty Name="ID_DEVICE" ColumnName="ID_DEVICE" />
                 <ScalarProperty Name="ALIAS" ColumnName="ALIAS" />
@@ -555,7 +559,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="POSTS">
-            <EntityTypeMapping TypeName="Model.POSTS">
+            <EntityTypeMapping TypeName="Model.POST">
               <MappingFragment StoreEntitySet="POSTS">
                 <ScalarProperty Name="ID_POST" ColumnName="ID_POST" />
                 <ScalarProperty Name="TITLE" ColumnName="TITLE" />
@@ -569,7 +573,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USERS">
-            <EntityTypeMapping TypeName="Model.USERS">
+            <EntityTypeMapping TypeName="Model.USER">
               <MappingFragment StoreEntitySet="USERS">
                 <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
@@ -641,7 +645,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

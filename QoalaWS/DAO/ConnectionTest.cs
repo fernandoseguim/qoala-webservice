@@ -75,11 +75,40 @@ namespace QoalaWS.DAOTest
         }
 
         [TestMethod]
+        public void TestConnectionEntity()
+        {
+            var data = new QoalaEntities().Database.ExecuteSqlCommand("select sysdate from dual");
+        }
+
+        [TestMethod]
         public void TestUsingEntity()
         {
-            QoalaEntity qe = new QoalaEntity();
-            var posts = qe.POSTS.Select(s=> s.ID_POST);
-            Assert.AreEqual(0, posts.Count());            
+            QoalaEntities qe = new QoalaEntities();
+            var posts = qe.POSTS.Select(s => s);
+            Assert.AreEqual(0, posts.Count());
+        }
+
+        
+        [TestMethod]
+        public void TestAddingUsingEntity()
+        {
+            QoalaEntities qe = new QoalaEntities();
+            var ccc = new COMMENT_LOGS
+            {
+                COMMENTS_ID = 1,
+                CREATED_AT = DateTime.Now,
+                LOG = "Teste"
+            };
+            qe.COMMENT_LOGS.Add(ccc);
+            qe.SaveChanges();
+            
+            var c = qe.COMMENT_LOGS.Select(meuobjet => meuobjet.LOG);
+            Assert.AreEqual(1, c.Count());
+
+            foreach (var item in c)
+            {
+                Assert.AreEqual("Teste", item);
+            }
         }
     }
 }

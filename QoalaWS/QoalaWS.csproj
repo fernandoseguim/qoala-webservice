@@ -129,15 +129,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAO\Model1.Context.tt">
+    <Content Include="DAO\QoalaModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>QoalaModels.edmx</DependentUpon>
+      <LastGenOutput>QoalaModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAO\Model1.tt">
+    <Content Include="DAO\QoalaModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>QoalaModels.edmx</DependentUpon>
+      <LastGenOutput>QoalaModels.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
@@ -149,55 +149,55 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-    <Compile Include="DAO\COMMENTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="DAO\COMMENT.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\COMMENT_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Connection.cs" />
     <Compile Include="DAO\ConnectionTest.cs" />
-    <Compile Include="DAO\DEVICES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="DAO\DEVICE.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\DEVICE_GEO_LOCATIONS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\DEVICE_GEO_LOCATION_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\DEVICE_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Model1.Context.cs">
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="DAO\Model1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="DAO\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\NET_ACCOUNTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\POSTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="DAO\POST.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\POST_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\USERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="DAO\QoalaModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QoalaModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\QoalaModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\QoalaModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QoalaModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\USER.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\USER_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -213,12 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="DAO\Model1.edmx">
+    <EntityDeploy Include="DAO\QoalaModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>QoalaModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAO\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="DAO\QoalaModels.edmx.diagram">
+      <DependentUpon>QoalaModels.edmx</DependentUpon>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
