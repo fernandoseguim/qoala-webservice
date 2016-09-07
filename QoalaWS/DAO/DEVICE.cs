@@ -17,6 +17,7 @@ namespace QoalaWS.DAO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DEVICE()
         {
+            this.ALARM = 0m;
             this.DEVICE_GEO_LOCATIONS = new HashSet<DEVICE_GEO_LOCATIONS>();
         }
     
@@ -26,7 +27,7 @@ namespace QoalaWS.DAO
         public decimal FREQUENCY_UPDATE { get; set; }
         public Nullable<decimal> LAST_LONGITUDE { get; set; }
         public Nullable<decimal> LAST_LATITUDE { get; set; }
-        public Nullable<decimal> ALARM { get; set; }
+        public decimal ALARM { get; set; }
         public decimal USER_ID { get; set; }
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
