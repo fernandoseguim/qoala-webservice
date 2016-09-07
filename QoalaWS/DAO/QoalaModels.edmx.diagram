@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="239c5de2ab3348adb790e56f384da8db" Name="Diagram1" ZoomLevel="83">
-        <EntityTypeShape EntityType="Model.COMMENTS" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DEVICE_GEO_LOCATIONS" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DEVICES" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+      <Diagram DiagramId="73d224afafd046c4b141429d156225f1" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.COMMENT" Width="1.5" PointX="5.625" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DEVICE_GEO_LOCATIONS" Width="1.5" PointX="5.375" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DEVICE" Width="1.5" PointX="2.875" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.NET_ACCOUNTS" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.POSTS" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.USERS" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.POST" Width="1.5" PointX="2.875" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.USER" Width="1.5" PointX="0.625" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.COMMENT_LOGS" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.DEVICE_GEO_LOCATION_LOGS" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.DEVICE_LOGS" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

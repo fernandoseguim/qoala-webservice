@@ -20,6 +20,6 @@ namespace QoalaWS.DAO
         public decimal LATITUDE { get; set; }
         public decimal LONGITUDE { get; set; }
     
-        public virtual DEVICES DEVICES { get; set; }
+        public virtual DEVICE DEVICE { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace QoalaWS.DAO
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QoalaEntity : DbContext
+    public partial class QoalaEntities : DbContext
     {
-        public QoalaEntity()
-            : base("name=QoalaEntity")
+        public QoalaEntities()
+            : base("name=QoalaEntities")
         {
         }
     
@@ -25,12 +25,12 @@ namespace QoalaWS.DAO
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<COMMENTS> COMMENTS { get; set; }
+        public virtual DbSet<COMMENT> COMMENTS { get; set; }
         public virtual DbSet<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
-        public virtual DbSet<DEVICES> DEVICES { get; set; }
+        public virtual DbSet<DEVICE> DEVICES { get; set; }
         public virtual DbSet<NET_ACCOUNTS> NET_ACCOUNTS { get; set; }
-        public virtual DbSet<POSTS> POSTS { get; set; }
-        public virtual DbSet<USERS> USERS { get; set; }
+        public virtual DbSet<POST> POSTS { get; set; }
+        public virtual DbSet<USER> USERS { get; set; }
         public virtual DbSet<COMMENT_LOGS> COMMENT_LOGS { get; set; }
         public virtual DbSet<DEVICE_GEO_LOCATION_LOGS> DEVICE_GEO_LOCATION_LOGS { get; set; }
         public virtual DbSet<DEVICE_LOGS> DEVICE_LOGS { get; set; }

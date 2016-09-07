@@ -12,28 +12,25 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class DEVICES
+    public partial class POST
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DEVICES()
+        public POST()
         {
-            this.DEVICE_GEO_LOCATIONS = new HashSet<DEVICE_GEO_LOCATIONS>();
+            this.COMMENTS = new HashSet<COMMENT>();
         }
     
-        public decimal ID_DEVICE { get; set; }
-        public string ALIAS { get; set; }
-        public string COLOR { get; set; }
-        public decimal FREQUENCY_UPDATE { get; set; }
-        public Nullable<decimal> LAST_LONGITUDE { get; set; }
-        public Nullable<decimal> LAST_LATITUDE { get; set; }
-        public Nullable<bool> ALARM { get; set; }
-        public decimal USER_ID { get; set; }
+        public decimal ID_POST { get; set; }
+        public string TITLE { get; set; }
+        public string CONTENT { get; set; }
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
+        public Nullable<System.DateTime> PUBLISHED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
+        public decimal USER_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
-        public virtual USERS USERS { get; set; }
+        public virtual ICollection<COMMENT> COMMENTS { get; set; }
+        public virtual USER USER { get; set; }
     }
 }
