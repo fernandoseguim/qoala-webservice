@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QOALA.COMMENT_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="COMMENT_LOGS">
@@ -80,12 +80,6 @@ warning 6002: The table/view 'QOALA.DEVICE_LOGS' does not have a primary key def
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'QOALA.INFO_COMPANY' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="INFO_COMPANY">
-          <Property Name="KEY" Type="varchar2" MaxLength="20" />
-          <Property Name="VALUE" Type="clob" />
-        </EntityType>-->
         <EntityType Name="NET_ACCOUNTS">
           <Key>
             <PropertyRef Name="ACCESS_TOKEN_ID" />
@@ -205,6 +199,29 @@ warning 6002: The table/view 'QOALA.USER_LOGS' does not have a primary key defin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_DELETE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="ID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="NAME" Type="varchar2" Mode="In" />
+          <Parameter Name="PASSWORD" Type="varchar2" Mode="In" />
+          <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="PERMISSION" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_USER" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="ID" Type="number" Mode="In" />
+          <Parameter Name="NAME" Type="varchar2" Mode="In" />
+          <Parameter Name="PASSWORD" Type="varchar2" Mode="In" />
+          <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="PERMISSION" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_USER_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="LOG" Type="clob" Mode="In" />
+          <Parameter Name="USER_ID" Type="number" Mode="In" />
+        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
@@ -268,8 +285,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             <End Role="POSTS" EntitySet="POSTS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,7 +325,7 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Property Name="FREQUENCY_UPDATE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LAST_LONGITUDE" Type="Decimal" Precision="10" Scale="7" />
           <Property Name="LAST_LATITUDE" Type="Decimal" Precision="10" Scale="7" />
-          <Property Name="ALARM" Type="Decimal" Precision="1" Scale="0" DefaultValue="0" Nullable="false" />
+          <Property Name="ALARM" Type="Boolean" Nullable="false" />
           <Property Name="USER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
@@ -499,6 +515,29 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
             <End Role="USERS" EntitySet="USERS" />
             <End Role="POSTS" EntitySet="POSTS" />
           </AssociationSet>
+          <FunctionImport Name="SP_DELETE_USER">
+            <Parameter Name="ID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_USER">
+            <Parameter Name="NAME" Mode="In" Type="String" />
+            <Parameter Name="PASSWORD" Mode="In" Type="String" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_USER" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UPDATE_USER">
+            <Parameter Name="ID" Mode="In" Type="Decimal" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+            <Parameter Name="PASSWORD" Mode="In" Type="String" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_USER_LOG">
+            <Parameter Name="LOG" Mode="In" Type="String" />
+            <Parameter Name="USER_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -631,6 +670,10 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_DELETE_USER" FunctionName="Model.Store.SP_DELETE_USER" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_USER" FunctionName="Model.Store.SP_INSERT_USER" />
+          <FunctionImportMapping FunctionImportName="SP_UPDATE_USER" FunctionName="Model.Store.SP_UPDATE_USER" />
+          <FunctionImportMapping FunctionImportName="SP_USER_LOG" FunctionName="Model.Store.SP_USER_LOG" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

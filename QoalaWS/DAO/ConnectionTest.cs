@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QoalaWS.DAO;
 using System.Linq;
+using System.Data.Entity.Core.Objects;
 
 namespace QoalaWS.DAOTest
 {
@@ -77,7 +78,12 @@ namespace QoalaWS.DAOTest
         [TestMethod]
         public void TestConnectionEntity()
         {
-            var data = new QoalaEntities().Database.ExecuteSqlCommand("select sysdate from dual");
+            var data = new QoalaEntities();
+            //var i = data.Database.ExecuteSqlCommand("select sysdate from dual");
+
+            var i = data.Database.SqlQuery<DateTime>("select sysdate from dual");
+            var lista=i.ToList();
+            Assert.AreEqual(1, lista.Count());
         }
 
         [TestMethod]
@@ -87,27 +93,27 @@ namespace QoalaWS.DAOTest
             var posts = qe.POSTS.Select(s => s);
             Assert.AreEqual(0, posts.Count());
         }
-
         
         [TestMethod]
-        public void TestAddingUsingEntity()
+        public void TestAddedUsingEntity()
         {
             QoalaEntities qe = new QoalaEntities();
-            var ccc = new COMMENT_LOGS
-            {
-                COMMENTS_ID = 1,
-                CREATED_AT = DateTime.Now,
-                LOG = "Teste"
-            };
-            qe.COMMENT_LOGS.Add(ccc);
-            qe.SaveChanges();
-            
-            var c = qe.COMMENT_LOGS.Select(meuobjet => meuobjet.LOG);
-            Assert.AreEqual(1, c.Count());
 
-            foreach (var item in c)
+            var transaction = qe.Database.BeginTransaction();
+            try
             {
-                Assert.AreEqual("Teste", item);
+
+                ObjectParameter idt_user = new ObjectParameter("OUT_ID_USER", typeof(Decimal));
+                
+                qe.SP_INSERT_USER("Gabriel", "qwe123", "gabriel@meu.com", 1, idt_user);
+                var users = qe.USERS.Where(u => u.NAME == "Gabriel");
+
+                Assert.AreNotEqual(0, users.Count());
+            }
+            finally
+            {
+                transaction.Commit();
+                qe.SaveChanges();
             }
         }
     }
