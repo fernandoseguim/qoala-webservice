@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using QoalaWS.Models;
+using QoalaWS.DAO;
 
 namespace QoalaWS.Controllers
 {
@@ -13,14 +14,14 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public ControlAccess Register([FromBody] string name, [FromBody] string email, [FromBody] string password)
         {
-            User user = new User { Name = name, Email = email, Password = password };
+            USER user = new USER { NAME = name, EMAIL = email, PASSWORD = password};
             if(user.register())
             {
-                ControlAccess controllAccess = new ControlAccess { UserId = user.Id };
-                if(controllAccess.createToken())
-                {
-                    return controllAccess;
-                }
+                //ControlAccess controllAccess = new ControlAccess { UserId = user.ID_USER };
+                //if(controllAccess.createToken())
+                //{
+                //    return controllAccess;
+                //}
             }
             return new ControlAccess { Id = 0, UserId = 0, Token = "abcd" };
         }
