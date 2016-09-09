@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QoalaWS.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +9,30 @@ namespace QoalaWS.Models
 {
     public class ControlAccess
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public USER User { get; set; }
         public string Token { get; set; }
         public string ExpiresAt { get; set; }
+
+        public ControlAccess()
+        {
+
+        }
+
+        public ControlAccess(USER user)
+        {
+            this.User = user;
+        }
 
         public static ControlAccess find(string tokenID)
         {
             // should find the register in DB
-            ControlAccess ca = new ControlAccess { };
+            ControlAccess ca = new ControlAccess { Token=tokenID };
             return ca;
         }
 
         public ControlAccess createToken()
         {
-            Id = 5;
+            // 
             Token = "asdasdsadsadsadsadsadsad";
             return this;
         }

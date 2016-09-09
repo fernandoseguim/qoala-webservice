@@ -12,42 +12,55 @@ namespace QoalaWS.Controllers
     public class AccountsController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult Register(Models.User user)
+        public IHttpActionResult Register(USER user)
         {
-            Models.ControlAccess ca = user.register();
-            if (ca == null)
-                return BadRequest();
-            else
-                return Ok(ca);
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                Models.ControlAccess ca = user.register(qe);
+                if (ca == null)
+                    return BadRequest();
+                else
+                    return Ok(ca);
+            }
         }
 
         [HttpPost]
         public IHttpActionResult ResetPassword([FromBody] string email)
         {
-            Models.User user = Models.User.findByEmail(email);
-            if (user.resetPassword())
-                return Ok();
-            else
-                return BadRequest();
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                USER user = USER.findByEmail(qe, email);
+                if (user.resetPassword())
+                    return Ok();
+                else
+                    return BadRequest();
+            }
         }
 
         [HttpPost]
-        public IHttpActionResult Login(Models.User user)
+        public IHttpActionResult Login(USER user)
         {
-            Models.ControlAccess ca = user.doLogin();
-            if (ca == null)
-                return BadRequest();
-            else
-                return Ok(ca);
+            //TODO: Fazer um model para usar somente no login(somente email, senha), sem os demais atributos no model USER.
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                Models.ControlAccess ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
+                if (ca == null)
+                    return BadRequest();
+                else
+                    return Ok(ca);
+            }
         }
 
         [HttpPost]
         public IHttpActionResult Logout([FromBody] string token)
         {
-            if (Models.User.doLogout(token))
-                return Ok();
-            else
-                return BadRequest();
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                if (USER.doLogout(qe, token))
+                    return Ok();
+                else
+                    return BadRequest();
+            }
         }
     }
 }

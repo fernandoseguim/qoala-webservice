@@ -130,12 +130,12 @@ warning 6002: The table/view 'QOALA.USER_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_USER" />
           </Key>
-          <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
           <Property Name="PASSWORD" Type="varchar2" MaxLength="255" Nullable="false" />
           <Property Name="EMAIL" Type="varchar2" MaxLength="255" Nullable="false" />
           <Property Name="PERMISSION" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="CREATED_AT" Type="date" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
@@ -361,12 +361,12 @@ FROM "QOALA"."USER_LOGS" "USER_LOGS"</DefiningQuery>
           <Key>
             <PropertyRef Name="ID_USER" />
           </Key>
-          <Property Name="ID_USER" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_USER" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PERMISSION" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="UPDATED_AT" Type="DateTime" />
           <Property Name="DELETED_AT" Type="DateTime" />
           <NavigationProperty Name="COMMENTS" Relationship="Self.COMMENTS_USER_FK" FromRole="USERS" ToRole="COMMENTS" />
