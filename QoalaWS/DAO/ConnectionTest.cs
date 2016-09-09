@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QoalaWS.DAO;
+using System.Linq;
+using System.Data.Entity.Core.Objects;
+using Oracle.ManagedDataAccess.Client;
 
 namespace QoalaWS.DAOTest
 {
@@ -72,5 +75,53 @@ namespace QoalaWS.DAOTest
                 }
             }
         }
+
+        [TestMethod]
+        public void TestConnectionEntity()
+        {
+            using (var data = new QoalaEntities())
+            {
+                //var i = data.Database.ExecuteSqlCommand("select sysdate from dual");
+
+                var i = data.Database.SqlQuery<DateTime>("select sysdate from dual");
+                var lista = i.ToList();
+                Assert.AreEqual(1, lista.Count());
+            }
+        }
+
+        [TestMethod]
+        public void TestUsingEntity()
+        {
+
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                var posts = qe.POSTS.Select(s => s);
+                Assert.AreEqual(0, posts.Count());
+            }
+        }
+
+        [TestMethod]
+        public void TestProcedAddedUsingEntity()
+        {
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                var transaction = qe.Database.BeginTransaction();
+                try
+                {
+                    ObjectParameter idt_user = new ObjectParameter("OUT_ID_USER", typeof(Decimal));
+                    qe.SP_INSERT_USER("Gabriel", "qwe123", "gabriel@meu.com", 1, idt_user);
+
+                    var users = qe.USERS.Where(u => u.NAME == "Gabriel");
+
+                    Assert.AreNotEqual(0, users.Count());
+                }
+                finally
+                {
+                    transaction.Commit();
+                    qe.SaveChanges();
+                }
+            }
+        }
+        
     }
 }

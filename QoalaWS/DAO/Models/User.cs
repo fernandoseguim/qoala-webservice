@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace QoalaWS.Models
+namespace QoalaWS.DAO
 {
-    public class User
+    public partial class USER
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -60,6 +59,15 @@ namespace QoalaWS.Models
         {
             //select * from users where email = email
             return false;
+        }
+        public bool registerOutro()
+        {
+            var attr = this.GetType().GetProperties();
+            var id = attr[0].GetMethod.Invoke(this, new object[0]);
+            var a = attr.ToList();
+            Console.Write(id);
+
+            return true;
         }
     }
 }

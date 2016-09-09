@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Models = QoalaWS.Models;
+using QoalaWS.Models;
+using QoalaWS.DAO;
 
 namespace QoalaWS.Controllers
 {
