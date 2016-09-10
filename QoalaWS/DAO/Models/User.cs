@@ -70,7 +70,7 @@ namespace QoalaWS.DAO
         public static ControlAccess doLogin(QoalaEntities context, String UserEmail, String userPassword)
         {
             USER user = findByEmail(context, UserEmail);
-
+            if(user!=null)
             if (user.PASSWORD.Equals(userPassword))
             {
                 ControlAccess controllAccess = new ControlAccess { User = user };

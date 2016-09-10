@@ -18,7 +18,7 @@ namespace QoalaWS.Controllers
             using (QoalaEntities qe = new QoalaEntities())
             {
                 Models.ControlAccess ca = user.register(qe);
-                this.
+                
                 if (ca == null)
                     return BadRequest();
                 else
@@ -45,9 +45,9 @@ namespace QoalaWS.Controllers
             //TODO: Fazer um model para usar somente no login(somente email, senha), sem os demais atributos no model USER.
             using (QoalaEntities qe = new QoalaEntities())
             {
-                Models.ControlAccess ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
+                ControlAccess ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
                 if (ca == null)
-                    return BadRequest();
+                    return NotFound();
                 else
                     return Ok(ca);
             }
