@@ -29,11 +29,13 @@ namespace QoalaWS.DAO
             using (var qe = new QoalaEntities())
             {
                 USER u = USER.findByEmail(qe, "email");
-                Assert.IsNotNull(u);
-                u.NAME = "Teste Atualizado";
-                var ret = u.Update(qe);
-                qe.SaveChanges();
-                Assert.AreNotEqual(0, u.ID_USER);
+                if (u != null)
+                {
+                    u.NAME = "Teste Atualizado";
+                    var ret = u.Update(qe);
+                    qe.SaveChanges();
+                    Assert.AreNotEqual(0, u.ID_USER);
+                }
             }
         }
 
@@ -43,11 +45,12 @@ namespace QoalaWS.DAO
             using (var qe = new QoalaEntities())
             {
                 USER u = USER.findByEmail(qe, "email");
-
-                Assert.IsNotNull(u);
-                u.Delete(qe);
-                qe.SaveChanges();
-                Assert.AreEqual(0, qe.USERS.Count(a => a.ID_USER == u.ID_USER));
+                if (u != null)
+                {
+                    u.Delete(qe);
+                    qe.SaveChanges();
+                    Assert.AreEqual(0, qe.USERS.Count(a => a.ID_USER == u.ID_USER));
+                }
             }
         }
 
