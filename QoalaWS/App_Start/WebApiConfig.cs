@@ -17,7 +17,7 @@ namespace QoalaWS
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { controller="Status", action="Index", id = RouteParameter.Optional }
             );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);

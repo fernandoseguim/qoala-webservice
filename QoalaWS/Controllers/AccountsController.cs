@@ -14,9 +14,11 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public IHttpActionResult Register(USER user)
         {
+            //TODO: Fazer um model para usar somente no login(nome, somente email, senha), sem os demais atributos no model USER.
             using (QoalaEntities qe = new QoalaEntities())
             {
                 Models.ControlAccess ca = user.register(qe);
+                this.
                 if (ca == null)
                     return BadRequest();
                 else

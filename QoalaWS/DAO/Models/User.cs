@@ -73,7 +73,7 @@ namespace QoalaWS.DAO
 
             if (user.PASSWORD.Equals(userPassword))
             {
-                ControlAccess controllAccess = new ControlAccess();
+                ControlAccess controllAccess = new ControlAccess { User = user };
                 return controllAccess.createToken();
             }
 
