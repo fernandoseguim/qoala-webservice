@@ -15,16 +15,22 @@ namespace QoalaWS.DAO.Models
             using (var qe = new QoalaEntities())
             {
                 var ac = new ACCESSCONTROL();
-                ac.USER = new USER
-                {
-                    EMAIL = "access@control.com",
-                    NAME = "access",
-                    PASSWORD = "accac",
-                    PERMISSION = 1
-                };
+                ac.USER = USER.findByEmail(qe, "access@control.com");
+                if(ac.USER==null)
+                    ac.USER= new USER
+                    {
+                        EMAIL = "access@control.com",
+                        NAME = "access",
+                        PASSWORD = "accac",
+                        PERMISSION = 1
+                    };
+                ac.USER.Add(qe);
                 ac.createToken(qe);
                 qe.ACCESSCONTROLs.Add(ac);
                 qe.SaveChanges();
+                ac.destroyToken(qe);
+                ac.USER.Delete(qe);
+
             }
         }
     }
