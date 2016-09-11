@@ -20,8 +20,8 @@ namespace QoalaWS.DAO
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> APPROVED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
-        public decimal POST_ID { get; set; }
-        public decimal USER_ID { get; set; }
+        public decimal ID_POST { get; set; }
+        public decimal ID_USER { get; set; }
     
         public virtual POST POST { get; set; }
         public virtual USER USER { get; set; }

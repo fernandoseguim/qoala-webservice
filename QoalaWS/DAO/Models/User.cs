@@ -1,5 +1,4 @@
-﻿using QoalaWS.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -13,7 +12,8 @@ namespace QoalaWS.DAO
     {
         public bool resetPassword()
         {
-            // reset password
+            // TODO: reset password
+            // TODO: Send mail to user e-mail to create a new password
             return true;
         }
 
@@ -36,15 +36,29 @@ namespace QoalaWS.DAO
         {
             var outParameter = new ObjectParameter("ROWCOUNT", typeof(decimal));
             int ret = context.SP_DELETE_USER(ID_USER, outParameter);
+            context.Entry(this).State = EntityState.Unchanged;
             return (Decimal)outParameter.Value;
         }
 
-        public Decimal Add(QoalaEntities context)
+        public decimal? Add(QoalaEntities context)
         {
+            if(USER.emailAlreadyExist(context, EMAIL))
+            {
+                //throw new Exception()
+                return null;
+            }
             var outParameter = new ObjectParameter("OUT_ID_USER", typeof(decimal));
+            if(!(PERMISSION>0&& PERMISSION <= 3))
+            {
+                PERMISSION = 1;
+            }
             int ret = context.SP_INSERT_USER(NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
-            ID_USER = (Decimal)outParameter.Value;
-            return (Decimal)outParameter.Value;
+            if (outParameter.Value == DBNull.Value)
+                ID_USER = 0m;
+            else
+                ID_USER = (Decimal)outParameter.Value;
+            context.Entry(this).State = EntityState.Unchanged;
+            return ID_USER;
         }
 
         public Decimal Update(QoalaEntities context)
@@ -52,12 +66,13 @@ namespace QoalaWS.DAO
             var outParameter = new ObjectParameter("ROWCOUNT", typeof(decimal));
             int ret = context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
 
+            context.Entry(this).State = EntityState.Unchanged;
             return (Decimal)outParameter.Value;
         }
 
         #region AccessControl
 
-        public ControlAccess register(QoalaEntities context)
+        public ACCESSCONTROL register(QoalaEntities context)
         {
             if (!emailAlreadyExist(context, EMAIL))
                 return null;
@@ -67,23 +82,25 @@ namespace QoalaWS.DAO
             return doLogin(context, EMAIL, PASSWORD);
         }
 
-        public static ControlAccess doLogin(QoalaEntities context, String UserEmail, String userPassword)
+        public static ACCESSCONTROL doLogin(QoalaEntities context, String UserEmail, String userPassword)
         {
             USER user = findByEmail(context, UserEmail);
-            if(user!=null)
-            if (user.PASSWORD.Equals(userPassword))
+            if (user != null)
             {
-                ControlAccess controllAccess = new ControlAccess { User = user };
-                return controllAccess.createToken();
+                if (user.PASSWORD.Equals(userPassword))
+                {
+                    ACCESSCONTROL controllAccess = new ACCESSCONTROL();
+                    return controllAccess.createToken(context, user);
+                }
             }
 
             return null;
         }
 
-        public static bool doLogout(QoalaEntities context, string TokenID)
+        public static bool doLogout(QoalaEntities context, Decimal TokenID)
         {
-            ControlAccess ca = ControlAccess.find(TokenID);
-            return ca.destroyToken();
+            ACCESSCONTROL ca = ACCESSCONTROL.find(context, TokenID);
+            return ca.destroyToken(context);
         }
         #endregion
     }

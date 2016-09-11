@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using QoalaWS.Models;
 using QoalaWS.DAO;
 
 namespace QoalaWS.Controllers
@@ -17,7 +16,7 @@ namespace QoalaWS.Controllers
             //TODO: Fazer um model para usar somente no login(nome, somente email, senha), sem os demais atributos no model USER.
             using (QoalaEntities qe = new QoalaEntities())
             {
-                Models.ControlAccess ca = user.register(qe);
+                ACCESSCONTROL ca = user.register(qe);
                 
                 if (ca == null)
                     return BadRequest();
@@ -45,7 +44,7 @@ namespace QoalaWS.Controllers
             //TODO: Fazer um model para usar somente no login(somente email, senha), sem os demais atributos no model USER.
             using (QoalaEntities qe = new QoalaEntities())
             {
-                ControlAccess ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
+                ACCESSCONTROL ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
                 if (ca == null)
                     return NotFound();
                 else
@@ -58,7 +57,9 @@ namespace QoalaWS.Controllers
         {
             using (QoalaEntities qe = new QoalaEntities())
             {
-                if (USER.doLogout(qe, token))
+                Decimal tokenID=0m;
+                Decimal.TryParse(token, out tokenID);
+                if (USER.doLogout(qe, tokenID))
                     return Ok();
                 else
                     return BadRequest();

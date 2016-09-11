@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace QoalaWS.Controllers
 {
-    public class StatusController : ApiController
+    public class DefaultController : ApiController
     {
         [HttpGet]
         public IHttpActionResult Index()

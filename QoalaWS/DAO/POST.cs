@@ -27,7 +27,7 @@ namespace QoalaWS.DAO
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> PUBLISHED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
-        public decimal USER_ID { get; set; }
+        public decimal ID_USER { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMMENT> COMMENTS { get; set; }

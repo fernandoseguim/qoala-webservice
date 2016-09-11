@@ -53,6 +53,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +83,10 @@
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.Log4NetAppender, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Log4NetAppender.2.1.0\lib\net45\Microsoft.ApplicationInsights.Log4NetAppender.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -151,10 +159,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-    <Compile Include="DAO\COMMENT.cs">
+    <Compile Include="DAO\ACCESSCONTROL.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\COMMENT_LOGS.cs">
+    <Compile Include="DAO\COMMENT.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Connection.cs" />
@@ -166,19 +174,8 @@
     <Compile Include="DAO\DEVICE_GEO_LOCATIONS.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\DEVICE_GEO_LOCATION_LOGS.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\DEVICE_LOGS.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\NET_ACCOUNTS.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DAO\Models\AccessControlTest.cs" />
     <Compile Include="DAO\POST.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\POST_LOGS.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\QoalaModels.Context.cs">
@@ -196,19 +193,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QoalaModels.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\USER.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAO\Models\User.cs" />
     <Compile Include="DAO\Models\UserTest.cs" />
-    <Compile Include="DAO\USER_LOGS.cs">
+    <Compile Include="DAO\USER.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ControlAccess.cs" />
-    <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="DAO\Models\AccessControl.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -239,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

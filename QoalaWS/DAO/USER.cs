@@ -20,13 +20,14 @@ namespace QoalaWS.DAO
             this.COMMENTS = new HashSet<COMMENT>();
             this.DEVICES = new HashSet<DEVICE>();
             this.POSTS = new HashSet<POST>();
+            this.ACCESSCONTROLs = new HashSet<ACCESSCONTROL>();
         }
     
         public decimal ID_USER { get; set; }
         public string NAME { get; set; }
         public string PASSWORD { get; set; }
         public string EMAIL { get; set; }
-        public decimal PERMISSION { get; set; }
+        public byte PERMISSION { get; set; }
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
@@ -37,5 +38,7 @@ namespace QoalaWS.DAO
         public virtual ICollection<DEVICE> DEVICES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<POST> POSTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ACCESSCONTROL> ACCESSCONTROLs { get; set; }
     }
 }

@@ -26,8 +26,8 @@ namespace QoalaWS.DAO
         public decimal FREQUENCY_UPDATE { get; set; }
         public Nullable<decimal> LAST_LONGITUDE { get; set; }
         public Nullable<decimal> LAST_LATITUDE { get; set; }
-        public bool ALARM { get; set; }
-        public decimal USER_ID { get; set; }
+        public Nullable<bool> ALARM { get; set; }
+        public decimal ID_USER { get; set; }
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }

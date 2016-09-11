@@ -15,7 +15,7 @@ namespace QoalaWS.DAO
     public partial class DEVICE_GEO_LOCATIONS
     {
         public decimal ID_DEVICE_GEO_LOCATION { get; set; }
-        public decimal DEVICE_ID { get; set; }
+        public decimal ID_DEVICE { get; set; }
         public System.DateTime VERIFIED_AT { get; set; }
         public decimal LATITUDE { get; set; }
         public decimal LONGITUDE { get; set; }

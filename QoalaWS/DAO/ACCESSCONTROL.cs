@@ -12,11 +12,14 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class NET_ACCOUNTS
+    public partial class ACCESSCONTROL
     {
-        public string ACCESS_TOKEN_ID { get; set; }
-        public decimal USER_ID { get; set; }
-        public string IDENTIFIER { get; set; }
-        public string PROVIDER { get; set; }
+        public decimal TOKEN { get; set; }
+        public System.DateTime CREATED_AT { get; set; }
+        public Nullable<System.DateTime> EXPIRED_AT { get; set; }
+        public string REMOTEIP { get; set; }
+        public decimal ID_USER { get; set; }
+    
+        public virtual USER USER { get; set; }
     }
 }

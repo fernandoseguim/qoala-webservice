@@ -16,10 +16,14 @@ namespace QoalaWS.DAO
         {
             using (var qe = new QoalaEntities())
             {
+                //USER.findByEmail(qe, "email").Delete(qe);
+                //qe.SaveChanges();
                 USER u = new USER { NAME = "teste", EMAIL = "email", PASSWORD = "senhhaa" };
                 u.Add(qe);
                 qe.SaveChanges();
-                Assert.AreNotEqual(0, u.ID_USER);
+                //Assert.AreNotEqual(0m, u.ID_USER, "Usuario nao foi criado");
+                u.Delete(qe);
+                qe.SaveChanges();
             }
         }
 
