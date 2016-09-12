@@ -21,6 +21,7 @@ namespace QoalaWS
             );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
         }
     }
 }

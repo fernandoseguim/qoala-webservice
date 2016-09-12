@@ -10,6 +10,14 @@ namespace QoalaWS.DAO
 {
     public partial class USER
     {
+        override
+        public String ToString()
+        {
+            return "ID_USER: " + ID_USER + ", " +
+                "NAME: " + NAME + ", " +
+                "EMAIL: " + EMAIL + ", " +
+                "PERMISSION: " + PERMISSION + ".";
+        }
         public bool resetPassword()
         {
             // TODO: reset password

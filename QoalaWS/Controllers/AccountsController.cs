@@ -10,6 +10,14 @@ namespace QoalaWS.Controllers
 {
     public class AccountsController : ApiController
     {
+        [HttpGet]
+        [HttpPost]
+        public IHttpActionResult Index()
+        {
+            this.Logger().Debug("Index");
+            return Ok("OK");
+        }
+
         [HttpPost]
         public IHttpActionResult Register(USER user)
         {
@@ -39,12 +47,14 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Login(USER user)
+        public IHttpActionResult Login([FromBody] USER user)
         {
-            //TODO: Fazer um model para usar somente no login(somente email, senha), sem os demais atributos no model USER.
+            this.Logger().DebugFormat("Login: {0}", user.ToString());
             using (QoalaEntities qe = new QoalaEntities())
             {
+                this.Logger().DebugFormat("Login {0} initiate", user.EMAIL);
                 ACCESSCONTROL ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
+                this.Logger().DebugFormat("Login {0} result: {1}", user.EMAIL, ca);
                 if (ca == null)
                     return NotFound();
                 else
