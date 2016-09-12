@@ -47,7 +47,7 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Login([FromBody] USER user)
+        public IHttpActionResult Login(USER user)
         {
             this.Logger().DebugFormat("Login: {0}", user.ToString());
             using (QoalaEntities qe = new QoalaEntities())
