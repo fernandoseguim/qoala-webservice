@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="TOKEN" />
           </Key>
-          <Property Name="TOKEN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TOKEN" Type="varchar2" MaxLength="60" Nullable="false" />
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
           <Property Name="EXPIRED_AT" Type="date" />
           <Property Name="REMOTEIP" Type="varchar2" MaxLength="15" />
@@ -53,6 +53,15 @@
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
+        </EntityType>
+        <EntityType Name="NET_ACCOUNTS">
+          <Key>
+            <PropertyRef Name="ACCESS_TOKEN_ID" />
+          </Key>
+          <Property Name="ACCESS_TOKEN_ID" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDENTIFIER" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PROVIDER" Type="varchar2" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="POSTS">
           <Key>
@@ -180,6 +189,7 @@
           <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="NET_ACCOUNTS" EntityType="Self.NET_ACCOUNTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
@@ -265,6 +275,7 @@
             <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
             <Parameter Name="OUT_ID_USER" Mode="InOut" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="NET_ACCOUNTS" EntityType="Model.NET_ACCOUNTS" />
         </EntityContainer>
         <EntityType Name="COMMENT">
           <Key>
@@ -406,7 +417,7 @@
           <Key>
             <PropertyRef Name="TOKEN" />
           </Key>
-          <Property Name="TOKEN" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="TOKEN" Type="String" Nullable="false" MaxLength="60" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="EXPIRED_AT" Type="DateTime" />
           <Property Name="REMOTEIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
@@ -425,6 +436,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NET_ACCOUNTS">
+          <Key>
+            <PropertyRef Name="ACCESS_TOKEN_ID" />
+          </Key>
+          <Property Name="ACCESS_TOKEN_ID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDENTIFIER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROVIDER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -516,6 +536,16 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_INSERT_USER" FunctionName="Model.Store.SP_INSERT_USER" />
+          <EntitySetMapping Name="NET_ACCOUNTS">
+            <EntityTypeMapping TypeName="Model.NET_ACCOUNTS">
+              <MappingFragment StoreEntitySet="NET_ACCOUNTS">
+                <ScalarProperty Name="PROVIDER" ColumnName="PROVIDER" />
+                <ScalarProperty Name="IDENTIFIER" ColumnName="IDENTIFIER" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="ACCESS_TOKEN_ID" ColumnName="ACCESS_TOKEN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

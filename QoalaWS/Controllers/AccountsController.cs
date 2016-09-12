@@ -67,9 +67,7 @@ namespace QoalaWS.Controllers
         {
             using (QoalaEntities qe = new QoalaEntities())
             {
-                Decimal tokenID=0m;
-                Decimal.TryParse(token, out tokenID);
-                if (USER.doLogout(qe, tokenID))
+                if (USER.doLogout(qe, token))
                     return Ok();
                 else
                     return BadRequest();

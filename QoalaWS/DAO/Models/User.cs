@@ -105,7 +105,7 @@ namespace QoalaWS.DAO
             return null;
         }
 
-        public static bool doLogout(QoalaEntities context, Decimal TokenID)
+        public static bool doLogout(QoalaEntities context, String TokenID)
         {
             ACCESSCONTROL ca = ACCESSCONTROL.find(context, TokenID);
             return ca.destroyToken(context);

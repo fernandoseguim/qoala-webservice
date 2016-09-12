@@ -33,6 +33,7 @@ namespace QoalaWS.DAO
         public virtual DbSet<POST> POSTS { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
         public virtual DbSet<ACCESSCONTROL> ACCESSCONTROLs { get; set; }
+        public virtual DbSet<NET_ACCOUNTS> NET_ACCOUNTS { get; set; }
     
         public virtual int SP_DELETE_USER(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
         {

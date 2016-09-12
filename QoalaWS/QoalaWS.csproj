@@ -175,6 +175,9 @@
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Models\AccessControlTest.cs" />
+    <Compile Include="DAO\NET_ACCOUNTS.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAO\POST.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
@@ -234,7 +237,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

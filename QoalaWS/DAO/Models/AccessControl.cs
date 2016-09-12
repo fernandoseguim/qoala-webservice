@@ -10,7 +10,7 @@ namespace QoalaWS.DAO
     public partial class ACCESSCONTROL
     {
         
-        public static ACCESSCONTROL find(QoalaEntities context, Decimal tokenID)
+        public static ACCESSCONTROL find(QoalaEntities context, String tokenID)
         {
             return context.ACCESSCONTROLs.FirstOrDefault(a => a.EXPIRED_AT <= DateTime.Now && a.TOKEN == tokenID);
         }
@@ -19,7 +19,7 @@ namespace QoalaWS.DAO
         {
             // TODO: Generate token using this USER identity 
             if (user != null) USER = user;
-            TOKEN = DateTime.Now.Ticks;// * USER.ID_USER;
+            TOKEN = DateTime.Now.Ticks.ToString()+"-"+USER.ID_USER.ToString();
             context.SaveChangesAsync();
             return this;
         }
