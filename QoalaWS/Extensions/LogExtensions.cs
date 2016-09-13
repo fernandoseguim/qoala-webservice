@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace QoalaWS.Extensions
+namespace QoalaWS
 {
     public static class LogExtensions
     {
-        public static readonly log4net.ILog log =
-        log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static ILog Logger(this Object obj)
         {
             return log4net.LogManager.GetLogger(obj.GetType());

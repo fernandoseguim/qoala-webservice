@@ -54,7 +54,7 @@ namespace QoalaWS.DAO
         {
             
             if (emailAlreadyExist(context, EMAIL))
-                throw new UserNotFoudException();
+                throw new UserEmailExistsException();
 
             var outParameter = new ObjectParameter("OUT_ID_USER", typeof(decimal));
             if(!(PERMISSION>0&& PERMISSION <= 3))
@@ -94,7 +94,11 @@ namespace QoalaWS.DAO
 
         public class UserNotFoudException : Exception, ISerializable
         {
-            
+
+        }
+        public class UserEmailExistsException : Exception, ISerializable
+        {
+
         }
     }
 }

@@ -22,16 +22,5 @@ namespace QoalaWS.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("DATA SOURCE=plural.czuj7n11qbsw.us-west-2.rds.amazonaws.com:1521/QOALA;PASSWORD=Q" +
-            "41L1@2016;PERSIST SECURITY INFO=True;USER ID=QOALA")]
-        public string ORCL {
-            get {
-                return ((string)(this["ORCL"]));
-            }
-        }
     }
 }

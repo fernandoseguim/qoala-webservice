@@ -73,7 +73,7 @@ namespace QoalaWS.DAO
         {
             using (var qe = new QoalaEntities())
             {
-                var email = "abc@abc";
+                var email = "abc@abc2";
                 USER u = new USER { NAME = "teste", EMAIL = email, PASSWORD = "senhhaa" };
                 u.Add(qe);
                 qe.SaveChanges();
@@ -95,7 +95,5 @@ namespace QoalaWS.DAO
                 Assert.IsFalse(USER.emailAlreadyExist(qe, email));
             }
         }
-
-
     }
 }

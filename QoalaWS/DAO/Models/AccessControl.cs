@@ -12,21 +12,28 @@ namespace QoalaWS.DAO
         
         public static ACCESSCONTROL find(QoalaEntities context, String token)
         {
-            return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token);
+            return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token && a.EXPIRED_AT <= DateTime.Now);
         }
 
         public ACCESSCONTROL Add(QoalaEntities context)
         {
+            this.Logger().Debug("add ACCESSCONTROL for user: " + this.USER.ToString());
             TOKEN = DateTime.Now.Ticks.ToString() + "-" + USER.ID_USER.ToString();
+            // TODO: make the number to addDays configured by USER configuration ou SYSTEM configuration
+            EXPIRED_AT = DateTime.Now.AddDays(7);
             context.SaveChanges();
             return this;
         }
 
         public bool Delete(QoalaEntities context)
         {
-            context.ACCESSCONTROLs.Remove(this);
+            this.Logger().Debug("delete ACCESSCONTROL("+TOKEN+") for user: " + this.USER.ToString());
+            // Do not remove this entity, just update with expired now
+            //context.ACCESSCONTROLs.Remove(this);
+            context.Entry<ACCESSCONTROL>(this).Entity.EXPIRED_AT = DateTime.Now;
             context.SaveChanges();
             return find(context, TOKEN) == null;
         }
+
     }
 }
