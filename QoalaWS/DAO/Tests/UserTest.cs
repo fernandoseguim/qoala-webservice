@@ -82,7 +82,7 @@ namespace QoalaWS.DAO
         }
 
         [TestMethod]
-        public void UserDeletedWithSameEmailNotHasTakeen()
+        public void UserDeletedWithSameEmailNotHasTaken()
         {
             using (var qe = new QoalaEntities())
             {

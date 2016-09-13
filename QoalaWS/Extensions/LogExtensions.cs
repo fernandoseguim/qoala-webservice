@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace QoalaWS
+namespace QoalaWS.Extensions
 {
     public static class LogExtensions
     {

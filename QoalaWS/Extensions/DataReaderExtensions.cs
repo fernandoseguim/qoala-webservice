@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
-namespace QoalaWS.DAO
+namespace QoalaWS.Extensions
 {
     public static class DataReaderExtensions
     {

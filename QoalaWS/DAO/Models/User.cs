@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace QoalaWS.DAO
@@ -91,6 +92,9 @@ namespace QoalaWS.DAO
             return null;
         }
 
-        public class UserNotFoudException : Exception { }
+        public class UserNotFoudException : Exception, ISerializable
+        {
+            
+        }
     }
 }
