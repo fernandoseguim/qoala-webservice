@@ -18,6 +18,7 @@ namespace QoalaWS.DAO
                 "EMAIL: " + EMAIL + ", " +
                 "PERMISSION: " + PERMISSION + ".";
         }
+
         public bool resetPassword()
         {
             // TODO: reset password
@@ -72,8 +73,10 @@ namespace QoalaWS.DAO
         {
             var outParameter = new ObjectParameter("ROWCOUNT", typeof(decimal));
             int ret = context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
+            
+            context.Entry(this).State = EntityState.Modified;
 
-            context.Entry(this).State = EntityState.Unchanged;
+            context.SaveChanges();
             return (Decimal)outParameter.Value;
         }
         

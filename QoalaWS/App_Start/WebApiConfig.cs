@@ -20,6 +20,7 @@ namespace QoalaWS
                 defaults: new { controller="Default", action="Index", id = RouteParameter.Optional }
             );
 
+            var json = config.Formatters.JsonFormatter;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
         }

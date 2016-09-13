@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAO\ACCESSCONTROL.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>

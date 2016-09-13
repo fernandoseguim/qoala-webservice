@@ -12,9 +12,6 @@ namespace QoalaWS.DAO
         
         public static ACCESSCONTROL find(QoalaEntities context, String token)
         {
-            if (token == null)
-                return null;
-
             return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token);
         }
 

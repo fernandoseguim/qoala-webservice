@@ -59,18 +59,5 @@ namespace QoalaWS.Controllers
                 return Ok();
             }
         }
-
-        [HttpPost]
-        public IHttpActionResult ResetPassword([FromBody] string email)
-        {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                USER user = USER.findByEmail(qe, email);
-                if (user.resetPassword())
-                    return Ok();
-                else
-                    return BadRequest();
-            }
-        }
     }
 }
