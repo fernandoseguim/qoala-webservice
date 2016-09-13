@@ -27,17 +27,17 @@ namespace QoalaWS.DAO
 
         public static USER findByEmail(QoalaEntities context, string email)
         {
-            return context.USERS.FirstOrDefault(u => u.EMAIL == email && u.DELETED_AT <= DateTime.Now);
+            return context.USERS.FirstOrDefault(u => u.EMAIL == email && u.DELETED_AT == null);
         }
 
         public static USER findById(QoalaEntities context, Decimal id_user)
         {
-            return context.USERS.FirstOrDefault(u => u.ID_USER == id_user);
+            return context.USERS.FirstOrDefault(u => u.ID_USER == id_user && u.DELETED_AT == null);
         }
 
         public static bool emailAlreadyExist(QoalaEntities context, string email)
         {
-            return context.USERS.Count(u => u.EMAIL == email && u.DELETED_AT <= DateTime.Now) > 0;
+            return context.USERS.Count(u => u.EMAIL == email && u.DELETED_AT == null) > 0;
         }
 
         public Decimal Delete(QoalaEntities context)
@@ -50,11 +50,10 @@ namespace QoalaWS.DAO
 
         public decimal? Add(QoalaEntities context)
         {
-            if(USER.emailAlreadyExist(context, EMAIL))
-            {
-                //throw new Exception()
-                return null;
-            }
+            
+            if (emailAlreadyExist(context, EMAIL))
+                throw new UserNotFoudException();
+
             var outParameter = new ObjectParameter("OUT_ID_USER", typeof(decimal));
             if(!(PERMISSION>0&& PERMISSION <= 3))
             {
@@ -77,39 +76,18 @@ namespace QoalaWS.DAO
             context.Entry(this).State = EntityState.Unchanged;
             return (Decimal)outParameter.Value;
         }
-
-        #region AccessControl
-
-        public ACCESSCONTROL register(QoalaEntities context)
+        
+        public ACCESSCONTROL doLogin(QoalaEntities context)
         {
-            if (!emailAlreadyExist(context, EMAIL))
-                return null;
-            // TODO: Email já existe, não deveria trazer um retorno de exceção? ou algo que pudesse dizer ao registrando que já está cadastrado
-            // TODO: O que exatamente isso precisa fazer?
-
-            return doLogin(context, EMAIL, PASSWORD);
-        }
-
-        public static ACCESSCONTROL doLogin(QoalaEntities context, String UserEmail, String userPassword)
-        {
-            USER user = findByEmail(context, UserEmail);
-            if (user != null)
+            USER user = findByEmail(context, EMAIL);
+            if (user.PASSWORD.Equals(PASSWORD))
             {
-                if (user.PASSWORD.Equals(userPassword))
-                {
-                    ACCESSCONTROL controllAccess = new ACCESSCONTROL();
-                    return controllAccess.createToken(context, user);
-                }
+                ACCESSCONTROL ca = new ACCESSCONTROL { USER = this };
+                return ca.Add(context);
             }
-
             return null;
         }
 
-        public static bool doLogout(QoalaEntities context, String TokenID)
-        {
-            ACCESSCONTROL ca = ACCESSCONTROL.find(context, TokenID);
-            return ca.destroyToken(context);
-        }
-        #endregion
+        public class UserNotFoudException : Exception { }
     }
 }

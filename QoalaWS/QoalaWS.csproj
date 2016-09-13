@@ -165,8 +165,6 @@
     <Compile Include="DAO\COMMENT.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\Connection.cs" />
-    <Compile Include="DAO\ConnectionTest.cs" />
     <Compile Include="DAO\DataReaderExtensions.cs" />
     <Compile Include="DAO\DEVICE.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
@@ -174,7 +172,7 @@
     <Compile Include="DAO\DEVICE_GEO_LOCATIONS.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\Models\AccessControlTest.cs" />
+    <Compile Include="DAO\Tests\AccessControlTest.cs" />
     <Compile Include="DAO\NET_ACCOUNTS.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
@@ -197,7 +195,7 @@
       <DependentUpon>QoalaModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAO\Models\User.cs" />
-    <Compile Include="DAO\Models\UserTest.cs" />
+    <Compile Include="DAO\Tests\UserTest.cs" />
     <Compile Include="DAO\USER.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
@@ -205,7 +203,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DAO\Models\AccessControl.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

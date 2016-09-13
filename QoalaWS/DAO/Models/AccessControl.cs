@@ -10,28 +10,25 @@ namespace QoalaWS.DAO
     public partial class ACCESSCONTROL
     {
         
-        public static ACCESSCONTROL find(QoalaEntities context, String tokenID)
+        public static ACCESSCONTROL find(QoalaEntities context, String token)
         {
-            return context.ACCESSCONTROLs.FirstOrDefault(a => a.EXPIRED_AT <= DateTime.Now && a.TOKEN == tokenID);
+            if (token == null)
+                return null;
+
+            return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token);
         }
 
-        public ACCESSCONTROL createToken(QoalaEntities context, USER user=null)
+        public ACCESSCONTROL Add(QoalaEntities context)
         {
-            // TODO: Generate token using this USER identity 
-            if (user != null) USER = user;
-            TOKEN = DateTime.Now.Ticks.ToString()+"-"+USER.ID_USER.ToString();
-            context.SaveChangesAsync();
+            TOKEN = DateTime.Now.Ticks.ToString() + "-" + USER.ID_USER.ToString();
+            context.SaveChanges();
             return this;
         }
 
-        public bool destroyToken(QoalaEntities context)
+        public bool Delete(QoalaEntities context)
         {
-            if (EXPIRED_AT <= DateTime.Now)
-            {
-                var entry = context.Entry<ACCESSCONTROL>(this);
-                this.EXPIRED_AT = DateTime.Now;
-                entry.State = System.Data.Entity.EntityState.Unchanged;
-            }
+            context.ACCESSCONTROLs.Remove(this);
+            context.SaveChanges();
             return find(context, TOKEN) == null;
         }
     }

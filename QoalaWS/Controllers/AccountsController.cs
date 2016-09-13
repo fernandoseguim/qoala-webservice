@@ -10,26 +10,53 @@ namespace QoalaWS.Controllers
 {
     public class AccountsController : ApiController
     {
-        [HttpGet]
-        [HttpPost]
-        public IHttpActionResult Index()
-        {
-            this.Logger().Debug("Index");
-            return Ok("OK");
-        }
 
         [HttpPost]
         public IHttpActionResult Register(USER user)
         {
-            //TODO: Fazer um model para usar somente no login(nome, somente email, senha), sem os demais atributos no model USER.
+            try
+            {
+                using (QoalaEntities qe = new QoalaEntities())
+                {
+                    user.Add(qe);
+                    qe.SaveChanges();
+
+                    ACCESSCONTROL ac = new ACCESSCONTROL { USER = user };
+
+                    ac.Add(qe);
+                    qe.SaveChanges();
+
+                    return Ok(new { Token = ac.TOKEN });
+                }
+            } catch(Exception e) {
+                return BadRequest(e.ToString());
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Login(USER user)
+        {
             using (QoalaEntities qe = new QoalaEntities())
             {
-                ACCESSCONTROL ca = user.register(qe);
-                
-                if (ca == null)
+                ACCESSCONTROL ca = user.doLogin(qe);
+                if(ca == null)
                     return BadRequest();
-                else
-                    return Ok(ca);
+
+                return Ok(new { Token = ca.TOKEN });
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Logout(ACCESSCONTROL control)
+        {
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                ACCESSCONTROL ac = ACCESSCONTROL.find(qe, control.TOKEN);
+                if (ac == null)
+                    return NotFound();
+
+                ac.Delete(qe);
+                return Ok();
             }
         }
 
@@ -40,34 +67,6 @@ namespace QoalaWS.Controllers
             {
                 USER user = USER.findByEmail(qe, email);
                 if (user.resetPassword())
-                    return Ok();
-                else
-                    return BadRequest();
-            }
-        }
-
-        [HttpPost]
-        public IHttpActionResult Login(USER user)
-        {
-            this.Logger().DebugFormat("Login: {0}", user.ToString());
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                this.Logger().DebugFormat("Login {0} initiate", user.EMAIL);
-                ACCESSCONTROL ca = USER.doLogin(qe, user.EMAIL, user.PASSWORD);
-                this.Logger().DebugFormat("Login {0} result: {1}", user.EMAIL, ca);
-                if (ca == null)
-                    return NotFound();
-                else
-                    return Ok(ca);
-            }
-        }
-
-        [HttpPost]
-        public IHttpActionResult Logout([FromBody] string token)
-        {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                if (USER.doLogout(qe, token))
                     return Ok();
                 else
                     return BadRequest();
