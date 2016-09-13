@@ -10,24 +10,22 @@ namespace QoalaWS.Controllers
 {
     public class AccountsController : ApiController
     {
+        private QoalaEntities db = new QoalaEntities();
 
         [HttpPost]
         public IHttpActionResult Register(USER user)
         {
             try
             {
-                using (QoalaEntities qe = new QoalaEntities())
-                {
-                    user.Add(qe);
-                    qe.SaveChanges();
+                user.Add(db);
+                db.SaveChanges();
 
-                    ACCESSCONTROL ac = new ACCESSCONTROL { USER = user };
+                ACCESSCONTROL ac = new ACCESSCONTROL { USER = user };
 
-                    ac.Add(qe);
-                    qe.SaveChanges();
+                ac.Add(db);
+                db.SaveChanges();
 
-                    return Ok(new { Token = ac.TOKEN });
-                }
+                return Created("", new { Token = ac.TOKEN });
             } catch(Exception e) {
                 return BadRequest(e.ToString());
             }
@@ -36,28 +34,22 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public IHttpActionResult Login(USER user)
         {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                ACCESSCONTROL ca = user.doLogin(qe);
-                if(ca == null)
-                    return BadRequest();
-
-                return Ok(new { Token = ca.TOKEN });
-            }
+            ACCESSCONTROL ac = user.doLogin(db);
+            if(ac == null)
+                return BadRequest();
+            
+            return Created("", new { Token = ac.TOKEN });
         }
 
         [HttpPost]
         public IHttpActionResult Logout(ACCESSCONTROL control)
         {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                ACCESSCONTROL ac = ACCESSCONTROL.find(qe, control.TOKEN);
-                if (ac == null)
-                    return NotFound();
+            ACCESSCONTROL ac = ACCESSCONTROL.find(db, control.TOKEN);
+            if (ac == null)
+                return NotFound();
 
-                ac.Delete(qe);
-                return Ok();
-            }
+            ac.Delete(db);
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }

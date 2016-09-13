@@ -14,76 +14,50 @@ namespace QoalaWS.Controllers
 {
     public class UsersController : ApiController
     {
+        private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
         public IHttpActionResult Get(decimal id)
         {
-            using (QoalaEntities qe = new QoalaEntities())
+            USER user = USER.findById(db, id);
+            if (user == null)
             {
-                USER user = USER.findById(qe, id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(new { EMAIL = user.EMAIL, NAME = user.NAME, PERMISSION = user.PERMISSION, CREATED_AT = user.CREATED_AT });
+                return NotFound();
             }
-        }
 
+            return Ok(
+                new {
+                    EMAIL = user.EMAIL,
+                    NAME = user.NAME,
+                    PERMISSION = user.PERMISSION,
+                    CREATED_AT = user.CREATED_AT
+                }
+            );
+       }
+
+
+        //That procedure to update user is broken
         [HttpPut]
         [Route("users/{id}")]
         public IHttpActionResult Update(decimal id, USER user)
         {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                if (id != user.ID_USER)
-                {
-                    return BadRequest();
-                }
-
-                user.Update(qe);
-            }
-
+            user.ID_USER = id;
+            user.Update(db);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
         
-        [HttpPost]
-        [Route("users/")]
-        public IHttpActionResult PostUSER(USER user)
-        {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                user.Add(qe);
-
-                return CreatedAtRoute("Users", new { id = user.ID_USER }, user);
-            }
-        }
-        
         [HttpDelete]
+        [Route("users/{id}")]
         public IHttpActionResult Delete(decimal id)
         {
-            using (QoalaEntities qe = new QoalaEntities())
-            {
-                USER user = qe.USERS.Find(id);
-                if (user == null)
-                    return NotFound();
+            USER user = USER.findById(db, id);
+            if (user == null)
+                return NotFound();
 
-                user.Delete(qe);
+            user.Delete(db);
 
-                return Ok(user);
-            }
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }
