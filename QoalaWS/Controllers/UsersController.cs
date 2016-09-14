@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using QoalaWS.DAO;
+using QoalaWS.Filters;
 
 namespace QoalaWS.Controllers
 {
@@ -41,6 +42,21 @@ namespace QoalaWS.Controllers
         [Route("users/{id}")]
         public IHttpActionResult Update(decimal id, USER user)
         {
+
+            USER u = USER.findById(db, id);
+
+            if (u == null)
+                return NotFound();
+
+            if (user.NAME == null)
+                user.NAME = u.NAME;
+            if (user.PASSWORD == null)
+                user.PASSWORD = u.PASSWORD;
+            if (user.EMAIL == null)
+                user.EMAIL = u.EMAIL;
+            if (!(user.PERMISSION > 0))
+                user.PERMISSION = u.PERMISSION;
+            
             user.ID_USER = id;
             user.Update(db);
 
@@ -49,6 +65,7 @@ namespace QoalaWS.Controllers
         
         [HttpDelete]
         [Route("users/{id}")]
+        [BasicAuthorization]
         public IHttpActionResult Delete(decimal id)
         {
             USER user = USER.findById(db, id);

@@ -47,24 +47,24 @@ namespace QoalaWS.DAO
         public virtual int SP_UPDATE_USER(Nullable<decimal> iD, string nAME, string pASSWORD, string eMAIL, Nullable<decimal> pERMISSION, ObjectParameter rOWCOUNT)
         {
             var iDParameter = iD.HasValue ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(decimal));
+                new ObjectParameter("PID", iD) :
+                new ObjectParameter("PID", typeof(decimal));
     
             var nAMEParameter = nAME != null ?
-                new ObjectParameter("NAME", nAME) :
-                new ObjectParameter("NAME", typeof(string));
+                new ObjectParameter("PNAME", nAME) :
+                new ObjectParameter("PNAME", typeof(string));
     
             var pASSWORDParameter = pASSWORD != null ?
-                new ObjectParameter("PASSWORD", pASSWORD) :
-                new ObjectParameter("PASSWORD", typeof(string));
+                new ObjectParameter("PPASSWORD", pASSWORD) :
+                new ObjectParameter("PPASSWORD", typeof(string));
     
             var eMAILParameter = eMAIL != null ?
-                new ObjectParameter("EMAIL", eMAIL) :
-                new ObjectParameter("EMAIL", typeof(string));
+                new ObjectParameter("PEMAIL", eMAIL) :
+                new ObjectParameter("PEMAIL", typeof(string));
     
             var pERMISSIONParameter = pERMISSION.HasValue ?
-                new ObjectParameter("PERMISSION", pERMISSION) :
-                new ObjectParameter("PERMISSION", typeof(decimal));
+                new ObjectParameter("PPERMISSION", pERMISSION) :
+                new ObjectParameter("PPERMISSION", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", iDParameter, nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, rOWCOUNT);
         }

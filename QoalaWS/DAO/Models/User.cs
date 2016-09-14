@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -72,13 +73,10 @@ namespace QoalaWS.DAO
 
         public Decimal Update(QoalaEntities context)
         {
-            var outParameter = new ObjectParameter("ROWCOUNT", typeof(decimal));
-            int ret = context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
-            
-            context.Entry(this).State = EntityState.Modified;
+            var outParameter = new ObjectParameter("PROWCOUNT", typeof(decimal));
+            context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
 
-            context.SaveChanges();
-            return (Decimal)outParameter.Value;
+            return 1;
         }
         
         public ACCESSCONTROL doLogin(QoalaEntities context)

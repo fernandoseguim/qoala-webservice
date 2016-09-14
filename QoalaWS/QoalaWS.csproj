@@ -201,6 +201,7 @@
     <Compile Include="DAO\USER.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\BasicAuthorization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
