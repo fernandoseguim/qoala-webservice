@@ -21,11 +21,14 @@ namespace QoalaWS.Filters
                 var authHeaderVal = AuthenticationHeaderValue.Parse(authHeader);
 
                 // RFC 2617 sec 1.2, "scheme" name is case-insensitive
-                if (authHeaderVal.Scheme.Equals("basic",
+                if (authHeaderVal.Scheme.Equals("Token",
                         StringComparison.OrdinalIgnoreCase) &&
                     authHeaderVal.Parameter != null)
                 {
-                    actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                    //Need check if user has this control access
+                    DAO.ACCESSCONTROL ac = DAO.ACCESSCONTROL.find(new DAO.QoalaEntities(), authHeaderVal.Parameter);
+                    if(ac == null)
+                        actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 }
             
         }
