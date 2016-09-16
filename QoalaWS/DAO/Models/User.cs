@@ -35,7 +35,7 @@ namespace QoalaWS.DAO
 
         public static USER findById(QoalaEntities context, Decimal id_user)
         {
-            return context.USERS.FirstOrDefault(u => u.ID_USER == id_user && u.DELETED_AT == null);
+            return context.USERS.FirstOrDefault(u => u.ID_USER == id_user && !u.DELETED_AT.HasValue);
         }
 
         public static bool emailAlreadyExist(QoalaEntities context, string email)
@@ -75,16 +75,18 @@ namespace QoalaWS.DAO
         {
             var outParameter = new ObjectParameter("PROWCOUNT", typeof(decimal));
             context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
-
+            context.Entry(this).State = EntityState.Unchanged;
             return 1;
         }
         
+        // this may should be on ACCESSCONTROL class
         public ACCESSCONTROL doLogin(QoalaEntities context)
         {
             USER user = findByEmail(context, EMAIL);
-            if (user.PASSWORD.Equals(PASSWORD))
+            if(user!=null && user.PASSWORD.Equals(PASSWORD))
             {
-                ACCESSCONTROL ca = new ACCESSCONTROL { USER = this };
+                context.ACCESSCONTROLs.Count();
+                ACCESSCONTROL ca = new ACCESSCONTROL { USER = user };
                 return ca.Add(context);
             }
             return null;

@@ -1,6 +1,7 @@
 ﻿using QoalaWS.DAO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace QoalaWS.DAO
             TOKEN = DateTime.Now.Ticks.ToString() + "-" + USER.ID_USER.ToString();
             // TODO: make the number to addDays configured by USER configuration ou SYSTEM configuration
             EXPIRED_AT = DateTime.Now.AddDays(7);
+            context.ACCESSCONTROLs.Add(this);
             context.SaveChanges();
             return this;
         }
@@ -30,7 +32,8 @@ namespace QoalaWS.DAO
             this.Logger().Debug("delete ACCESSCONTROL("+TOKEN+") for user: " + this.USER.ToString());
             // Do not remove this entity, just update with expired now
             //context.ACCESSCONTROLs.Remove(this);
-            context.Entry<ACCESSCONTROL>(this).Entity.EXPIRED_AT = DateTime.Now;
+            this.EXPIRED_AT = DateTime.Now;
+            context.Entry(this).State = EntityState.Modified;
             context.SaveChanges();
             return find(context, TOKEN) == null;
         }

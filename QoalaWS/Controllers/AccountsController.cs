@@ -26,7 +26,9 @@ namespace QoalaWS.Controllers
                 db.SaveChanges();
 
                 return Created("", new { Token = ac.TOKEN });
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.ToString());
             }
         }
@@ -35,9 +37,9 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Login(USER user)
         {
             ACCESSCONTROL ac = user.doLogin(db);
-            if(ac == null)
-                return BadRequest();
-            
+            if (ac == null)
+                return BadRequest("User or password is invalid!");
+
             return Created("", new { Token = ac.TOKEN });
         }
 
@@ -49,7 +51,8 @@ namespace QoalaWS.Controllers
                 return NotFound();
 
             ac.Delete(db);
-            return StatusCode(HttpStatusCode.NoContent);
+
+            return StatusCode(HttpStatusCode.OK);
         }
     }
 }

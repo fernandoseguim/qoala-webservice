@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
+using Newtonsoft.Json.Linq;
 
 namespace QoalaWS.Controllers
 {
@@ -27,42 +28,50 @@ namespace QoalaWS.Controllers
             }
 
             return Ok(
-                new {
+                new
+                {
                     EMAIL = user.EMAIL,
                     NAME = user.NAME,
                     PERMISSION = user.PERMISSION,
                     CREATED_AT = user.CREATED_AT
                 }
             );
-       }
+        }
 
 
-        //That procedure to update user is broken
         [HttpPut]
         [Route("users/{id}")]
-        public IHttpActionResult Update(decimal id, USER user)
+        public IHttpActionResult Update(decimal id, JObject obj)
         {
 
-            USER u = USER.findById(db, id);
+            USER user = USER.findById(db, id);
 
-            if (u == null)
+            if (user == null)
                 return NotFound();
 
-            if (user.NAME == null)
-                user.NAME = u.NAME;
-            if (user.PASSWORD == null)
-                user.PASSWORD = u.PASSWORD;
-            if (user.EMAIL == null)
-                user.EMAIL = u.EMAIL;
-            if (!(user.PERMISSION > 0))
-                user.PERMISSION = u.PERMISSION;
-            
-            user.ID_USER = id;
+            if (!obj.HasValues)
+            {
+                return BadRequest("Object sent was received invalid!");
+            }
+
+            string val = null;
+            val = obj.Value<string>("EMAIL");
+            if (val!=null) { user.EMAIL = val; }
+
+            val = obj.Value<String>("NAME");
+            if (val != null) { user.NAME = val; }
+
+            val = obj.Value<String>("PASSWORD");
+            if (val != null) { user.PASSWORD = val; }
+
+            val = obj.Value<String>("PERMISSION");
+            if (val != null) { user.PERMISSION = byte.Parse(val); }
+
             user.Update(db);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        
+
         [HttpDelete]
         [Route("users/{id}")]
         [BasicAuthorization]

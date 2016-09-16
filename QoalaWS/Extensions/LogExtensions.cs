@@ -17,7 +17,7 @@ namespace QoalaWS
         }
     }
 
-    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
+    [TestClass]
     public class LogTestClass
     {
         [TestMethod]
