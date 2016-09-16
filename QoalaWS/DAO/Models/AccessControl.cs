@@ -22,6 +22,7 @@ namespace QoalaWS.DAO
             TOKEN = DateTime.Now.Ticks.ToString() + "-" + USER.ID_USER.ToString();
             // TODO: make the number to addDays configured by USER configuration ou SYSTEM configuration
             EXPIRED_AT = DateTime.Now.AddDays(7);
+            CREATED_AT = DateTime.Now;
             context.ACCESSCONTROLs.Add(this);
             context.SaveChanges();
             return this;

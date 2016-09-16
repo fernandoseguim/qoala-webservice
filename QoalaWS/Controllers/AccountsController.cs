@@ -18,12 +18,10 @@ namespace QoalaWS.Controllers
             try
             {
                 user.Add(db);
-                db.SaveChanges();
 
                 ACCESSCONTROL ac = new ACCESSCONTROL { USER = user };
 
                 ac.Add(db);
-                db.SaveChanges();
 
                 return Created("", new { Token = ac.TOKEN });
             }
