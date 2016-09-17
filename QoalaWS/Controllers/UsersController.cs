@@ -19,6 +19,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
+        [BasicAuthorization]
         public IHttpActionResult Get(decimal id)
         {
             USER user = USER.findById(db, id);
@@ -37,10 +38,10 @@ namespace QoalaWS.Controllers
                 }
             );
         }
-
-
+        
         [HttpPut]
         [Route("users/{id}")]
+        [BasicAuthorization]
         public IHttpActionResult Update(decimal id, JObject obj)
         {
 

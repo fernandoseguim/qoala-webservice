@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using QoalaWS.DAO;
+using QoalaWS.Filters;
 
 namespace QoalaWS.Controllers
 {
@@ -41,7 +42,9 @@ namespace QoalaWS.Controllers
             return Created("", new { Token = ac.TOKEN });
         }
 
+        //needs to check if the token on the body is the same on the headers
         [HttpPost]
+        [BasicAuthorization]
         public IHttpActionResult Logout(ACCESSCONTROL control)
         {
             ACCESSCONTROL ac = ACCESSCONTROL.find(db, control.TOKEN);
