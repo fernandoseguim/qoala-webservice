@@ -11,7 +11,6 @@ namespace QoalaWS
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.Filters.Add(new BasicAuthorization());
             
             // Web API routes
             config.MapHttpAttributeRoutes();
