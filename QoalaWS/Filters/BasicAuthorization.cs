@@ -24,18 +24,6 @@ namespace QoalaWS.Filters
         }
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            this.Logger().Debug(
-                new
-                {
-                    Method = actionContext.Request.Method,
-                    RequestUri = actionContext.Request.RequestUri.ToString(),
-                    Accept = actionContext.Request.Headers.Accept
-                });
-            if (actionContext.Request.RequestUri.DnsSafeHost == "localhost")
-            {
-                return;
-            }
-
             var request = HttpContext.Current.Request;
             var authHeader = request.Headers["Authorization"];
             if (authHeader == null)
@@ -50,7 +38,7 @@ namespace QoalaWS.Filters
                     authHeaderVal.Parameter != null)
                 {
                     //Need check if user has this control access
-                    DAO.ACCESSCONTROL ac = DAO.ACCESSCONTROL.find(new DAO.QoalaEntities(), authHeaderVal.Parameter);
+                    DAO.AccessControl ac = DAO.AccessControl.find(new DAO.QoalaEntities(), authHeaderVal.Parameter);
                     if (ac == null)
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 }

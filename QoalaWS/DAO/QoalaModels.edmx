@@ -263,7 +263,7 @@
             <End Role="USER" EntitySet="USERS" />
             <End Role="POST" EntitySet="POSTS" />
           </AssociationSet>
-          <EntitySet Name="ACCESSCONTROLs" EntityType="Model.ACCESSCONTROL" />
+          <EntitySet Name="ACCESSCONTROLs" EntityType="Model.AccessControl" />
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Model.ACCESSCONTROL_USERS_FK">
             <End Role="USER" EntitySet="USERS" />
             <End Role="ACCESSCONTROL" EntitySet="ACCESSCONTROLs" />
@@ -413,7 +413,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ACCESSCONTROL">
+        <EntityType Name="AccessControl">
           <Key>
             <PropertyRef Name="TOKEN" />
           </Key>
@@ -426,7 +426,7 @@
         </EntityType>
         <Association Name="ACCESSCONTROL_USERS_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
-          <End Type="Model.ACCESSCONTROL" Role="ACCESSCONTROL" Multiplicity="*" />
+          <End Type="Model.AccessControl" Role="ACCESSCONTROL" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
               <PropertyRef Name="ID_USER" />
@@ -525,7 +525,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ACCESSCONTROLs">
-            <EntityTypeMapping TypeName="Model.ACCESSCONTROL">
+            <EntityTypeMapping TypeName="Model.AccessControl">
               <MappingFragment StoreEntitySet="ACCESSCONTROL">
                 <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
                 <ScalarProperty Name="REMOTEIP" ColumnName="REMOTEIP" />

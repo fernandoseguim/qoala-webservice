@@ -12,7 +12,7 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class ACCESSCONTROL
+    public partial class AccessControl
     {
         public string TOKEN { get; set; }
         public System.DateTime CREATED_AT { get; set; }

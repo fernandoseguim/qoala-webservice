@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace QoalaWS.DAO
 {
-    public partial class ACCESSCONTROL
+    public partial class AccessControl
     {
         
-        public static ACCESSCONTROL find(QoalaEntities context, String token)
+        public static AccessControl find(QoalaEntities context, String token)
         {
             var now = DateTime.Now;
             return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token && now <= a.EXPIRED_AT);
         }
 
-        public ACCESSCONTROL Add(QoalaEntities context)
+        public AccessControl Add(QoalaEntities context)
         {
             this.Logger().Debug("add ACCESSCONTROL for user: " + this.USER.ToString());
             TOKEN = DateTime.Now.Ticks.ToString() + "-" + USER.ID_USER.ToString();

@@ -38,7 +38,7 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public IHttpActionResult Login(User user)
         {
-            ACCESSCONTROL ac = user.doLogin(db);
+            AccessControl ac = user.doLogin(db);
             if (ac == null)
                 return BadRequest("User or password is invalid!");
 
@@ -48,9 +48,9 @@ namespace QoalaWS.Controllers
         //needs to check if the token on the body is the same on the headers
         [HttpPost]
         [BasicAuthorization]
-        public IHttpActionResult Logout(ACCESSCONTROL control)
+        public IHttpActionResult Logout(AccessControl control)
         {
-            ACCESSCONTROL ac = ACCESSCONTROL.find(db, control.TOKEN);
+            AccessControl ac = DAO.AccessControl.find(db, control.TOKEN);
             if (ac == null)
                 return NotFound();
 

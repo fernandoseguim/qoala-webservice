@@ -80,21 +80,21 @@ namespace QoalaWS.DAO
         }
         
         // this may should be on ACCESSCONTROL class
-        public ACCESSCONTROL doLogin(QoalaEntities context)
+        public AccessControl doLogin(QoalaEntities context)
         {
             User user = findByEmail(context, EMAIL);
             if(user!=null && user.PASSWORD.Equals(PASSWORD))
             {
                 context.ACCESSCONTROLs.Count();
-                ACCESSCONTROL ca = new ACCESSCONTROL { USER = user };
+                AccessControl ca = new AccessControl { USER = user };
                 return ca.Add(context);
             }
             return null;
         }
 
-        public ACCESSCONTROL createAccessControl(QoalaEntities context)
+        public AccessControl createAccessControl(QoalaEntities context)
         {
-            ACCESSCONTROL ac = new ACCESSCONTROL { USER = this };
+            AccessControl ac = new AccessControl { USER = this };
             return ac.Add(context);
         }
 
