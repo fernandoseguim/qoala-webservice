@@ -12,16 +12,6 @@ namespace QoalaWS.Filters
 {
     public class BasicAuthorization : ActionFilterAttribute
     {
-        public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
-        {
-            this.Logger().Debug(
-                new
-                {
-                    StatusCode = actionExecutedContext.Response.StatusCode,
-                    ReasonPhrase = actionExecutedContext.Response.ReasonPhrase,
-                    IsSuccessStatusCode = actionExecutedContext.Response.IsSuccessStatusCode
-                });
-        }
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             var request = HttpContext.Current.Request;

@@ -158,6 +158,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\LogRequests.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />

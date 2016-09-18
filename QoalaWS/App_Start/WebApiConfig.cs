@@ -8,6 +8,7 @@ namespace QoalaWS
 {
     public static class WebApiConfig
     {
+
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -23,6 +24,10 @@ namespace QoalaWS
 
             var json = config.Formatters.JsonFormatter;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            //log all requests-For DEBUG
+
+            config.Filters.Add(new LogRequests());
 
         }
     }
