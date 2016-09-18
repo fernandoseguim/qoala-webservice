@@ -92,6 +92,12 @@ namespace QoalaWS.DAO
             return null;
         }
 
+        public ACCESSCONTROL createAccessControl(QoalaEntities context)
+        {
+            ACCESSCONTROL ac = new ACCESSCONTROL { USER = this };
+            return ac.Add(context);
+        }
+
         public class UserNotFoudException : Exception, ISerializable
         {
 

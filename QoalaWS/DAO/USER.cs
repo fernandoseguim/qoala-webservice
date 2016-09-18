@@ -11,7 +11,8 @@ namespace QoalaWS.DAO
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class USER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,11 +25,20 @@ namespace QoalaWS.DAO
         }
     
         public decimal ID_USER { get; set; }
+
+        [Required(ErrorMessage = "Nome é obrigatório")]
         public string NAME { get; set; }
+
+        [Required(ErrorMessage = "Senha é obrigatório")]
         public string PASSWORD { get; set; }
+
+        [Required(ErrorMessage = "Email é obrigatório")]
         public string EMAIL { get; set; }
+
         public byte PERMISSION { get; set; }
+
         public System.DateTime CREATED_AT { get; set; }
+
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
     
@@ -42,3 +52,4 @@ namespace QoalaWS.DAO
         public virtual ICollection<ACCESSCONTROL> ACCESSCONTROLs { get; set; }
     }
 }
+

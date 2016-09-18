@@ -11,13 +11,21 @@ namespace QoalaWS.DAO
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ACCESSCONTROL
     {
+        [Required(ErrorMessage = "Token é obrigatório")]
         public string TOKEN { get; set; }
+
+        [Required(ErrorMessage = "Data de criação é obrigatório")]
         public System.DateTime CREATED_AT { get; set; }
+
+        [Required(ErrorMessage = "Data de expiração é obrigatório")]
         public Nullable<System.DateTime> EXPIRED_AT { get; set; }
         public string REMOTEIP { get; set; }
+
+        [Required(ErrorMessage = "ID User é obrigatório")]
         public decimal ID_USER { get; set; }
     
         public virtual USER USER { get; set; }
