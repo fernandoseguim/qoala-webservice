@@ -13,10 +13,10 @@ namespace QoalaWS.DAO
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class USER
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public USER()
+        public User()
         {
             this.COMMENTS = new HashSet<COMMENT>();
             this.DEVICES = new HashSet<DEVICE>();
@@ -36,9 +36,7 @@ namespace QoalaWS.DAO
         public string EMAIL { get; set; }
 
         public byte PERMISSION { get; set; }
-
         public System.DateTime CREATED_AT { get; set; }
-
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
     
@@ -52,4 +50,3 @@ namespace QoalaWS.DAO
         public virtual ICollection<ACCESSCONTROL> ACCESSCONTROLs { get; set; }
     }
 }
-

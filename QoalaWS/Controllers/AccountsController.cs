@@ -14,7 +14,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [HttpPost]
-        public IHttpActionResult Register(USER user)
+        public IHttpActionResult Register(User user)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Login(USER user)
+        public IHttpActionResult Login(User user)
         {
             ACCESSCONTROL ac = user.doLogin(db);
             if (ac == null)

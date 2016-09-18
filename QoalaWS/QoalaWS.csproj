@@ -167,6 +167,9 @@
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Tests\ConnectionTest.cs" />
+    <Compile Include="DAO\User.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\DataReaderExtensions.cs" />
     <Compile Include="DAO\DEVICE.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
@@ -198,9 +201,6 @@
     </Compile>
     <Compile Include="DAO\Models\User.cs" />
     <Compile Include="DAO\Tests\UserTest.cs" />
-    <Compile Include="DAO\USER.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Filters\BasicAuthorization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

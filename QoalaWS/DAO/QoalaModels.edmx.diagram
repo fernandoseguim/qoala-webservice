@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="Model.POST" Width="1.5" PointX="5.75" PointY="5" />
         <AssociationConnector Association="Model.COMMENTS_POST_FK" />
         <AssociationConnector Association="Model.DEVICE_GEO_LOCATION_DEVICE_FK" />
-        <EntityTypeShape EntityType="Model.USER" Width="1.5" PointX="0.75" PointY="2.375" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="0.75" PointY="2.375" />
         <AssociationConnector Association="Model.COMMENTS_USER_FK" />
         <AssociationConnector Association="Model.DEVICES_USER_FK" />
         <AssociationConnector Association="Model.POST_USER_FK" />

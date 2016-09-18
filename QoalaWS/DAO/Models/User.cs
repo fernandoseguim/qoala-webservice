@@ -10,7 +10,7 @@ using System.Web;
 
 namespace QoalaWS.DAO
 {
-    public partial class USER
+    public partial class User
     {
         override
         public String ToString()
@@ -28,12 +28,12 @@ namespace QoalaWS.DAO
             return true;
         }
 
-        public static USER findByEmail(QoalaEntities context, string email)
+        public static User findByEmail(QoalaEntities context, string email)
         {
             return context.USERS.FirstOrDefault(u => u.EMAIL == email && u.DELETED_AT == null);
         }
 
-        public static USER findById(QoalaEntities context, Decimal id_user)
+        public static User findById(QoalaEntities context, Decimal id_user)
         {
             return context.USERS.FirstOrDefault(u => u.ID_USER == id_user && !u.DELETED_AT.HasValue);
         }
@@ -82,7 +82,7 @@ namespace QoalaWS.DAO
         // this may should be on ACCESSCONTROL class
         public ACCESSCONTROL doLogin(QoalaEntities context)
         {
-            USER user = findByEmail(context, EMAIL);
+            User user = findByEmail(context, EMAIL);
             if(user!=null && user.PASSWORD.Equals(PASSWORD))
             {
                 context.ACCESSCONTROLs.Count();

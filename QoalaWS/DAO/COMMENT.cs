@@ -24,6 +24,6 @@ namespace QoalaWS.DAO
         public decimal ID_USER { get; set; }
     
         public virtual POST POST { get; set; }
-        public virtual USER USER { get; set; }
+        public virtual User USER { get; set; }
     }
 }

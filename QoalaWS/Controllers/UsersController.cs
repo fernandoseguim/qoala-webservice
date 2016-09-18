@@ -22,7 +22,7 @@ namespace QoalaWS.Controllers
         [BasicAuthorization]
         public IHttpActionResult Get(decimal id)
         {
-            USER user = USER.findById(db, id);
+            User user = DAO.User.findById(db, id);
             if (user == null)
             {
                 return NotFound();
@@ -45,7 +45,7 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Update(decimal id, JObject obj)
         {
 
-            USER user = USER.findById(db, id);
+            User user = DAO.User.findById(db, id);
 
             if (user == null)
                 return NotFound();
@@ -78,7 +78,7 @@ namespace QoalaWS.Controllers
         [BasicAuthorization]
         public IHttpActionResult Delete(decimal id)
         {
-            USER user = USER.findById(db, id);
+            User user = DAO.User.findById(db, id);
             if (user == null)
                 return NotFound();
 

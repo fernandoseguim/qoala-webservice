@@ -18,7 +18,7 @@ namespace QoalaWS.DAO
             {
                 //USER.findByEmail(qe, "email").Delete(qe);
                 //qe.SaveChanges();
-                USER u = new USER { NAME = "teste", EMAIL = "email", PASSWORD = "senhhaa" };
+                User u = new User { NAME = "teste", EMAIL = "email", PASSWORD = "senhhaa" };
                 u.Add(qe);
                 qe.SaveChanges();
                 //Assert.AreNotEqual(0m, u.ID_USER, "Usuario nao foi criado");
@@ -32,7 +32,7 @@ namespace QoalaWS.DAO
         {
             using (var qe = new QoalaEntities())
             {
-                USER u = USER.findByEmail(qe, "email");
+                User u = User.findByEmail(qe, "email");
                 if (u != null)
                 {
                     u.NAME = "Teste Atualizado";
@@ -48,7 +48,7 @@ namespace QoalaWS.DAO
         {
             using (var qe = new QoalaEntities())
             {
-                USER u = USER.findByEmail(qe, "email");
+                User u = User.findByEmail(qe, "email");
                 if (u != null)
                 {
                     u.Delete(qe);
@@ -74,10 +74,10 @@ namespace QoalaWS.DAO
             using (var qe = new QoalaEntities())
             {
                 var email = "abc@abc2";
-                USER u = new USER { NAME = "teste", EMAIL = email, PASSWORD = "senhhaa" };
+                User u = new User { NAME = "teste", EMAIL = email, PASSWORD = "senhhaa" };
                 u.Add(qe);
                 qe.SaveChanges();
-                Assert.IsTrue(USER.emailAlreadyExist(qe, email));
+                Assert.IsTrue(User.emailAlreadyExist(qe, email));
             }
         }
 
@@ -87,12 +87,12 @@ namespace QoalaWS.DAO
             using (var qe = new QoalaEntities())
             {
                 var email = "abcc@abcc";
-                USER u = new USER { NAME = "teste", EMAIL = email, PASSWORD = "senhhaa" };
+                User u = new User { NAME = "teste", EMAIL = email, PASSWORD = "senhhaa" };
                 u.Add(qe);
                 qe.SaveChanges();
                 u.DELETED_AT = DateTime.Now;
                 u.Update(qe);
-                Assert.IsFalse(USER.emailAlreadyExist(qe, email));
+                Assert.IsFalse(User.emailAlreadyExist(qe, email));
             }
         }
     }

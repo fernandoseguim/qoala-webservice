@@ -31,7 +31,7 @@ namespace QoalaWS.DAO
         public virtual DbSet<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
         public virtual DbSet<DEVICE> DEVICES { get; set; }
         public virtual DbSet<POST> POSTS { get; set; }
-        public virtual DbSet<USER> USERS { get; set; }
+        public virtual DbSet<User> USERS { get; set; }
         public virtual DbSet<ACCESSCONTROL> ACCESSCONTROLs { get; set; }
         public virtual DbSet<NET_ACCOUNTS> NET_ACCOUNTS { get; set; }
     
@@ -47,24 +47,24 @@ namespace QoalaWS.DAO
         public virtual int SP_UPDATE_USER(Nullable<decimal> iD, string nAME, string pASSWORD, string eMAIL, Nullable<decimal> pERMISSION, ObjectParameter rOWCOUNT)
         {
             var iDParameter = iD.HasValue ?
-                new ObjectParameter("PID", iD) :
-                new ObjectParameter("PID", typeof(decimal));
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(decimal));
     
             var nAMEParameter = nAME != null ?
-                new ObjectParameter("PNAME", nAME) :
-                new ObjectParameter("PNAME", typeof(string));
+                new ObjectParameter("NAME", nAME) :
+                new ObjectParameter("NAME", typeof(string));
     
             var pASSWORDParameter = pASSWORD != null ?
-                new ObjectParameter("PPASSWORD", pASSWORD) :
-                new ObjectParameter("PPASSWORD", typeof(string));
+                new ObjectParameter("PASSWORD", pASSWORD) :
+                new ObjectParameter("PASSWORD", typeof(string));
     
             var eMAILParameter = eMAIL != null ?
-                new ObjectParameter("PEMAIL", eMAIL) :
-                new ObjectParameter("PEMAIL", typeof(string));
+                new ObjectParameter("EMAIL", eMAIL) :
+                new ObjectParameter("EMAIL", typeof(string));
     
             var pERMISSIONParameter = pERMISSION.HasValue ?
-                new ObjectParameter("PPERMISSION", pERMISSION) :
-                new ObjectParameter("PPERMISSION", typeof(decimal));
+                new ObjectParameter("PERMISSION", pERMISSION) :
+                new ObjectParameter("PERMISSION", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", iDParameter, nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, rOWCOUNT);
         }

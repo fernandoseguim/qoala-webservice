@@ -250,7 +250,7 @@
             <End Role="DEVICE" EntitySet="DEVICES" />
             <End Role="DEVICE_GEO_LOCATIONS" EntitySet="DEVICE_GEO_LOCATIONS" />
           </AssociationSet>
-          <EntitySet Name="USERS" EntityType="Model.USER" />
+          <EntitySet Name="USERS" EntityType="Model.User" />
           <AssociationSet Name="COMMENTS_USER_FK" Association="Model.COMMENTS_USER_FK">
             <End Role="USER" EntitySet="USERS" />
             <End Role="COMMENT" EntitySet="COMMENTS" />
@@ -360,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="USER">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID_USER" />
           </Key>
@@ -378,7 +378,7 @@
           <NavigationProperty Name="ACCESSCONTROLs" Relationship="Model.ACCESSCONTROL_USERS_FK" FromRole="USER" ToRole="ACCESSCONTROL" />
         </EntityType>
         <Association Name="COMMENTS_USER_FK">
-          <End Type="Model.USER" Role="USER" Multiplicity="1" />
+          <End Type="Model.User" Role="USER" Multiplicity="1" />
           <End Type="Model.COMMENT" Role="COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
@@ -390,7 +390,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DEVICES_USER_FK">
-          <End Type="Model.USER" Role="USER" Multiplicity="1" />
+          <End Type="Model.User" Role="USER" Multiplicity="1" />
           <End Type="Model.DEVICE" Role="DEVICE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
@@ -402,7 +402,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="POST_USER_FK">
-          <End Type="Model.USER" Role="USER" Multiplicity="1" />
+          <End Type="Model.User" Role="USER" Multiplicity="1" />
           <End Type="Model.POST" Role="POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
@@ -425,7 +425,7 @@
           <NavigationProperty Name="USER" Relationship="Model.ACCESSCONTROL_USERS_FK" FromRole="ACCESSCONTROL" ToRole="USER" />
         </EntityType>
         <Association Name="ACCESSCONTROL_USERS_FK">
-          <End Type="Model.USER" Role="USER" Multiplicity="1" />
+          <End Type="Model.User" Role="USER" Multiplicity="1" />
           <End Type="Model.ACCESSCONTROL" Role="ACCESSCONTROL" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
@@ -511,7 +511,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USERS">
-            <EntityTypeMapping TypeName="Model.USER">
+            <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="USERS">
                 <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
                 <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />

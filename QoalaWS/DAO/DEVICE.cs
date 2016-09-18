@@ -34,6 +34,6 @@ namespace QoalaWS.DAO
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
-        public virtual USER USER { get; set; }
+        public virtual User USER { get; set; }
     }
 }
