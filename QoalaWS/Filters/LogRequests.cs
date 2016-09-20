@@ -15,7 +15,7 @@ namespace QoalaWS.Filters
                 StatusCode = actionExecutedContext.Response.StatusCode,
                 ReasonPhrase = actionExecutedContext.Response.ReasonPhrase,
                 IsSuccessStatusCode = actionExecutedContext.Response.IsSuccessStatusCode,
-                actionContext = actionExecutedContext
+                Response = actionExecutedContext.Response
             });
         }
 
@@ -23,10 +23,9 @@ namespace QoalaWS.Filters
         {
             this.Logger().Debug(new
             {
-                StatusCode = actionContext.Response.StatusCode,
-                ReasonPhrase = actionContext.Response.ReasonPhrase,
-                IsSuccessStatusCode = actionContext.Response.IsSuccessStatusCode,
-                actionContext = actionContext
+                Method = actionContext.Request.Method,
+                RequestUri = actionContext.Request.RequestUri,
+                Headers = actionContext.Request.Headers
             });
         }
     }
