@@ -54,15 +54,6 @@
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
-        <EntityType Name="NET_ACCOUNTS">
-          <Key>
-            <PropertyRef Name="ACCESS_TOKEN_ID" />
-          </Key>
-          <Property Name="ACCESS_TOKEN_ID" Type="varchar2" MaxLength="255" Nullable="false" />
-          <Property Name="USER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="IDENTIFIER" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="PROVIDER" Type="varchar2" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="POSTS">
           <Key>
             <PropertyRef Name="ID_POST" />
@@ -161,9 +152,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_DELETE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="ID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
         <Function Name="SP_DELETE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="TITLE" Type="varchar2" Mode="In" />
+          <Parameter Name="CONTENT" Type="clob" Mode="In" />
+          <Parameter Name="ID_USER" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_POST" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_INSERT_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="NAME" Type="varchar2" Mode="In" />
@@ -172,13 +173,28 @@
           <Parameter Name="PERMISSION" Type="number" Mode="In" />
           <Parameter Name="OUT_ID_USER" Type="number" Mode="InOut" />
         </Function>
-        <Function Name="SP_UPDATE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+        <Function Name="SP_POST_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="LOG" Type="clob" Mode="In" />
+          <Parameter Name="POST_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_PUBLISH_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
-          <Parameter Name="NAME" Type="varchar2" Mode="In" />
-          <Parameter Name="PASSWORD" Type="varchar2" Mode="In" />
-          <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
-          <Parameter Name="PERMISSION" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PTITLE" Type="varchar2" Mode="In" />
+          <Parameter Name="PCONTENT" Type="clob" Mode="In" />
+          <Parameter Name="PID_USER" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PNAME" Type="varchar2" Mode="In" />
+          <Parameter Name="PPASSWORD" Type="varchar2" Mode="In" />
+          <Parameter Name="PEMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="PPERMISSION" Type="number" Mode="In" />
+          <Parameter Name="PROWCOUNT" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_USER_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="LOG" Type="clob" Mode="In" />
@@ -189,7 +205,6 @@
           <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="NET_ACCOUNTS" EntityType="Self.NET_ACCOUNTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
@@ -227,12 +242,12 @@
             <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_UPDATE_USER">
-            <Parameter Name="ID" Mode="In" Type="Decimal" />
-            <Parameter Name="NAME" Mode="In" Type="String" />
-            <Parameter Name="PASSWORD" Mode="In" Type="String" />
-            <Parameter Name="EMAIL" Mode="In" Type="String" />
-            <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
-            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PNAME" Mode="In" Type="String" />
+            <Parameter Name="PPASSWORD" Mode="In" Type="String" />
+            <Parameter Name="PEMAIL" Mode="In" Type="String" />
+            <Parameter Name="PPERMISSION" Mode="In" Type="Decimal" />
+            <Parameter Name="PROWCOUNT" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_USER_LOG">
             <Parameter Name="LOG" Mode="In" Type="String" />
@@ -241,7 +256,7 @@
           <EntitySet Name="COMMENTS" EntityType="Model.COMMENT" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Model.DEVICE_GEO_LOCATIONS" />
           <EntitySet Name="DEVICES" EntityType="Model.DEVICE" />
-          <EntitySet Name="POSTS" EntityType="Model.POST" />
+          <EntitySet Name="POSTS" EntityType="Model.Post" />
           <AssociationSet Name="COMMENTS_POST_FK" Association="Model.COMMENTS_POST_FK">
             <End Role="POST" EntitySet="POSTS" />
             <End Role="COMMENT" EntitySet="COMMENTS" />
@@ -275,7 +290,31 @@
             <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
             <Parameter Name="OUT_ID_USER" Mode="InOut" Type="Decimal" />
           </FunctionImport>
-          <EntitySet Name="NET_ACCOUNTS" EntityType="Model.NET_ACCOUNTS" />
+          <FunctionImport Name="SP_DELETE_POST">
+            <Parameter Name="ID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_POST">
+            <Parameter Name="TITLE" Mode="In" Type="String" />
+            <Parameter Name="CONTENT" Mode="In" Type="String" />
+            <Parameter Name="ID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_POST" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_POST_LOG">
+            <Parameter Name="LOG" Mode="In" Type="String" />
+            <Parameter Name="POST_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PUBLISH_POST">
+            <Parameter Name="ID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UPDATE_POST">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PTITLE" Mode="In" Type="String" />
+            <Parameter Name="PCONTENT" Mode="In" Type="String" />
+            <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="COMMENT">
           <Key>
@@ -321,7 +360,7 @@
           <NavigationProperty Name="DEVICE_GEO_LOCATIONS" Relationship="Model.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICE" ToRole="DEVICE_GEO_LOCATIONS" />
           <NavigationProperty Name="USER" Relationship="Model.DEVICES_USER_FK" FromRole="DEVICE" ToRole="USER" />
         </EntityType>
-        <EntityType Name="POST">
+        <EntityType Name="Post">
           <Key>
             <PropertyRef Name="ID_POST" />
           </Key>
@@ -337,7 +376,7 @@
           <NavigationProperty Name="USER" Relationship="Model.POST_USER_FK" FromRole="POST" ToRole="USER" />
         </EntityType>
         <Association Name="COMMENTS_POST_FK">
-          <End Type="Model.POST" Role="POST" Multiplicity="1" />
+          <End Type="Model.Post" Role="POST" Multiplicity="1" />
           <End Type="Model.COMMENT" Role="COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POST">
@@ -403,7 +442,7 @@
         </Association>
         <Association Name="POST_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
-          <End Type="Model.POST" Role="POST" Multiplicity="*" />
+          <End Type="Model.Post" Role="POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
               <PropertyRef Name="ID_USER" />
@@ -436,15 +475,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="NET_ACCOUNTS">
-          <Key>
-            <PropertyRef Name="ACCESS_TOKEN_ID" />
-          </Key>
-          <Property Name="ACCESS_TOKEN_ID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="USER_ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="IDENTIFIER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PROVIDER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -497,7 +527,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="POSTS">
-            <EntityTypeMapping TypeName="Model.POST">
+            <EntityTypeMapping TypeName="Model.Post">
               <MappingFragment StoreEntitySet="POSTS">
                 <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
                 <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
@@ -536,16 +566,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_INSERT_USER" FunctionName="Model.Store.SP_INSERT_USER" />
-          <EntitySetMapping Name="NET_ACCOUNTS">
-            <EntityTypeMapping TypeName="Model.NET_ACCOUNTS">
-              <MappingFragment StoreEntitySet="NET_ACCOUNTS">
-                <ScalarProperty Name="PROVIDER" ColumnName="PROVIDER" />
-                <ScalarProperty Name="IDENTIFIER" ColumnName="IDENTIFIER" />
-                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-                <ScalarProperty Name="ACCESS_TOKEN_ID" ColumnName="ACCESS_TOKEN_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_DELETE_POST" FunctionName="Model.Store.SP_DELETE_POST" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_POST" FunctionName="Model.Store.SP_INSERT_POST" />
+          <FunctionImportMapping FunctionImportName="SP_POST_LOG" FunctionName="Model.Store.SP_POST_LOG" />
+          <FunctionImportMapping FunctionImportName="SP_PUBLISH_POST" FunctionName="Model.Store.SP_PUBLISH_POST" />
+          <FunctionImportMapping FunctionImportName="SP_UPDATE_POST" FunctionName="Model.Store.SP_UPDATE_POST" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

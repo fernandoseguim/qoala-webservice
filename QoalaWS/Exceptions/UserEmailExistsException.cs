@@ -6,7 +6,7 @@ using System.Web;
 
 namespace QoalaWS.Exceptions
 {
-    public class UserEmailExistsException : Exception, ISerializable 
+    public class UserEmailExistsException : Exception, ISerializable
     {
     }
 }

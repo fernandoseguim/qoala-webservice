@@ -23,7 +23,7 @@ namespace QoalaWS.DAO
         public decimal ID_POST { get; set; }
         public decimal ID_USER { get; set; }
     
-        public virtual POST POST { get; set; }
+        public virtual Post POST { get; set; }
         public virtual User USER { get; set; }
     }
 }

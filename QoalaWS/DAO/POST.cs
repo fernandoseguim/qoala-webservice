@@ -12,10 +12,10 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class POST
+    public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public POST()
+        public Post()
         {
             this.COMMENTS = new HashSet<COMMENT>();
         }
