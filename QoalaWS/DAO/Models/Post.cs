@@ -27,9 +27,8 @@ namespace QoalaWS.DAO
 
         public decimal? Update(QoalaEntities context)
         {
-            var outParameter = new ObjectParameter("PROWCOUNT", typeof(decimal));
+            var outParameter = new ObjectParameter("ROWCOUNT", typeof(decimal));
             context.SP_UPDATE_POST(ID_POST, TITLE, CONTENT, ID_USER, outParameter);
-            context.Entry(this).State = EntityState.Unchanged;
             return 1;
         }
 

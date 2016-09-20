@@ -19,7 +19,14 @@ namespace QoalaWS.Controllers
                 return NotFound();
             }
 
-            return Ok(post);
+            return Ok(
+                new
+                {
+                    title = post.TITLE,
+                    content = post.CONTENT,
+                    published_at = post.PUBLISHED_AT
+                }
+            );
         }
 
 
