@@ -158,6 +158,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="DAO\Models\Post.cs" />
+    <Compile Include="DAO\Post.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\CreateRecordException.cs" />
+    <Compile Include="Exceptions\UserEmailExistsException.cs" />
+    <Compile Include="Exceptions\UserNotFoudException.cs" />
     <Compile Include="Filters\LogRequests.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
@@ -181,12 +189,6 @@
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Tests\AccessControlTest.cs" />
-    <Compile Include="DAO\NET_ACCOUNTS.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\POST.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAO\QoalaModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

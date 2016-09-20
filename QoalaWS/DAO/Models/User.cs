@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
+using QoalaWS.Exceptions;
 
 namespace QoalaWS.DAO
 {
@@ -20,14 +16,7 @@ namespace QoalaWS.DAO
                 "EMAIL: " + EMAIL + ", " +
                 "PERMISSION: " + PERMISSION + ".";
         }
-
-        public bool resetPassword()
-        {
-            // TODO: reset password
-            // TODO: Send mail to user e-mail to create a new password
-            return true;
-        }
-
+        
         public static User findByEmail(QoalaEntities context, string email)
         {
             return context.USERS.FirstOrDefault(u => u.EMAIL == email && u.DELETED_AT == null);
@@ -96,15 +85,6 @@ namespace QoalaWS.DAO
         {
             AccessControl ac = new AccessControl { USER = this };
             return ac.Add(context);
-        }
-
-        public class UserNotFoudException : Exception, ISerializable
-        {
-
-        }
-        public class UserEmailExistsException : Exception, ISerializable
-        {
-
         }
     }
 }

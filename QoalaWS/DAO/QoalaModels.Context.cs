@@ -30,10 +30,9 @@ namespace QoalaWS.DAO
         public virtual DbSet<COMMENT> COMMENTS { get; set; }
         public virtual DbSet<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
         public virtual DbSet<DEVICE> DEVICES { get; set; }
-        public virtual DbSet<POST> POSTS { get; set; }
+        public virtual DbSet<Post> POSTS { get; set; }
         public virtual DbSet<User> USERS { get; set; }
         public virtual DbSet<AccessControl> ACCESSCONTROLs { get; set; }
-        public virtual DbSet<NET_ACCOUNTS> NET_ACCOUNTS { get; set; }
     
         public virtual int SP_DELETE_USER(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
         {
@@ -44,29 +43,29 @@ namespace QoalaWS.DAO
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DELETE_USER", iDParameter, rOWCOUNT);
         }
     
-        public virtual int SP_UPDATE_USER(Nullable<decimal> iD, string nAME, string pASSWORD, string eMAIL, Nullable<decimal> pERMISSION, ObjectParameter rOWCOUNT)
+        public virtual int SP_UPDATE_USER(Nullable<decimal> pID, string pNAME, string pPASSWORD, string pEMAIL, Nullable<decimal> pPERMISSION, ObjectParameter pROWCOUNT)
         {
-            var iDParameter = iD.HasValue ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(decimal));
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
     
-            var nAMEParameter = nAME != null ?
-                new ObjectParameter("NAME", nAME) :
-                new ObjectParameter("NAME", typeof(string));
+            var pNAMEParameter = pNAME != null ?
+                new ObjectParameter("PNAME", pNAME) :
+                new ObjectParameter("PNAME", typeof(string));
     
-            var pASSWORDParameter = pASSWORD != null ?
-                new ObjectParameter("PASSWORD", pASSWORD) :
-                new ObjectParameter("PASSWORD", typeof(string));
+            var pPASSWORDParameter = pPASSWORD != null ?
+                new ObjectParameter("PPASSWORD", pPASSWORD) :
+                new ObjectParameter("PPASSWORD", typeof(string));
     
-            var eMAILParameter = eMAIL != null ?
-                new ObjectParameter("EMAIL", eMAIL) :
-                new ObjectParameter("EMAIL", typeof(string));
+            var pEMAILParameter = pEMAIL != null ?
+                new ObjectParameter("PEMAIL", pEMAIL) :
+                new ObjectParameter("PEMAIL", typeof(string));
     
-            var pERMISSIONParameter = pERMISSION.HasValue ?
-                new ObjectParameter("PERMISSION", pERMISSION) :
-                new ObjectParameter("PERMISSION", typeof(decimal));
+            var pPERMISSIONParameter = pPERMISSION.HasValue ?
+                new ObjectParameter("PPERMISSION", pPERMISSION) :
+                new ObjectParameter("PPERMISSION", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", iDParameter, nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, rOWCOUNT);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", pIDParameter, pNAMEParameter, pPASSWORDParameter, pEMAILParameter, pPERMISSIONParameter, pROWCOUNT);
         }
     
         public virtual int SP_USER_LOG(string lOG, Nullable<decimal> uSER_ID)
@@ -101,6 +100,75 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PERMISSION", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_USER", nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, oUT_ID_USER);
+        }
+    
+        public virtual int SP_DELETE_POST(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DELETE_POST", iDParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_INSERT_POST(string tITLE, string cONTENT, Nullable<decimal> iD_USER, ObjectParameter oUT_ID_POST)
+        {
+            var tITLEParameter = tITLE != null ?
+                new ObjectParameter("TITLE", tITLE) :
+                new ObjectParameter("TITLE", typeof(string));
+    
+            var cONTENTParameter = cONTENT != null ?
+                new ObjectParameter("CONTENT", cONTENT) :
+                new ObjectParameter("CONTENT", typeof(string));
+    
+            var iD_USERParameter = iD_USER.HasValue ?
+                new ObjectParameter("ID_USER", iD_USER) :
+                new ObjectParameter("ID_USER", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_POST", tITLEParameter, cONTENTParameter, iD_USERParameter, oUT_ID_POST);
+        }
+    
+        public virtual int SP_POST_LOG(string lOG, Nullable<decimal> pOST_ID)
+        {
+            var lOGParameter = lOG != null ?
+                new ObjectParameter("LOG", lOG) :
+                new ObjectParameter("LOG", typeof(string));
+    
+            var pOST_IDParameter = pOST_ID.HasValue ?
+                new ObjectParameter("POST_ID", pOST_ID) :
+                new ObjectParameter("POST_ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_POST_LOG", lOGParameter, pOST_IDParameter);
+        }
+    
+        public virtual int SP_PUBLISH_POST(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_PUBLISH_POST", iDParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_UPDATE_POST(Nullable<decimal> pID, string pTITLE, string pCONTENT, Nullable<decimal> pID_USER, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            var pTITLEParameter = pTITLE != null ?
+                new ObjectParameter("PTITLE", pTITLE) :
+                new ObjectParameter("PTITLE", typeof(string));
+    
+            var pCONTENTParameter = pCONTENT != null ?
+                new ObjectParameter("PCONTENT", pCONTENT) :
+                new ObjectParameter("PCONTENT", typeof(string));
+    
+            var pID_USERParameter = pID_USER.HasValue ?
+                new ObjectParameter("PID_USER", pID_USER) :
+                new ObjectParameter("PID_USER", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_POST", pIDParameter, pTITLEParameter, pCONTENTParameter, pID_USERParameter, rOWCOUNT);
         }
     }
 }
