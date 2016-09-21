@@ -12,7 +12,7 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class COMMENT
+    public partial class Comment
     {
         public decimal ID_COMMENT { get; set; }
         public string CONTENT { get; set; }

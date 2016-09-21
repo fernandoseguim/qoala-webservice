@@ -158,7 +158,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="DAO\Comment.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Models\Comment.cs" />
     <Compile Include="DAO\Models\Post.cs" />
     <Compile Include="DAO\Post.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
@@ -172,9 +177,6 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAO\AccessControl.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\COMMENT.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Tests\ConnectionTest.cs" />

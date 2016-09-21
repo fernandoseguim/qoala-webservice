@@ -27,7 +27,7 @@ namespace QoalaWS.DAO
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<COMMENT> COMMENTS { get; set; }
+        public virtual DbSet<Comment> COMMENTS { get; set; }
         public virtual DbSet<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
         public virtual DbSet<DEVICE> DEVICES { get; set; }
         public virtual DbSet<Post> POSTS { get; set; }
@@ -169,6 +169,75 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PID_USER", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_POST", pIDParameter, pTITLEParameter, pCONTENTParameter, pID_USERParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_APPROVE_COMMENT(Nullable<decimal> pID, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_APPROVE_COMMENT", pIDParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_COMMENT_LOG(string pLOG, Nullable<decimal> pCOMMENT_ID)
+        {
+            var pLOGParameter = pLOG != null ?
+                new ObjectParameter("PLOG", pLOG) :
+                new ObjectParameter("PLOG", typeof(string));
+    
+            var pCOMMENT_IDParameter = pCOMMENT_ID.HasValue ?
+                new ObjectParameter("PCOMMENT_ID", pCOMMENT_ID) :
+                new ObjectParameter("PCOMMENT_ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_COMMENT_LOG", pLOGParameter, pCOMMENT_IDParameter);
+        }
+    
+        public virtual int SP_DELETE_COMMENT(Nullable<decimal> pID, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DELETE_COMMENT", pIDParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_INSERT_COMMENT(string pCONTENT, Nullable<decimal> pID_USER, Nullable<decimal> pID_POST, ObjectParameter oUT_ID_COMMENT)
+        {
+            var pCONTENTParameter = pCONTENT != null ?
+                new ObjectParameter("PCONTENT", pCONTENT) :
+                new ObjectParameter("PCONTENT", typeof(string));
+    
+            var pID_USERParameter = pID_USER.HasValue ?
+                new ObjectParameter("PID_USER", pID_USER) :
+                new ObjectParameter("PID_USER", typeof(decimal));
+    
+            var pID_POSTParameter = pID_POST.HasValue ?
+                new ObjectParameter("PID_POST", pID_POST) :
+                new ObjectParameter("PID_POST", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_COMMENT", pCONTENTParameter, pID_USERParameter, pID_POSTParameter, oUT_ID_COMMENT);
+        }
+    
+        public virtual int SP_UPDATE_COMMENT(Nullable<decimal> pID, string pCONTENT, Nullable<decimal> pID_USER, Nullable<decimal> pID_POST, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            var pCONTENTParameter = pCONTENT != null ?
+                new ObjectParameter("PCONTENT", pCONTENT) :
+                new ObjectParameter("PCONTENT", typeof(string));
+    
+            var pID_USERParameter = pID_USER.HasValue ?
+                new ObjectParameter("PID_USER", pID_USER) :
+                new ObjectParameter("PID_USER", typeof(decimal));
+    
+            var pID_POSTParameter = pID_POST.HasValue ?
+                new ObjectParameter("PID_POST", pID_POST) :
+                new ObjectParameter("PID_POST", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_COMMENT", pIDParameter, pCONTENTParameter, pID_USERParameter, pID_POSTParameter, rOWCOUNT);
         }
     }
 }

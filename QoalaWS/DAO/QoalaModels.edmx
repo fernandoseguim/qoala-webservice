@@ -152,6 +152,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_APPROVE_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_COMMENT_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PLOG" Type="clob" Mode="In" />
+          <Parameter Name="PCOMMENT_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_DELETE_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
         <Function Name="SP_DELETE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
@@ -159,6 +171,12 @@
         <Function Name="SP_DELETE_USER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PCONTENT" Type="clob" Mode="In" />
+          <Parameter Name="PID_USER" Type="number" Mode="In" />
+          <Parameter Name="PID_POST" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_COMMENT" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_INSERT_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="TITLE" Type="varchar2" Mode="In" />
@@ -179,6 +197,13 @@
         </Function>
         <Function Name="SP_PUBLISH_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PCONTENT" Type="clob" Mode="In" />
+          <Parameter Name="PID_USER" Type="number" Mode="In" />
+          <Parameter Name="PID_POST" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_UPDATE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
@@ -253,7 +278,7 @@
             <Parameter Name="LOG" Mode="In" Type="String" />
             <Parameter Name="USER_ID" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <EntitySet Name="COMMENTS" EntityType="Model.COMMENT" />
+          <EntitySet Name="COMMENTS" EntityType="Model.Comment" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Model.DEVICE_GEO_LOCATIONS" />
           <EntitySet Name="DEVICES" EntityType="Model.DEVICE" />
           <EntitySet Name="POSTS" EntityType="Model.Post" />
@@ -315,8 +340,33 @@
             <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
             <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="SP_APPROVE_COMMENT">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_COMMENT_LOG">
+            <Parameter Name="PLOG" Mode="In" Type="String" />
+            <Parameter Name="PCOMMENT_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DELETE_COMMENT">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_COMMENT">
+            <Parameter Name="PCONTENT" Mode="In" Type="String" />
+            <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="PID_POST" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_COMMENT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UPDATE_COMMENT">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PCONTENT" Mode="In" Type="String" />
+            <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="PID_POST" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="COMMENT">
+        <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="ID_COMMENT" />
           </Key>
@@ -377,7 +427,7 @@
         </EntityType>
         <Association Name="COMMENTS_POST_FK">
           <End Type="Model.Post" Role="POST" Multiplicity="1" />
-          <End Type="Model.COMMENT" Role="COMMENT" Multiplicity="*" />
+          <End Type="Model.Comment" Role="COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POST">
               <PropertyRef Name="ID_POST" />
@@ -418,7 +468,7 @@
         </EntityType>
         <Association Name="COMMENTS_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
-          <End Type="Model.COMMENT" Role="COMMENT" Multiplicity="*" />
+          <End Type="Model.Comment" Role="COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
               <PropertyRef Name="ID_USER" />
@@ -485,7 +535,7 @@
           <FunctionImportMapping FunctionImportName="SP_UPDATE_USER" FunctionName="Model.Store.SP_UPDATE_USER" />
           <FunctionImportMapping FunctionImportName="SP_USER_LOG" FunctionName="Model.Store.SP_USER_LOG" />
           <EntitySetMapping Name="COMMENTS">
-            <EntityTypeMapping TypeName="Model.COMMENT">
+            <EntityTypeMapping TypeName="Model.Comment">
               <MappingFragment StoreEntitySet="COMMENTS">
                 <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
                 <ScalarProperty Name="ID_POST" ColumnName="ID_POST" />
@@ -571,6 +621,11 @@
           <FunctionImportMapping FunctionImportName="SP_POST_LOG" FunctionName="Model.Store.SP_POST_LOG" />
           <FunctionImportMapping FunctionImportName="SP_PUBLISH_POST" FunctionName="Model.Store.SP_PUBLISH_POST" />
           <FunctionImportMapping FunctionImportName="SP_UPDATE_POST" FunctionName="Model.Store.SP_UPDATE_POST" />
+          <FunctionImportMapping FunctionImportName="SP_APPROVE_COMMENT" FunctionName="Model.Store.SP_APPROVE_COMMENT" />
+          <FunctionImportMapping FunctionImportName="SP_COMMENT_LOG" FunctionName="Model.Store.SP_COMMENT_LOG" />
+          <FunctionImportMapping FunctionImportName="SP_DELETE_COMMENT" FunctionName="Model.Store.SP_DELETE_COMMENT" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_COMMENT" FunctionName="Model.Store.SP_INSERT_COMMENT" />
+          <FunctionImportMapping FunctionImportName="SP_UPDATE_COMMENT" FunctionName="Model.Store.SP_UPDATE_COMMENT" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -17,7 +17,7 @@ namespace QoalaWS.DAO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
         {
-            this.COMMENTS = new HashSet<COMMENT>();
+            this.COMMENTS = new HashSet<Comment>();
         }
     
         public decimal ID_POST { get; set; }
@@ -30,7 +30,7 @@ namespace QoalaWS.DAO
         public decimal ID_USER { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMMENT> COMMENTS { get; set; }
+        public virtual ICollection<Comment> COMMENTS { get; set; }
         public virtual User USER { get; set; }
     }
 }
