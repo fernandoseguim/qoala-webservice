@@ -17,7 +17,9 @@ namespace QoalaWS.Controllers
 
             return Ok(new
             {
-                version = ass.GetName().Version
+                Version = ass.GetName().Version,
+                LastWriteTime = System.IO.File.GetLastWriteTime(ass.Location),
+                ExportedTypes = ass.ExportedTypes.Select(a=> a.FullName ),
             });
         }
     }
