@@ -14,6 +14,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [HttpPost]
+        [ValidateModel]
         public IHttpActionResult Register(User user)
         {
             try
@@ -36,6 +37,7 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public IHttpActionResult Login(User user)
         {
             AccessControl ac = user.doLogin(db);
@@ -48,6 +50,7 @@ namespace QoalaWS.Controllers
         //needs to check if the token on the body is the same on the headers
         [HttpPost]
         [BasicAuthorization]
+        [ValidateModel]
         public IHttpActionResult Logout(AccessControl control)
         {
             AccessControl ac = DAO.AccessControl.find(db, control.TOKEN);

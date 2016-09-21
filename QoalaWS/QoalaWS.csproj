@@ -209,6 +209,7 @@
     <Compile Include="DAO\Models\User.cs" />
     <Compile Include="DAO\Tests\UserTest.cs" />
     <Compile Include="Filters\BasicAuthorization.cs" />
+    <Compile Include="Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

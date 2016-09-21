@@ -33,6 +33,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id}")]
         [HttpPut]
         [BasicAuthorization]
+        [ValidateModel]
         public IHttpActionResult Put(decimal id, Post post)
         {
             if (!ModelState.IsValid)
@@ -51,7 +52,7 @@ namespace QoalaWS.Controllers
                 post.TITLE = p.TITLE;
             if (post.CONTENT == null)
                 post.CONTENT = p.CONTENT;
-            if (post.ID_USER.GetType() != null)
+            if (post.ID_USER == 0)
                 post.ID_USER = p.ID_USER;
 
             post.Update(db);
@@ -61,6 +62,7 @@ namespace QoalaWS.Controllers
 
         [HttpPost]
         [BasicAuthorization]
+        [ValidateModel]
         [Route("posts/")]
         public IHttpActionResult Post(Post post)
         {
