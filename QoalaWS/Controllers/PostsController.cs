@@ -18,7 +18,7 @@ namespace QoalaWS.Controllers
             {
                 return NotFound();
             }
-
+            
             return Ok(
                 new
                 {
@@ -72,10 +72,10 @@ namespace QoalaWS.Controllers
             post.Add(db);
 
             return Created("", new {
-                TITLE = post.TITLE,
-                CONTENT = post.CONTENT,
-                ID_USER = post.ID_USER,
-                CREATED_aT = post.CREATED_AT
+                title = post.TITLE,
+                content = post.CONTENT,
+                id_user = post.ID_USER,
+                created_at = post.CREATED_AT
             });
         }
 

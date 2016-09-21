@@ -31,10 +31,10 @@ namespace QoalaWS.Controllers
             return Ok(
                 new
                 {
-                    EMAIL = user.EMAIL,
-                    NAME = user.NAME,
-                    PERMISSION = user.PERMISSION,
-                    CREATED_AT = user.CREATED_AT
+                    email = user.EMAIL,
+                    name = user.NAME,
+                    permission = user.PERMISSION,
+                    created_at = user.CREATED_AT
                 }
             );
         }

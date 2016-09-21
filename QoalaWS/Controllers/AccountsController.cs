@@ -26,12 +26,12 @@ namespace QoalaWS.Controllers
                 
                 
                 return Created("", new {
-                    Token = user.createAccessControl(db).TOKEN
+                    token = user.createAccessControl(db).TOKEN
                 });
             }
             catch (Exception e)
             {
-                return BadRequest(e.ToString());
+                return BadRequest(e.Message);
             }
         }
 
