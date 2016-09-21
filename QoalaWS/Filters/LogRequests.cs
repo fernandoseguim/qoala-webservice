@@ -10,13 +10,26 @@ namespace QoalaWS.Filters
     {
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            this.Logger().Debug(new
+            if (actionExecutedContext.Response != null)
             {
-                StatusCode = actionExecutedContext.Response.StatusCode,
-                ReasonPhrase = actionExecutedContext.Response.ReasonPhrase,
-                IsSuccessStatusCode = actionExecutedContext.Response.IsSuccessStatusCode,
-                Response = actionExecutedContext.Response
-            });
+                this.Logger().Debug(new
+                {
+                    StatusCode = actionExecutedContext.Response.StatusCode,
+                    ReasonPhrase = actionExecutedContext.Response.ReasonPhrase,
+                    IsSuccessStatusCode = actionExecutedContext.Response.IsSuccessStatusCode,
+                    Response = actionExecutedContext.Response,
+                });
+            }
+
+            if (actionExecutedContext.Exception != null)
+            {
+                this.Logger().Error(new
+                {
+                    URI = actionExecutedContext.Request.RequestUri,
+                    Exception = actionExecutedContext.Exception,
+                    ExceptionData = actionExecutedContext.Exception.Data,
+                });
+            }
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
