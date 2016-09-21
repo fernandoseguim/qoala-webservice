@@ -24,11 +24,9 @@ namespace QoalaWS.Controllers
                     return BadRequest(ModelState);
                 }
                 user.Add(db);
-                
-                
-                return Created("", new {
-                    token = user.createAccessControl(db).TOKEN
-                });
+
+
+                return Created("", new { token = user.createAccessControl(db).TOKEN });
             }
             catch (Exception e)
             {

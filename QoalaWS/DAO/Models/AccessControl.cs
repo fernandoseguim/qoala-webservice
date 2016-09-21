@@ -10,7 +10,7 @@ namespace QoalaWS.DAO
 {
     public partial class AccessControl
     {
-        
+
         public static AccessControl find(QoalaEntities context, String token)
         {
             var now = DateTime.Now;
@@ -31,7 +31,7 @@ namespace QoalaWS.DAO
 
         public bool Delete(QoalaEntities context)
         {
-            this.Logger().Debug("delete ACCESSCONTROL("+TOKEN+") for user: " + this.USER.ToString());
+            this.Logger().Debug("delete ACCESSCONTROL(" + TOKEN + ") for user: " + this.USER.ToString());
             // Do not remove this entity, just update with expired now
             //context.ACCESSCONTROLs.Remove(this);
             this.EXPIRED_AT = DateTime.Now;

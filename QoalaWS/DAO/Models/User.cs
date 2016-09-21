@@ -16,7 +16,7 @@ namespace QoalaWS.DAO
                 "EMAIL: " + EMAIL + ", " +
                 "PERMISSION: " + PERMISSION + ".";
         }
-        
+
         public static User findByEmail(QoalaEntities context, string email)
         {
             return context.USERS.FirstOrDefault(u => u.EMAIL == email && u.DELETED_AT == null);
@@ -42,12 +42,12 @@ namespace QoalaWS.DAO
 
         public decimal? Add(QoalaEntities context)
         {
-            
+
             if (emailAlreadyExist(context, EMAIL))
                 throw new UserEmailExistsException();
 
             var outParameter = new ObjectParameter("OUT_ID_USER", typeof(decimal));
-            if(!(PERMISSION>0&& PERMISSION <= 3))
+            if (!(PERMISSION > 0 && PERMISSION <= 3))
             {
                 PERMISSION = 1;
             }
@@ -67,16 +67,28 @@ namespace QoalaWS.DAO
             context.Entry(this).State = EntityState.Unchanged;
             return 1;
         }
-        
+
         // this may should be on ACCESSCONTROL class
         public AccessControl doLogin(QoalaEntities context)
         {
             User user = findByEmail(context, EMAIL);
-            if(user!=null && user.PASSWORD.Equals(PASSWORD))
+            if (user != null && user.PASSWORD.Equals(PASSWORD))
             {
-                context.ACCESSCONTROLs.Count();
-                AccessControl ca = new AccessControl { USER = user };
-                return ca.Add(context);
+                AccessControl access=null;
+                //ja teve sessões, busca uma ativa
+                if (user.ACCESSCONTROLs.Count() > 0)
+                {
+                    // melhoria: Adicionar Client ID. e cada tipo de aplicação deverá passar um ClientID para o login, e filtrar aqui.
+                    access = user.ACCESSCONTROLs.FirstOrDefault(ac => ac.EXPIRED_AT >= DateTime.Now);
+
+                }
+
+                if(access==null)
+                {
+                    access = new AccessControl { USER = user };
+                    access.Add(context);
+                }
+                return access;
             }
             return null;
         }
