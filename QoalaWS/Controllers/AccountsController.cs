@@ -19,12 +19,7 @@ namespace QoalaWS.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 user.Add(db);
-
 
                 return Created("", new { token = user.createAccessControl(db).TOKEN });
             }

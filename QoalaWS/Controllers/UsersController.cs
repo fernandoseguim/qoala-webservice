@@ -19,7 +19,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
-        [BasicAuthorization(Permission = Permission.Public)]
+        [BasicAuthorization]
         public IHttpActionResult Get(decimal id)
         {
             User user = DAO.User.findById(db, id);

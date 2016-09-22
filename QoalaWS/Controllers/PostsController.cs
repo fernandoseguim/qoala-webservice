@@ -32,9 +32,9 @@ namespace QoalaWS.Controllers
 
         [Route("posts/{id}")]
         [HttpPut]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Editor]
         [ValidateModel]
-        public IHttpActionResult Put(decimal id, Post post)
+        public IHttpActionResult Update(decimal id, Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -61,10 +61,10 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Editor)]
         [ValidateModel]
         [Route("posts/")]
-        public IHttpActionResult Post(Post post)
+        public IHttpActionResult Create(Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace QoalaWS.Controllers
         }
 
         [HttpDelete]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Editor)]
         [Route("posts/{id}")]
         public IHttpActionResult Delete(decimal id)
         {
@@ -96,7 +96,7 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPut]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Editor)]
         [Route("posts/{id}/publish")]
         public IHttpActionResult Publish(decimal id)
         {
