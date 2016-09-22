@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\DeviceGeoLocationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="DAO\Comment.cs">
@@ -172,6 +173,7 @@
     </Compile>
     <Compile Include="DAO\Models\Comment.cs" />
     <Compile Include="DAO\Models\Device.cs" />
+    <Compile Include="DAO\Models\DeviceGeoLocation.cs" />
     <Compile Include="DAO\Models\Post.cs" />
     <Compile Include="DAO\Post.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>

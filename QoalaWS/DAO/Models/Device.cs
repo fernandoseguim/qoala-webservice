@@ -62,5 +62,12 @@ namespace QoalaWS.DAO
             context.SP_UPDATE_LAST_LOCATION(ID_DEVICE, LAST_LONGITUDE, LAST_LATITUDE, outParameter);
             return 1;
         }
+
+        public static bool belongsToUser(QoalaEntities context, decimal id_device, decimal id_user)
+        {
+            return context.DEVICES.Where(
+                d => d.ID_USER == id_user && !d.USER.DELETED_AT.HasValue
+            ).Count() > 0;
+        }
     }
 }
