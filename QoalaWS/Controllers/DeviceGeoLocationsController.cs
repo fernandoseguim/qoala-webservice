@@ -15,7 +15,7 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Create(decimal id_user, decimal id_device, DeviceGeoLocation deviceGeoLocation)
         {
             if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return StatusCode(HttpStatusCode.Unauthorized);
+                return NotFound();
 
             deviceGeoLocation.ID_DEVICE = id_device;
             deviceGeoLocation.Add(db);

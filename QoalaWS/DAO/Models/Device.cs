@@ -66,7 +66,8 @@ namespace QoalaWS.DAO
         public static bool belongsToUser(QoalaEntities context, decimal id_device, decimal id_user)
         {
             return context.DEVICES.Where(
-                d => d.ID_USER == id_user && !d.USER.DELETED_AT.HasValue
+                d => d.ID_USER == id_user && !d.DELETED_AT.HasValue &&
+                !d.USER.DELETED_AT.HasValue
             ).Count() > 0;
         }
     }

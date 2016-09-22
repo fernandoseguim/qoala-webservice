@@ -49,6 +49,14 @@ namespace QoalaWS.DAO
             context.Entry(this).State = EntityState.Unchanged;
             return 1;
         }
+
+        public static bool belongsToPost(QoalaEntities context, decimal id_comment, decimal id_post)
+        {
+            return context.COMMENTS.Where(
+                c => c.ID_COMMENT == id_comment  && !c.DELETED_AT.HasValue
+                && !c.POST.DELETED_AT.HasValue
+            ).Count() > 0;
+        }
     }
 }
 

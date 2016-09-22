@@ -15,12 +15,9 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Get(decimal id_user, decimal id_device)
         {
             if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return StatusCode(HttpStatusCode.Unauthorized);
-            
-            Device device = DAO.Device.findById(db, id_device);
-
-            if (device == null)
                 return NotFound();
+
+            Device device = DAO.Device.findById(db, id_device);
 
             return Ok(
                 new
@@ -69,7 +66,7 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Update(decimal id_user, decimal id_device, Device device)
         {
             if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return StatusCode(HttpStatusCode.Unauthorized);
+                return NotFound();
 
             Device d = DAO.Device.findById(db, id_device);
 
@@ -97,7 +94,7 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Delete(decimal id_user, decimal id_device)
         {
             if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return StatusCode(HttpStatusCode.Unauthorized);
+                return NotFound();
 
             Device device = DAO.Device.findById(db, id_device);
             if (device == null)
@@ -115,7 +112,7 @@ namespace QoalaWS.Controllers
         public IHttpActionResult TurnAlarm(decimal id_user, decimal id_device, Device device)
         {
             if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return StatusCode(HttpStatusCode.Unauthorized);
+                return NotFound();
 
             Device d = DAO.Device.findById(db, id_device);
 

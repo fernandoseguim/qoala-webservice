@@ -13,7 +13,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Get(decimal id_post, decimal id_comment)
         {
-            if (DAO.Post.findById(db, id_post) == null)
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
             Comment comment = Comment.findById(db, id_comment);
@@ -37,7 +37,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Update(decimal id_post, decimal id_comment, Comment comment)
         {
-            if (DAO.Post.findById(db, id_post) == null)
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
             Comment c = DAO.Comment.findById(db, id_comment);
@@ -83,7 +83,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Delete(decimal id_post, decimal id_comment)
         {
-            if (DAO.Post.findById(db, id_post) == null)
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
             Comment comment = DAO.Comment.findById(db, id_comment);
@@ -100,7 +100,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}/approve")]
         public IHttpActionResult Approve(decimal id_post, decimal id_comment)
         {
-            if (DAO.Post.findById(db, id_post) == null)
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
             Comment comment = DAO.Comment.findById(db, id_comment);
