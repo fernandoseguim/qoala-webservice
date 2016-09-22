@@ -18,7 +18,7 @@ namespace QoalaWS.DAO
         public User()
         {
             this.COMMENTS = new HashSet<Comment>();
-            this.DEVICES = new HashSet<DEVICE>();
+            this.DEVICES = new HashSet<Device>();
             this.POSTS = new HashSet<Post>();
             this.ACCESSCONTROLs = new HashSet<AccessControl>();
         }
@@ -35,7 +35,7 @@ namespace QoalaWS.DAO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> COMMENTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DEVICE> DEVICES { get; set; }
+        public virtual ICollection<Device> DEVICES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> POSTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

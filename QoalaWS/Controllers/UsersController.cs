@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
 using Newtonsoft.Json.Linq;
@@ -19,7 +12,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
-        [BasicAuthorization(Permission = Permission.Public)]
+        [BasicAuthorization]
         public IHttpActionResult Get(decimal id)
         {
             User user = DAO.User.findById(db, id);

@@ -10,10 +10,13 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
         
         [HttpGet]
-        [Route("comments/{id}")]
-        public IHttpActionResult Get(decimal id)
+        [Route("posts/{id_post}/comments/{id_comment}")]
+        public IHttpActionResult Get(decimal id_post, decimal id_comment)
         {
-            Comment comment = Comment.findById(db, id);
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+                return NotFound();
+
+            Comment comment = Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 
@@ -31,20 +34,21 @@ namespace QoalaWS.Controllers
         [HttpPut]
         [BasicAuthorization]
         [ValidateModel]
-        [Route("comments/{id}")]
-        public IHttpActionResult Put(decimal id, Comment comment)
+        [Route("posts/{id_post}/comments/{id_comment}")]
+        public IHttpActionResult Update(decimal id_post, decimal id_comment, Comment comment)
         {
-            Comment c = DAO.Comment.findById(db, id);
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+                return NotFound();
+
+            Comment c = DAO.Comment.findById(db, id_comment);
 
             if (c == null)
                 return NotFound();
 
-            comment.ID_COMMENT = id;
+            comment.ID_COMMENT = id_comment;
 
             if (comment.CONTENT == null)
                 comment.CONTENT = c.CONTENT;
-            if (comment.ID_POST == 0)
-                comment.ID_POST = c.ID_POST;
             if (comment.ID_USER == 0)
                 comment.ID_USER = c.ID_USER;
             if (comment.APPROVED_AT == null)
@@ -58,9 +62,10 @@ namespace QoalaWS.Controllers
         [HttpPost]
         [BasicAuthorization]
         [ValidateModel]
-        [Route("comments/")]
-        public IHttpActionResult Post(Comment comment)
+        [Route("posts/{id_post}/comments")]
+        public IHttpActionResult Create(decimal id_post, Comment comment)
         {
+            comment.ID_POST = id_post;
             comment.Add(db);
 
             return Created("", 
@@ -75,10 +80,13 @@ namespace QoalaWS.Controllers
 
         [HttpDelete]
         [BasicAuthorization]
-        [Route("comments/{id}")]
-        public IHttpActionResult Delete(decimal id)
+        [Route("posts/{id_post}/comments/{id_comment}")]
+        public IHttpActionResult Delete(decimal id_post, decimal id_comment)
         {
-            Comment comment = DAO.Comment.findById(db, id);
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+                return NotFound();
+
+            Comment comment = DAO.Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 
@@ -89,10 +97,13 @@ namespace QoalaWS.Controllers
 
         [HttpPut]
         [BasicAuthorization]
-        [Route("comments/{id}/approve")]
-        public IHttpActionResult Approve(decimal id)
+        [Route("posts/{id_post}/comments/{id_comment}/approve")]
+        public IHttpActionResult Approve(decimal id_post, decimal id_comment)
         {
-            Comment comment = DAO.Comment.findById(db, id);
+            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+                return NotFound();
+
+            Comment comment = DAO.Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 

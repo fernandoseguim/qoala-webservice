@@ -164,6 +164,10 @@
           <Parameter Name="PID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
+        <Function Name="SP_DELETE_DEVICE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
         <Function Name="SP_DELETE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
@@ -172,11 +176,33 @@
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
+        <Function Name="SP_DEVICE_GEO_LOCATION_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PLOG" Type="clob" Mode="In" />
+          <Parameter Name="PDEVICE_GEO_LOCATION_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_DEVICE_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PLOG" Type="clob" Mode="In" />
+          <Parameter Name="PDEVICE_ID" Type="number" Mode="In" />
+        </Function>
         <Function Name="SP_INSERT_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="PCONTENT" Type="clob" Mode="In" />
           <Parameter Name="PID_USER" Type="number" Mode="In" />
           <Parameter Name="PID_POST" Type="number" Mode="In" />
           <Parameter Name="OUT_ID_COMMENT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_DEVICE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PALIAS" Type="varchar2" Mode="In" />
+          <Parameter Name="PCOLOR" Type="varchar2" Mode="In" />
+          <Parameter Name="PFREQUENCY_UPDATE" Type="number" Mode="In" />
+          <Parameter Name="PID_USER" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_DEVICE" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_DEVICE_GEO_LOCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID_DEVICE" Type="number" Mode="In" />
+          <Parameter Name="PVERIFIED_AT" Type="date" Mode="In" />
+          <Parameter Name="PLATITUDE" Type="number" Mode="In" />
+          <Parameter Name="PLONGITUDE" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_GEO" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_INSERT_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="TITLE" Type="varchar2" Mode="In" />
@@ -199,11 +225,30 @@
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
+        <Function Name="SP_TURN_ALARM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PALARM" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
         <Function Name="SP_UPDATE_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="PID" Type="number" Mode="In" />
           <Parameter Name="PCONTENT" Type="clob" Mode="In" />
           <Parameter Name="PID_USER" Type="number" Mode="In" />
           <Parameter Name="PID_POST" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_DEVICE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PALIAS" Type="varchar2" Mode="In" />
+          <Parameter Name="PCOLOR" Type="varchar2" Mode="In" />
+          <Parameter Name="PFREQUENCY_UPDATE" Type="number" Mode="In" />
+          <Parameter Name="PID_USER" Type="number" Mode="In" />
+          <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_UPDATE_LAST_LOCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID" Type="number" Mode="In" />
+          <Parameter Name="PLAST_LONGITUDE" Type="number" Mode="In" />
+          <Parameter Name="PLAST_LATITUDE" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_UPDATE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
@@ -279,8 +324,8 @@
             <Parameter Name="USER_ID" Mode="In" Type="Decimal" />
           </FunctionImport>
           <EntitySet Name="COMMENTS" EntityType="Model.Comment" />
-          <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Model.DEVICE_GEO_LOCATIONS" />
-          <EntitySet Name="DEVICES" EntityType="Model.DEVICE" />
+          <EntitySet Name="DeviceGeoLocations" EntityType="Model.DeviceGeoLocation" />
+          <EntitySet Name="DEVICES" EntityType="Model.Device" />
           <EntitySet Name="POSTS" EntityType="Model.Post" />
           <AssociationSet Name="COMMENTS_POST_FK" Association="Model.COMMENTS_POST_FK">
             <End Role="POST" EntitySet="POSTS" />
@@ -288,7 +333,7 @@
           </AssociationSet>
           <AssociationSet Name="DEVICE_GEO_LOCATION_DEVICE_FK" Association="Model.DEVICE_GEO_LOCATION_DEVICE_FK">
             <End Role="DEVICE" EntitySet="DEVICES" />
-            <End Role="DEVICE_GEO_LOCATIONS" EntitySet="DEVICE_GEO_LOCATIONS" />
+            <End Role="DEVICE_GEO_LOCATIONS" EntitySet="DeviceGeoLocations" />
           </AssociationSet>
           <EntitySet Name="USERS" EntityType="Model.User" />
           <AssociationSet Name="COMMENTS_USER_FK" Association="Model.COMMENTS_USER_FK">
@@ -365,6 +410,51 @@
             <Parameter Name="PID_POST" Mode="In" Type="Decimal" />
             <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="SP_DELETE_DEVICE">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DEVICE_LOG">
+            <Parameter Name="PLOG" Mode="In" Type="String" />
+            <Parameter Name="PDEVICE_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_DEVICE">
+            <Parameter Name="PALIAS" Mode="In" Type="String" />
+            <Parameter Name="PCOLOR" Mode="In" Type="String" />
+            <Parameter Name="PFREQUENCY_UPDATE" Mode="In" Type="Decimal" />
+            <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_DEVICE" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_TURN_ALARM">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PALARM" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UPDATE_DEVICE">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PALIAS" Mode="In" Type="String" />
+            <Parameter Name="PCOLOR" Mode="In" Type="String" />
+            <Parameter Name="PFREQUENCY_UPDATE" Mode="In" Type="Decimal" />
+            <Parameter Name="PID_USER" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UPDATE_LAST_LOCATION">
+            <Parameter Name="PID" Mode="In" Type="Decimal" />
+            <Parameter Name="PLAST_LONGITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="PLAST_LATITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DEVICE_GEO_LOCATION_LOG">
+            <Parameter Name="PLOG" Mode="In" Type="String" />
+            <Parameter Name="PDEVICE_GEO_LOCATION_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_DEVICE_GEO_LOCATION">
+            <Parameter Name="PID_DEVICE" Mode="In" Type="Decimal" />
+            <Parameter Name="PVERIFIED_AT" Mode="In" Type="DateTime" />
+            <Parameter Name="PLATITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="PLONGITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_GEO" Mode="Out" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Comment">
           <Key>
@@ -381,7 +471,7 @@
           <NavigationProperty Name="POST" Relationship="Model.COMMENTS_POST_FK" FromRole="COMMENT" ToRole="POST" />
           <NavigationProperty Name="USER" Relationship="Model.COMMENTS_USER_FK" FromRole="COMMENT" ToRole="USER" />
         </EntityType>
-        <EntityType Name="DEVICE_GEO_LOCATIONS">
+        <EntityType Name="DeviceGeoLocation">
           <Key>
             <PropertyRef Name="ID_DEVICE_GEO_LOCATION" />
           </Key>
@@ -392,7 +482,7 @@
           <Property Name="LONGITUDE" Type="Decimal" Nullable="false" Precision="10" Scale="7" />
           <NavigationProperty Name="DEVICE" Relationship="Model.DEVICE_GEO_LOCATION_DEVICE_FK" FromRole="DEVICE_GEO_LOCATIONS" ToRole="DEVICE" />
         </EntityType>
-        <EntityType Name="DEVICE">
+        <EntityType Name="Device">
           <Key>
             <PropertyRef Name="ID_DEVICE" />
           </Key>
@@ -438,8 +528,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DEVICE_GEO_LOCATION_DEVICE_FK">
-          <End Type="Model.DEVICE" Role="DEVICE" Multiplicity="1" />
-          <End Type="Model.DEVICE_GEO_LOCATIONS" Role="DEVICE_GEO_LOCATIONS" Multiplicity="*" />
+          <End Type="Model.Device" Role="DEVICE" Multiplicity="1" />
+          <End Type="Model.DeviceGeoLocation" Role="DEVICE_GEO_LOCATIONS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DEVICE">
               <PropertyRef Name="ID_DEVICE" />
@@ -480,7 +570,7 @@
         </Association>
         <Association Name="DEVICES_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
-          <End Type="Model.DEVICE" Role="DEVICE" Multiplicity="*" />
+          <End Type="Model.Device" Role="DEVICE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USER">
               <PropertyRef Name="ID_USER" />
@@ -548,8 +638,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DEVICE_GEO_LOCATIONS">
-            <EntityTypeMapping TypeName="Model.DEVICE_GEO_LOCATIONS">
+          <EntitySetMapping Name="DeviceGeoLocations">
+            <EntityTypeMapping TypeName="Model.DeviceGeoLocation">
               <MappingFragment StoreEntitySet="DEVICE_GEO_LOCATIONS">
                 <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
                 <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
@@ -560,7 +650,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DEVICES">
-            <EntityTypeMapping TypeName="Model.DEVICE">
+            <EntityTypeMapping TypeName="Model.Device">
               <MappingFragment StoreEntitySet="DEVICES">
                 <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
                 <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
@@ -626,6 +716,14 @@
           <FunctionImportMapping FunctionImportName="SP_DELETE_COMMENT" FunctionName="Model.Store.SP_DELETE_COMMENT" />
           <FunctionImportMapping FunctionImportName="SP_INSERT_COMMENT" FunctionName="Model.Store.SP_INSERT_COMMENT" />
           <FunctionImportMapping FunctionImportName="SP_UPDATE_COMMENT" FunctionName="Model.Store.SP_UPDATE_COMMENT" />
+          <FunctionImportMapping FunctionImportName="SP_DELETE_DEVICE" FunctionName="Model.Store.SP_DELETE_DEVICE" />
+          <FunctionImportMapping FunctionImportName="SP_DEVICE_LOG" FunctionName="Model.Store.SP_DEVICE_LOG" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_DEVICE" FunctionName="Model.Store.SP_INSERT_DEVICE" />
+          <FunctionImportMapping FunctionImportName="SP_TURN_ALARM" FunctionName="Model.Store.SP_TURN_ALARM" />
+          <FunctionImportMapping FunctionImportName="SP_UPDATE_DEVICE" FunctionName="Model.Store.SP_UPDATE_DEVICE" />
+          <FunctionImportMapping FunctionImportName="SP_UPDATE_LAST_LOCATION" FunctionName="Model.Store.SP_UPDATE_LAST_LOCATION" />
+          <FunctionImportMapping FunctionImportName="SP_DEVICE_GEO_LOCATION_LOG" FunctionName="Model.Store.SP_DEVICE_GEO_LOCATION_LOG" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_DEVICE_GEO_LOCATION" FunctionName="Model.Store.SP_INSERT_DEVICE_GEO_LOCATION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

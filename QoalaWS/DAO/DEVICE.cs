@@ -12,12 +12,12 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class DEVICE
+    public partial class Device
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DEVICE()
+        public Device()
         {
-            this.DEVICE_GEO_LOCATIONS = new HashSet<DEVICE_GEO_LOCATIONS>();
+            this.DEVICE_GEO_LOCATIONS = new HashSet<DeviceGeoLocation>();
         }
     
         public decimal ID_DEVICE { get; set; }
@@ -33,7 +33,7 @@ namespace QoalaWS.DAO
         public Nullable<System.DateTime> DELETED_AT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
+        public virtual ICollection<DeviceGeoLocation> DEVICE_GEO_LOCATIONS { get; set; }
         public virtual User USER { get; set; }
     }
 }

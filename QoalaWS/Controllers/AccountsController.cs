@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
@@ -19,12 +16,7 @@ namespace QoalaWS.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 user.Add(db);
-
 
                 return Created("", new { token = user.createAccessControl(db).TOKEN });
             }

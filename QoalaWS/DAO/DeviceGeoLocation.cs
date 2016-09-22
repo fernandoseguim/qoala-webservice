@@ -12,7 +12,7 @@ namespace QoalaWS.DAO
     using System;
     using System.Collections.Generic;
     
-    public partial class DEVICE_GEO_LOCATIONS
+    public partial class DeviceGeoLocation
     {
         public decimal ID_DEVICE_GEO_LOCATION { get; set; }
         public decimal ID_DEVICE { get; set; }
@@ -20,6 +20,6 @@ namespace QoalaWS.DAO
         public decimal LATITUDE { get; set; }
         public decimal LONGITUDE { get; set; }
     
-        public virtual DEVICE DEVICE { get; set; }
+        public virtual Device DEVICE { get; set; }
     }
 }
