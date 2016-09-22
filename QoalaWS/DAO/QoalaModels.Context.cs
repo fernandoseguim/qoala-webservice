@@ -28,8 +28,8 @@ namespace QoalaWS.DAO
         }
     
         public virtual DbSet<Comment> COMMENTS { get; set; }
-        public virtual DbSet<DEVICE_GEO_LOCATIONS> DEVICE_GEO_LOCATIONS { get; set; }
-        public virtual DbSet<DEVICE> DEVICES { get; set; }
+        public virtual DbSet<DeviceGeoLocation> DeviceGeoLocations { get; set; }
+        public virtual DbSet<Device> DEVICES { get; set; }
         public virtual DbSet<Post> POSTS { get; set; }
         public virtual DbSet<User> USERS { get; set; }
         public virtual DbSet<AccessControl> ACCESSCONTROLs { get; set; }
@@ -238,6 +238,104 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PID_POST", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_COMMENT", pIDParameter, pCONTENTParameter, pID_USERParameter, pID_POSTParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_DELETE_DEVICE(Nullable<decimal> pID, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DELETE_DEVICE", pIDParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_DEVICE_LOG(string pLOG, Nullable<decimal> pDEVICE_ID)
+        {
+            var pLOGParameter = pLOG != null ?
+                new ObjectParameter("PLOG", pLOG) :
+                new ObjectParameter("PLOG", typeof(string));
+    
+            var pDEVICE_IDParameter = pDEVICE_ID.HasValue ?
+                new ObjectParameter("PDEVICE_ID", pDEVICE_ID) :
+                new ObjectParameter("PDEVICE_ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DEVICE_LOG", pLOGParameter, pDEVICE_IDParameter);
+        }
+    
+        public virtual int SP_INSERT_DEVICE(string pALIAS, string pCOLOR, Nullable<decimal> pFREQUENCY_UPDATE, Nullable<decimal> pID_USER, ObjectParameter oUT_ID_DEVICE)
+        {
+            var pALIASParameter = pALIAS != null ?
+                new ObjectParameter("PALIAS", pALIAS) :
+                new ObjectParameter("PALIAS", typeof(string));
+    
+            var pCOLORParameter = pCOLOR != null ?
+                new ObjectParameter("PCOLOR", pCOLOR) :
+                new ObjectParameter("PCOLOR", typeof(string));
+    
+            var pFREQUENCY_UPDATEParameter = pFREQUENCY_UPDATE.HasValue ?
+                new ObjectParameter("PFREQUENCY_UPDATE", pFREQUENCY_UPDATE) :
+                new ObjectParameter("PFREQUENCY_UPDATE", typeof(decimal));
+    
+            var pID_USERParameter = pID_USER.HasValue ?
+                new ObjectParameter("PID_USER", pID_USER) :
+                new ObjectParameter("PID_USER", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_DEVICE", pALIASParameter, pCOLORParameter, pFREQUENCY_UPDATEParameter, pID_USERParameter, oUT_ID_DEVICE);
+        }
+    
+        public virtual int SP_TURN_ALARM(Nullable<decimal> pID, Nullable<decimal> pALARM, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            var pALARMParameter = pALARM.HasValue ?
+                new ObjectParameter("PALARM", pALARM) :
+                new ObjectParameter("PALARM", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_TURN_ALARM", pIDParameter, pALARMParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_UPDATE_DEVICE(Nullable<decimal> pID, string pALIAS, string pCOLOR, Nullable<decimal> pFREQUENCY_UPDATE, Nullable<decimal> pID_USER, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            var pALIASParameter = pALIAS != null ?
+                new ObjectParameter("PALIAS", pALIAS) :
+                new ObjectParameter("PALIAS", typeof(string));
+    
+            var pCOLORParameter = pCOLOR != null ?
+                new ObjectParameter("PCOLOR", pCOLOR) :
+                new ObjectParameter("PCOLOR", typeof(string));
+    
+            var pFREQUENCY_UPDATEParameter = pFREQUENCY_UPDATE.HasValue ?
+                new ObjectParameter("PFREQUENCY_UPDATE", pFREQUENCY_UPDATE) :
+                new ObjectParameter("PFREQUENCY_UPDATE", typeof(decimal));
+    
+            var pID_USERParameter = pID_USER.HasValue ?
+                new ObjectParameter("PID_USER", pID_USER) :
+                new ObjectParameter("PID_USER", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_DEVICE", pIDParameter, pALIASParameter, pCOLORParameter, pFREQUENCY_UPDATEParameter, pID_USERParameter, rOWCOUNT);
+        }
+    
+        public virtual int SP_UPDATE_LAST_LOCATION(Nullable<decimal> pID, Nullable<decimal> pLAST_LONGITUDE, Nullable<decimal> pLAST_LATITUDE, ObjectParameter rOWCOUNT)
+        {
+            var pIDParameter = pID.HasValue ?
+                new ObjectParameter("PID", pID) :
+                new ObjectParameter("PID", typeof(decimal));
+    
+            var pLAST_LONGITUDEParameter = pLAST_LONGITUDE.HasValue ?
+                new ObjectParameter("PLAST_LONGITUDE", pLAST_LONGITUDE) :
+                new ObjectParameter("PLAST_LONGITUDE", typeof(decimal));
+    
+            var pLAST_LATITUDEParameter = pLAST_LATITUDE.HasValue ?
+                new ObjectParameter("PLAST_LATITUDE", pLAST_LATITUDE) :
+                new ObjectParameter("PLAST_LATITUDE", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_LAST_LOCATION", pIDParameter, pLAST_LONGITUDEParameter, pLAST_LATITUDEParameter, rOWCOUNT);
         }
     }
 }
