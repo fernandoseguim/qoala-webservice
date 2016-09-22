@@ -59,5 +59,16 @@ namespace QoalaWS.Controllers
 
             return StatusCode(HttpStatusCode.OK);
         }
+
+        [BasicAuthorization]
+        [HttpPost]
+        public IHttpActionResult ValidadeToken(AccessControl control)
+        {
+            var ac=DAO.AccessControl.find(db, control.TOKEN);
+            if (ac == null)
+                return StatusCode(HttpStatusCode.Gone);//410
+            else
+                return StatusCode(HttpStatusCode.Accepted);//202
+        }
     }
 }
