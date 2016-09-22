@@ -12,7 +12,6 @@ namespace QoalaWS.DAO
             var outParameter = new ObjectParameter("OUT_ID_GEO", typeof(decimal));
             context.SP_INSERT_DEVICE_GEO_LOCATION(
                 ID_DEVICE, 
-                VERIFIED_AT, 
                 LATITUDE, 
                 LONGITUDE, 
                 outParameter
@@ -24,9 +23,10 @@ namespace QoalaWS.DAO
             ID_DEVICE_GEO_LOCATION = (Decimal)outParameter.Value;
             context.Entry(this).State = EntityState.Unchanged;
 
-            DEVICE.LAST_LATITUDE = LATITUDE;
-            DEVICE.LAST_LONGITUDE = LONGITUDE;
-            DEVICE.UpdateLastLocation(context);
+            Device device = DAO.Device.findById(context, ID_DEVICE);
+            device.LAST_LATITUDE = LATITUDE;
+            device.LAST_LONGITUDE = LONGITUDE;
+            device.UpdateLastLocation(context);
 
             return ID_DEVICE_GEO_LOCATION;
         }

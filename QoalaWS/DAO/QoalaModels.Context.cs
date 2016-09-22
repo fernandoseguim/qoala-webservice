@@ -351,16 +351,12 @@ namespace QoalaWS.DAO
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DEVICE_GEO_LOCATION_LOG", pLOGParameter, pDEVICE_GEO_LOCATION_IDParameter);
         }
     
-        public virtual int SP_INSERT_DEVICE_GEO_LOCATION(Nullable<decimal> pID_DEVICE, Nullable<System.DateTime> pVERIFIED_AT, Nullable<decimal> pLATITUDE, Nullable<decimal> pLONGITUDE, ObjectParameter oUT_ID_GEO)
+        public virtual int SP_INSERT_DEVICE_GEO_LOCATION(Nullable<decimal> pID_DEVICE, Nullable<decimal> pLATITUDE, Nullable<decimal> pLONGITUDE, ObjectParameter oUT_ID_GEO)
         {
             var pID_DEVICEParameter = pID_DEVICE.HasValue ?
                 new ObjectParameter("PID_DEVICE", pID_DEVICE) :
                 new ObjectParameter("PID_DEVICE", typeof(decimal));
-    
-            var pVERIFIED_ATParameter = pVERIFIED_AT.HasValue ?
-                new ObjectParameter("PVERIFIED_AT", pVERIFIED_AT) :
-                new ObjectParameter("PVERIFIED_AT", typeof(System.DateTime));
-    
+
             var pLATITUDEParameter = pLATITUDE.HasValue ?
                 new ObjectParameter("PLATITUDE", pLATITUDE) :
                 new ObjectParameter("PLATITUDE", typeof(decimal));
@@ -369,7 +365,7 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PLONGITUDE", pLONGITUDE) :
                 new ObjectParameter("PLONGITUDE", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_DEVICE_GEO_LOCATION", pID_DEVICEParameter, pVERIFIED_ATParameter, pLATITUDEParameter, pLONGITUDEParameter, oUT_ID_GEO);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_DEVICE_GEO_LOCATION", pID_DEVICEParameter, pLATITUDEParameter, pLONGITUDEParameter, oUT_ID_GEO);
         }
     }
 }
