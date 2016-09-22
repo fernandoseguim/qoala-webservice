@@ -32,7 +32,7 @@ namespace QoalaWS.Controllers
 
         [Route("posts/{id}")]
         [HttpPut]
-        [BasicAuthorization(Permission = Permission.Editor]
+        [BasicAuthorization(Permission = Permission.Editor)]
         [ValidateModel]
         public IHttpActionResult Update(decimal id, Post post)
         {
