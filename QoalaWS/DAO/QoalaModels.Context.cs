@@ -337,5 +337,39 @@ namespace QoalaWS.DAO
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_LAST_LOCATION", pIDParameter, pLAST_LONGITUDEParameter, pLAST_LATITUDEParameter, rOWCOUNT);
         }
+    
+        public virtual int SP_DEVICE_GEO_LOCATION_LOG(string pLOG, Nullable<decimal> pDEVICE_GEO_LOCATION_ID)
+        {
+            var pLOGParameter = pLOG != null ?
+                new ObjectParameter("PLOG", pLOG) :
+                new ObjectParameter("PLOG", typeof(string));
+    
+            var pDEVICE_GEO_LOCATION_IDParameter = pDEVICE_GEO_LOCATION_ID.HasValue ?
+                new ObjectParameter("PDEVICE_GEO_LOCATION_ID", pDEVICE_GEO_LOCATION_ID) :
+                new ObjectParameter("PDEVICE_GEO_LOCATION_ID", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DEVICE_GEO_LOCATION_LOG", pLOGParameter, pDEVICE_GEO_LOCATION_IDParameter);
+        }
+    
+        public virtual int SP_INSERT_DEVICE_GEO_LOCATION(Nullable<decimal> pID_DEVICE, Nullable<System.DateTime> pVERIFIED_AT, Nullable<decimal> pLATITUDE, Nullable<decimal> pLONGITUDE, ObjectParameter oUT_ID_GEO)
+        {
+            var pID_DEVICEParameter = pID_DEVICE.HasValue ?
+                new ObjectParameter("PID_DEVICE", pID_DEVICE) :
+                new ObjectParameter("PID_DEVICE", typeof(decimal));
+    
+            var pVERIFIED_ATParameter = pVERIFIED_AT.HasValue ?
+                new ObjectParameter("PVERIFIED_AT", pVERIFIED_AT) :
+                new ObjectParameter("PVERIFIED_AT", typeof(System.DateTime));
+    
+            var pLATITUDEParameter = pLATITUDE.HasValue ?
+                new ObjectParameter("PLATITUDE", pLATITUDE) :
+                new ObjectParameter("PLATITUDE", typeof(decimal));
+    
+            var pLONGITUDEParameter = pLONGITUDE.HasValue ?
+                new ObjectParameter("PLONGITUDE", pLONGITUDE) :
+                new ObjectParameter("PLONGITUDE", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_DEVICE_GEO_LOCATION", pID_DEVICEParameter, pVERIFIED_ATParameter, pLATITUDEParameter, pLONGITUDEParameter, oUT_ID_GEO);
+        }
     }
 }

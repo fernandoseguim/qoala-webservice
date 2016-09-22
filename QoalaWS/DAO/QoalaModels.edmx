@@ -176,6 +176,10 @@
           <Parameter Name="ID" Type="number" Mode="In" />
           <Parameter Name="ROWCOUNT" Type="number" Mode="Out" />
         </Function>
+        <Function Name="SP_DEVICE_GEO_LOCATION_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PLOG" Type="clob" Mode="In" />
+          <Parameter Name="PDEVICE_GEO_LOCATION_ID" Type="number" Mode="In" />
+        </Function>
         <Function Name="SP_DEVICE_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="PLOG" Type="clob" Mode="In" />
           <Parameter Name="PDEVICE_ID" Type="number" Mode="In" />
@@ -192,6 +196,13 @@
           <Parameter Name="PFREQUENCY_UPDATE" Type="number" Mode="In" />
           <Parameter Name="PID_USER" Type="number" Mode="In" />
           <Parameter Name="OUT_ID_DEVICE" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_INSERT_DEVICE_GEO_LOCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
+          <Parameter Name="PID_DEVICE" Type="number" Mode="In" />
+          <Parameter Name="PVERIFIED_AT" Type="date" Mode="In" />
+          <Parameter Name="PLATITUDE" Type="number" Mode="In" />
+          <Parameter Name="PLONGITUDE" Type="number" Mode="In" />
+          <Parameter Name="OUT_ID_GEO" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_INSERT_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="TITLE" Type="varchar2" Mode="In" />
@@ -432,6 +443,17 @@
             <Parameter Name="PLAST_LONGITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="PLAST_LATITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="ROWCOUNT" Mode="Out" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DEVICE_GEO_LOCATION_LOG">
+            <Parameter Name="PLOG" Mode="In" Type="String" />
+            <Parameter Name="PDEVICE_GEO_LOCATION_ID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_INSERT_DEVICE_GEO_LOCATION">
+            <Parameter Name="PID_DEVICE" Mode="In" Type="Decimal" />
+            <Parameter Name="PVERIFIED_AT" Mode="In" Type="DateTime" />
+            <Parameter Name="PLATITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="PLONGITUDE" Mode="In" Type="Decimal" />
+            <Parameter Name="OUT_ID_GEO" Mode="Out" Type="Decimal" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Comment">
@@ -700,6 +722,8 @@
           <FunctionImportMapping FunctionImportName="SP_TURN_ALARM" FunctionName="Model.Store.SP_TURN_ALARM" />
           <FunctionImportMapping FunctionImportName="SP_UPDATE_DEVICE" FunctionName="Model.Store.SP_UPDATE_DEVICE" />
           <FunctionImportMapping FunctionImportName="SP_UPDATE_LAST_LOCATION" FunctionName="Model.Store.SP_UPDATE_LAST_LOCATION" />
+          <FunctionImportMapping FunctionImportName="SP_DEVICE_GEO_LOCATION_LOG" FunctionName="Model.Store.SP_DEVICE_GEO_LOCATION_LOG" />
+          <FunctionImportMapping FunctionImportName="SP_INSERT_DEVICE_GEO_LOCATION" FunctionName="Model.Store.SP_INSERT_DEVICE_GEO_LOCATION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
