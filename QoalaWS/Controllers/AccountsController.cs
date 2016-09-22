@@ -18,7 +18,17 @@ namespace QoalaWS.Controllers
             {
                 user.Add(db);
 
-                return Created("", new { token = user.createAccessControl(db).TOKEN });
+                return Created("", 
+                    new {
+                        token = user.createAccessControl(db).TOKEN,
+                        user = new
+                        {
+                            id_user = user.ID_USER,
+                            email = user.EMAIL,
+                            name = user.NAME
+                        }
+                    }
+                );
             }
             catch (Exception e)
             {
@@ -32,9 +42,19 @@ namespace QoalaWS.Controllers
         {
             AccessControl ac = user.doLogin(db);
             if (ac == null)
-                return BadRequest("User or password is invalid!");
+                return BadRequest("Email ou senha inválido");
 
-            return Created("", new { Token = ac.TOKEN });
+            return Created("", 
+                new {
+                    token = ac.TOKEN,
+                    user = new
+                    {
+                        id_user = user.ID_USER,
+                        email = user.EMAIL,
+                        name = user.NAME
+                    }
+                }
+            );
         }
 
         //needs to check if the token on the body is the same on the headers
@@ -43,7 +63,7 @@ namespace QoalaWS.Controllers
         [ValidateModel]
         public IHttpActionResult Logout(AccessControl control)
         {
-            AccessControl ac = DAO.AccessControl.find(db, control.TOKEN);
+            AccessControl ac = AccessControl.find(db, control.TOKEN);
             if (ac == null)
                 return NotFound();
 
