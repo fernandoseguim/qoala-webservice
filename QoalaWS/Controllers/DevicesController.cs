@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Web.Http;
-using System.Web.Http.Description;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
 
@@ -17,12 +9,14 @@ namespace QoalaWS.Controllers
     {
         private QoalaEntities db = new QoalaEntities();
 
-
         [HttpGet]
         [BasicAuthorization]
-        [Route("users/{user_id}/devices/{device_id}")]
-        public IHttpActionResult Get(decimal user_id, decimal device_id)
+        [Route("users/{id_user}/devices/{device_id}")]
+        public IHttpActionResult Get(decimal id_user, decimal device_id)
         {
+            if (DAO.User.findById(db, id_user) == null)
+                return NotFound();
+
             Device device = DAO.Device.findById(db, device_id);
 
             if (device == null)
@@ -42,14 +36,16 @@ namespace QoalaWS.Controllers
 
         [HttpPost]
         [BasicAuthorization]
-        [Route("users/{user_id}/devices")]
-        public IHttpActionResult Create(decimal user_id, Device device)
+        [Route("users/{id_user}/devices")]
+        public IHttpActionResult Create(decimal id_user, Device device)
         {
+            if (DAO.User.findById(db, id_user) == null)
+                return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            device.ID_USER = user_id;
+            device.ID_USER = id_user;
 
             device.Add(db);
 
@@ -69,9 +65,12 @@ namespace QoalaWS.Controllers
         [HttpPut]
         [BasicAuthorization]
         [ValidateModel]
-        [Route("users/{user_id}/devices/{device_id}")]
-        public IHttpActionResult Update(decimal user_id, decimal device_id, Device device)
+        [Route("users/{id_user}/devices/{device_id}")]
+        public IHttpActionResult Update(decimal id_user, decimal device_id, Device device)
         {
+            if (DAO.User.findById(db, id_user) == null)
+                return NotFound();
+
             Device d = DAO.Device.findById(db, device_id);
 
             if (d == null)
@@ -94,9 +93,12 @@ namespace QoalaWS.Controllers
         
         [HttpDelete]
         [BasicAuthorization]
-        [Route("users/{user_id}/devices/{device_id}")]
-        public IHttpActionResult Delete(decimal user_id, decimal device_id)
-        {
+        [Route("users/{id_user}/devices/{device_id}")]
+        public IHttpActionResult Delete(decimal id_user, decimal device_id)
+        {   
+            if (DAO.User.findById(db, id_user) == null)
+                return NotFound();
+
             Device device = DAO.Device.findById(db, device_id);
             if (device == null)
                 return NotFound();
@@ -109,9 +111,12 @@ namespace QoalaWS.Controllers
         [HttpPut]
         [BasicAuthorization]
         [ValidateModel]
-        [Route("users/{user_id}/devices/{device_id}/turn_alarm")]
-        public IHttpActionResult TurnAlarm(decimal user_id, decimal device_id, Device device)
+        [Route("users/{id_user}/devices/{device_id}/turn_alarm")]
+        public IHttpActionResult TurnAlarm(decimal id_user, decimal device_id, Device device)
         {
+            if (DAO.User.findById(db, id_user) == null)
+                return NotFound();
+
             Device d = DAO.Device.findById(db, device_id);
 
             if (d == null)
