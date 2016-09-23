@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
+using System.Net.Http.Headers;
 
 namespace QoalaWS.Controllers
 {
@@ -25,7 +26,8 @@ namespace QoalaWS.Controllers
                         {
                             id_user = user.ID_USER,
                             email = user.EMAIL,
-                            name = user.NAME
+                            name = user.NAME,
+                            permission = user.PERMISSION
                         }
                     }
                 );
@@ -51,7 +53,8 @@ namespace QoalaWS.Controllers
                     {
                         id_user = user.ID_USER,
                         email = user.EMAIL,
-                        name = user.NAME
+                        name = user.NAME,
+                        permission = user.PERMISSION
                     }
                 }
             );
@@ -76,11 +79,38 @@ namespace QoalaWS.Controllers
         [HttpPost]
         public IHttpActionResult ValidadeToken(AccessControl control)
         {
-            var ac=DAO.AccessControl.find(db, control.TOKEN);
+            var ac = AccessControl.find(db, control.TOKEN);
+
             if (ac == null)
                 return StatusCode(HttpStatusCode.Gone);//410
-            else
-                return StatusCode(HttpStatusCode.Accepted);//202
+
+            return StatusCode(HttpStatusCode.Accepted);//202
+        }
+
+        [BasicAuthorization]
+        public IHttpActionResult Me()
+        {
+            var authorization = ActionContext.Request.Headers.Authorization;
+            var token = AuthenticationHeaderValue.Parse(authorization.ToString()).Parameter;
+            
+            AccessControl ac = AccessControl.find(db, token);
+            if (ac == null)
+                return NotFound();
+
+            User user = ac.GetUser(db);
+
+            if(user == null)
+                return NotFound();
+
+            return Ok(
+                new
+                {
+                    id_user = user.ID_USER,
+                    email = user.EMAIL,
+                    name = user.NAME,
+                    permission = user.PERMISSION
+                }
+            );
         }
     }
 }

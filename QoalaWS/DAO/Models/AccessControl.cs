@@ -40,5 +40,9 @@ namespace QoalaWS.DAO
             return find(context, TOKEN) == null;
         }
 
+        public User GetUser(QoalaEntities context)
+        {
+            return User.findById(context, ID_USER);
+        }
     }
 }
