@@ -74,34 +74,7 @@ namespace QoalaWS.Controllers
 
             return StatusCode(HttpStatusCode.OK);
         }
-
-        [HttpPost]
-        public IHttpActionResult ValidateToken()
-        {
-            var authorization = ActionContext.Request.Headers.Authorization;
-            var token = AuthenticationHeaderValue.Parse(authorization.ToString()).Parameter;
-
-            var ac = AccessControl.find(db, token);
-
-            if (ac == null)
-                return StatusCode(HttpStatusCode.Gone);//410
-
-            User user = ac.GetUser(db);
-
-            if(user == null)
-                return NotFound();
-
-            return Ok(
-                new
-                {
-                    id_user = user.ID_USER,
-                    email = user.EMAIL,
-                    name = user.NAME,
-                    permission = user.PERMISSION
-                }
-            );
-        }
-
+        
         [HttpPost]
         [BasicAuthorization]
         public IHttpActionResult Me()
