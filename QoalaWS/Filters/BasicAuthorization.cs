@@ -69,7 +69,10 @@ namespace QoalaWS.Filters
                     DAO.AccessControl ac = DAO.AccessControl.find(new DAO.QoalaEntities(), authHeaderVal.Parameter);
 
                     if (ac == null)
+                    {
                         actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                        return;
+                    }
 
                     if (ac.USER.PERMISSION.Equals(Permission.Admin))
                         return;

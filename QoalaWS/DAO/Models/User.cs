@@ -80,13 +80,13 @@ namespace QoalaWS.DAO
                 {
                     // melhoria: Adicionar Client ID. e cada tipo de aplicação deverá passar um ClientID para o login, e filtrar aqui.
                     access = user.ACCESSCONTROLs.FirstOrDefault(ac => ac.EXPIRED_AT >= DateTime.Now);
-
                 }
 
                 if(access==null)
                 {
                     access = new AccessControl { USER = user };
                     access.Add(context);
+                    context.SaveChanges();
                 }
                 return access;
             }

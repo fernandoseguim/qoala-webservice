@@ -76,14 +76,30 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult ValidateToken(AccessControl control)
+        public IHttpActionResult ValidateToken()
         {
-            var ac = AccessControl.find(db, control.TOKEN);
+            var authorization = ActionContext.Request.Headers.Authorization;
+            var token = AuthenticationHeaderValue.Parse(authorization.ToString()).Parameter;
+
+            var ac = AccessControl.find(db, token);
 
             if (ac == null)
                 return StatusCode(HttpStatusCode.Gone);//410
 
-            return StatusCode(HttpStatusCode.Accepted);//202
+            User user = ac.GetUser(db);
+
+            if(user == null)
+                return NotFound();
+
+            return Ok(
+                new
+                {
+                    id_user = user.ID_USER,
+                    email = user.EMAIL,
+                    name = user.NAME,
+                    permission = user.PERMISSION
+                }
+            );
         }
 
         [HttpPost]
