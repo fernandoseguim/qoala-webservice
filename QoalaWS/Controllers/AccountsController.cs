@@ -75,7 +75,7 @@ namespace QoalaWS.Controllers
             return StatusCode(HttpStatusCode.OK);
         }
         
-        [HttpPost]
+        [HttpGet]
         [BasicAuthorization]
         public IHttpActionResult Me()
         {
