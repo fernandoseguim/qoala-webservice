@@ -49,24 +49,20 @@ namespace QoalaWS.Filters
         
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-
-            var request = HttpContext.Current.Request;
-            var authHeader = request.Headers["Authorization"];
+            var authHeader = actionContext.Request.Headers.Authorization;
             if (authHeader == null)
             {
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
             else
             {
-                var authHeaderVal = AuthenticationHeaderValue.Parse(authHeader);
-
                 // RFC 2617 sec 1.2, "scheme" name is case-insensitive
-                if (authHeaderVal.Scheme.Equals("Token",
+                if (authHeader.Scheme.Equals("Token",
                        StringComparison.OrdinalIgnoreCase) &&
-                    authHeaderVal.Parameter != null)
+                    authHeader.Parameter != null)
                 {
                     //Need check if user has this control access
-                    DAO.AccessControl ac = DAO.AccessControl.find(new DAO.QoalaEntities(), authHeaderVal.Parameter);
+                    DAO.AccessControl ac = DAO.AccessControl.find(new DAO.QoalaEntities(), authHeader.Parameter);
 
                     if (ac == null)
                     {
