@@ -1,507 +1,535 @@
 {
-	"id": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-	"name": "Qoala",
-	"description": "",
-	"order": [],
-	"folders": [
+	"variables": [],
+	"info": {
+		"name": "Qoala",
+		"_postman_id": "1ea13528-b615-9458-5588-938a4aa47637",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "68a8cf01-bccb-8973-561e-d192217adffc",
 			"name": "Accounts",
 			"description": "",
-			"order": [
-				"874e0db4-f627-a79c-f32f-1acb5402daf6",
-				"e9715dab-b407-8147-5845-fc4ebdf53fe7",
-				"a8f73fa4-0418-c710-9ab3-77b54f2fdda5"
-			],
-			"owner": "949653"
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"url": "http://localhost:52444/accounts/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"password\": \"senhamano\", \"email\": \"email@mail.com\"}"
+						},
+						"description": "Log in user"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"url": "http://localhost:52444/accounts/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Lucas\", \"password\": \"senhamano\", \"email\": \"email13@mail.com\"}"
+						},
+						"description": "register a new user and make login for him"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"url": "http://localhost:52444/accounts/logout",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636092991245319878-65",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"token\": \"636092991245319878-65\" }"
+						},
+						"description": "Logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"url": "http://localhost:52444/accounts/login",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636092991245319878-65",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"password\": \"senhamano\", \"email\": \"email@mail.com\"}"
+						},
+						"description": "Get the connected user info identified by token header"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "8a4ba7e2-de61-bcd7-f020-25beee1f83cf",
 			"name": "Comments",
 			"description": "",
-			"order": [
-				"0e8879eb-e97e-8da3-16f0-44285b1e1cd6",
-				"633f39e6-6666-9d1b-6b64-617524503efa",
-				"cd6eccf5-3c51-e965-9dc4-0307bb66db93",
-				"fda681a8-7c9c-0aef-211f-0fde0605811a",
-				"05f4809c-8603-bdad-1c8d-5f3761691884"
-			],
-			"owner": "949653"
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"url": "http://localhost:52444/posts/1/comments",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"COnteudo nuemro 1\",\n\t\"id_post\": 2,\n\t\"id_user\": 1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"url": "http://localhost:52444/posts/1/comments/2",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\": \"alterei manmo\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"url": "http://localhost:52444/pots/1/comments/2",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"url": "http://localhost:52444/posts/1/comments/2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"url": "http://localhost:52444/posts/1/comments/2/approve",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "75384e88-e910-1652-5ee1-f9965f905c81",
 			"name": "Device Geo Location",
 			"description": "",
-			"order": [
-				"2911457b-d701-b53f-9e1e-eea6f83a5f72"
-			],
-			"owner": "949653"
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"url": "http://localhost:52444/users/51/devices/3/geo_location",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latitude\": 6.123,\n\t\"longitude\": 2.4,\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "cfcc2de1-34fb-2a0d-d293-94f0cf36476a",
 			"name": "Devices",
 			"description": "",
-			"order": [
-				"02d97e86-d1d7-42a0-2320-7ae39c68eba8",
-				"6dc387a0-b7cb-8409-ac23-6ad9ffaf3584",
-				"7f12ba51-398a-aba9-ce96-bd0c39813d08",
-				"53c0defa-38d4-e537-4001-3ca786760f20",
-				"8500a81e-2bcf-94af-3bb1-c1e17277b0e6"
-			],
-			"owner": "949653",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818"
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"url": "http://localhost:52444/users/66/devices",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Nome alterado\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"url": "http://localhost:52444/users/51/devices/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"url": "http://localhost:52444/users/51/devices/2",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095745468236289-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"url": "http://localhost:52444/users/51/devices/2",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"frequency_update\": 1100\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Turn Alarm",
+					"request": {
+						"url": "http://localhost:52444/users/51/devices/2/turn_alarm",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"alarm\": true\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "b5af2bec-7e0a-0f39-165f-baa3743db912",
 			"name": "Posts",
 			"description": "",
-			"order": [
-				"3d76500f-a158-b3c2-e247-24ee4d0acb83",
-				"3c0016b5-baef-00ca-23ab-fec71d63ef3e",
-				"84b81927-cf69-fa2e-f9be-b0b8b99d3bc7",
-				"462b7437-9852-e058-b35e-b2b051fba96a"
-			],
-			"owner": "949653"
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"url": "http://localhost:52444/posts",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636098338800911046-39",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Titulo 1\",\n\t\"content\": \"Conteudo numero 1\",\n\t\"id_user\": 1\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"url": "http://localhost:52444/posts/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636098356572192179-31",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Titulo alterado\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"url": "http://localhost:52444/posts/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095745722486132-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"url": "http://localhost:52444/posts/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"id": "0478f5c9-2a64-3207-bd55-634f0897417f",
 			"name": "Users",
 			"description": "",
-			"order": [
-				"34114184-ab3c-f7b2-787b-176fd922d2c8",
-				"ace26289-8e66-09f1-674a-07f49a11e886",
-				"f3c734a1-729d-f7cf-d520-4e146cede614"
-			],
-			"owner": "949653"
-		}
-	],
-	"timestamp": 1473111732954,
-	"owner": "949653",
-	"public": false,
-	"published": false,
-	"requests": [
-		{
-			"id": "02d97e86-d1d7-42a0-2320-7ae39c68eba8",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/66/devices",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474503076690,
-			"name": "Create",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\"name\":\"Nome alterado\"}"
-		},
-		{
-			"id": "05f4809c-8603-bdad-1c8d-5f3761691884",
-			"headers": "Authorization: Token 636095745722486132-2\nContent-Type: application/json\n",
-			"url": "http://localhost:52444/posts/1/comments/2/approve",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474510680532,
-			"name": "Approve",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "0e8879eb-e97e-8da3-16f0-44285b1e1cd6",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095745722486132-2\n",
-			"url": "http://localhost:52444/posts/1/comments",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474510576684,
-			"name": "Create",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\n\t\"content\": \"COnteudo nuemro 1\",\n\t\"id_post\": 2,\n\t\"id_user\": 1\n}"
-		},
-		{
-			"id": "2911457b-d701-b53f-9e1e-eea6f83a5f72",
-			"headers": "Authorization: Token 636095745722486132-2\nContent-Type: application/json\n",
-			"url": "http://localhost:52444/users/51/devices/3/geo_location",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "POST",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Create",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474514429944,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "75384e88-e910-1652-5ee1-f9965f905c81",
-			"rawModeData": "{\n\t\"latitude\": 6.123,\n\t\"longitude\": 2.4,\n}"
-		},
-		{
-			"id": "34114184-ab3c-f7b2-787b-176fd922d2c8",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/66",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474078534156,
-			"name": "Put",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\"name\":\"Nome alterado\"}"
-		},
-		{
-			"id": "3c0016b5-baef-00ca-23ab-fec71d63ef3e",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636098356572192179-31\n",
-			"url": "http://localhost:52444/posts/1",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "PUT",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Update",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474406724629,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "b5af2bec-7e0a-0f39-165f-baa3743db912",
-			"rawModeData": "{\n\t\"title\": \"Titulo alterado\"\n}"
-		},
-		{
-			"id": "3d76500f-a158-b3c2-e247-24ee4d0acb83",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636098338800911046-39\n",
-			"url": "http://localhost:52444/posts",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "POST",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Create",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474404652034,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "b5af2bec-7e0a-0f39-165f-baa3743db912",
-			"rawModeData": "{\n\t\"title\": \"Titulo 1\",\n\t\"content\": \"Conteudo numero 1\",\n\t\"id_user\": 1\n}"
-		},
-		{
-			"id": "462b7437-9852-e058-b35e-b2b051fba96a",
-			"headers": "",
-			"url": "http://localhost:52444/posts/1",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "GET",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": null,
-			"dataMode": "params",
-			"name": "Get",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474414562137,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "b5af2bec-7e0a-0f39-165f-baa3743db912"
-		},
-		{
-			"id": "53c0defa-38d4-e537-4001-3ca786760f20",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/51/devices/2",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "PUT",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Update",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474503525300,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "cfcc2de1-34fb-2a0d-d293-94f0cf36476a",
-			"rawModeData": "{\n\t\"frequency_update\": 1100\n}"
-		},
-		{
-			"id": "633f39e6-6666-9d1b-6b64-617524503efa",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095745722486132-2\n",
-			"url": "http://localhost:52444/posts/1/comments/2",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474510584317,
-			"name": "Update",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\n\t\"content\": \"alterei manmo\"\n}"
-		},
-		{
-			"id": "6dc387a0-b7cb-8409-ac23-6ad9ffaf3584",
-			"headers": "Authorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/51/devices/2",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474503449076,
-			"name": "Get",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "7f12ba51-398a-aba9-ce96-bd0c39813d08",
-			"headers": "Authorization: Token 636095745468236289-2\n",
-			"url": "http://localhost:52444/users/51/devices/2",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474503930595,
-			"name": "Delete",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "84b81927-cf69-fa2e-f9be-b0b8b99d3bc7",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095745722486132-2\n",
-			"url": "http://localhost:52444/posts/1",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "DELETE",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": null,
-			"dataMode": "params",
-			"name": "Delete",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474414530715,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "b5af2bec-7e0a-0f39-165f-baa3743db912"
-		},
-		{
-			"id": "8500a81e-2bcf-94af-3bb1-c1e17277b0e6",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/51/devices/2/turn_alarm",
-			"pathVariables": {},
-			"preRequestScript": null,
-			"method": "PUT",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Turn Alarm",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1474503873332,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "cfcc2de1-34fb-2a0d-d293-94f0cf36476a",
-			"rawModeData": "{\n\t\"alarm\": true\n}"
-		},
-		{
-			"id": "874e0db4-f627-a79c-f32f-1acb5402daf6",
-			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:52444/accounts/login",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1473801508993,
-			"name": "Login",
-			"description": "Log in user",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\"password\": \"senhamano\", \"email\": \"email@mail.com\"}"
-		},
-		{
-			"id": "a8f73fa4-0418-c710-9ab3-77b54f2fdda5",
-			"headers": "Content-Type: application/json\nAuthorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/accounts/logout",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474078586792,
-			"name": "Logout",
-			"description": "Logout",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\"token\": \"636092991245319878-65\" }"
-		},
-		{
-			"id": "ace26289-8e66-09f1-674a-07f49a11e886",
-			"headers": "Authorization: Token 636095741481478670-2\n",
-			"url": "http://localhost:52444/users/66",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474078544698,
-			"name": "Get",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "cd6eccf5-3c51-e965-9dc4-0307bb66db93",
-			"headers": "Authorization: Token 636095745722486132-2\n",
-			"url": "http://localhost:52444/pots/1/comments/2",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474510603868,
-			"name": "Delete",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "e9715dab-b407-8147-5845-fc4ebdf53fe7",
-			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:52444/accounts/register",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1473816727171,
-			"name": "Register",
-			"description": "register a new user and make login for him",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": [],
-			"rawModeData": "{\"name\": \"Lucas\", \"password\": \"senhamano\", \"email\": \"email13@mail.com\"}"
-		},
-		{
-			"id": "f3c734a1-729d-f7cf-d520-4e146cede614",
-			"headers": "Authorization: Token 636095745468236289-2\n",
-			"url": "http://localhost:52444/users/4",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474078416465,
-			"name": "Delete",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
-		},
-		{
-			"id": "fda681a8-7c9c-0aef-211f-0fde0605811a",
-			"headers": "",
-			"url": "http://localhost:52444/posts/1/comments/2",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": null,
-			"dataMode": "params",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1474510673184,
-			"name": "Get",
-			"description": "",
-			"collectionId": "c12d1975-c6f2-e44b-ef2e-e33015e98818",
-			"responses": []
+			"item": [
+				{
+					"name": "Put",
+					"request": {
+						"url": "http://localhost:52444/users/66",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Nome alterado\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"url": "http://localhost:52444/users/66",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095741481478670-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"url": "http://localhost:52444/users/4",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 636095745468236289-2",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
