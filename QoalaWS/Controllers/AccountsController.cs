@@ -19,8 +19,9 @@ namespace QoalaWS.Controllers
             {
                 user.Add(db);
 
-                return Created("", 
-                    new {
+                return Created("",
+                    new
+                    {
                         token = user.createAccessControl(db).TOKEN,
                         user = new
                         {
@@ -46,8 +47,9 @@ namespace QoalaWS.Controllers
             if (ac == null)
                 return BadRequest("Email ou senha inválido");
 
-            return Created("", 
-                new {
+            return Created("",
+                new
+                {
                     token = ac.TOKEN,
                     user = new
                     {
@@ -74,21 +76,20 @@ namespace QoalaWS.Controllers
 
             return StatusCode(HttpStatusCode.OK);
         }
-        
+
         [HttpGet]
         [BasicAuthorization]
         public IHttpActionResult Me()
         {
-            var authorization = ActionContext.Request.Headers.Authorization;
-            var token = AuthenticationHeaderValue.Parse(authorization.ToString()).Parameter;
-            
+            var token = ActionContext.Request.Headers.Authorization.Parameter;
+
             AccessControl ac = AccessControl.find(db, token);
             if (ac == null)
                 return NotFound();
 
             User user = ac.GetUser(db);
 
-            if(user == null)
+            if (user == null)
                 return NotFound();
 
             return Ok(
@@ -100,6 +101,7 @@ namespace QoalaWS.Controllers
                     permission = user.PERMISSION
                 }
             );
+
         }
     }
 }
