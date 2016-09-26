@@ -199,7 +199,6 @@
         </Function>
         <Function Name="SP_INSERT_DEVICE_GEO_LOCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="PID_DEVICE" Type="number" Mode="In" />
-          <Parameter Name="PVERIFIED_AT" Type="date" Mode="In" />
           <Parameter Name="PLATITUDE" Type="number" Mode="In" />
           <Parameter Name="PLONGITUDE" Type="number" Mode="In" />
           <Parameter Name="OUT_ID_GEO" Type="number" Mode="Out" />
@@ -450,7 +449,6 @@
           </FunctionImport>
           <FunctionImport Name="SP_INSERT_DEVICE_GEO_LOCATION">
             <Parameter Name="PID_DEVICE" Mode="In" Type="Decimal" />
-            <Parameter Name="PVERIFIED_AT" Mode="In" Type="DateTime" />
             <Parameter Name="PLATITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="PLONGITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="OUT_ID_GEO" Mode="Out" Type="Decimal" />
@@ -547,7 +545,7 @@
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PERMISSION" Type="Byte" Nullable="false" />
+          <Property Name="PERMISSION" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
           <Property Name="DELETED_AT" Type="DateTime" />

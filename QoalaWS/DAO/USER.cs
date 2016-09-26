@@ -27,7 +27,7 @@ namespace QoalaWS.DAO
         public string NAME { get; set; }
         public string PASSWORD { get; set; }
         public string EMAIL { get; set; }
-        public byte PERMISSION { get; set; }
+        public decimal PERMISSION { get; set; }
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }

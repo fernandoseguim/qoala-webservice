@@ -356,7 +356,7 @@ namespace QoalaWS.DAO
             var pID_DEVICEParameter = pID_DEVICE.HasValue ?
                 new ObjectParameter("PID_DEVICE", pID_DEVICE) :
                 new ObjectParameter("PID_DEVICE", typeof(decimal));
-
+    
             var pLATITUDEParameter = pLATITUDE.HasValue ?
                 new ObjectParameter("PLATITUDE", pLATITUDE) :
                 new ObjectParameter("PLATITUDE", typeof(decimal));
