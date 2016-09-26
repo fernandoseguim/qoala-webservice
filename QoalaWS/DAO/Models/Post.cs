@@ -3,11 +3,28 @@ using QoalaWS.Exceptions;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace QoalaWS.DAO
 {
     public partial class Post
     {
+        public static List<object> All(QoalaEntities context, int page_number)
+        {
+            var limit = 10;
+            var list = context.POSTS.Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
+                OrderByDescending(p => p.PUBLISHED_AT).
+                Skip(page_number == 1 ? 0 : limit * page_number).
+                Take(limit).
+                ToList();
+            List<object> posts = new List<object>();
+            foreach(var post in list)
+            {
+                posts.Add(post.Serializer());
+            }
+            return posts;
+        }
+
         public static Post findById(QoalaEntities context, Decimal id_post)
         {
             return context.POSTS.FirstOrDefault(u => u.ID_POST == id_post && !u.DELETED_AT.HasValue);
@@ -46,6 +63,18 @@ namespace QoalaWS.DAO
             context.SP_PUBLISH_POST(ID_POST, outParameter);
             context.Entry(this).State = EntityState.Unchanged;
             return 1;
+        }
+
+        public object Serializer()
+        {
+            return new
+            {
+                ID_POST = ID_POST,
+                TITLE = TITLE,
+                CONTENT = CONTENT,
+                PUBLISHED_AT = PUBLISHED_AT,
+                ID_USER = ID_USER,
+            };
         }
     }
 }

@@ -545,7 +545,7 @@
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PERMISSION" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="PERMISSION" Type="Byte" Nullable="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
           <Property Name="DELETED_AT" Type="DateTime" />
