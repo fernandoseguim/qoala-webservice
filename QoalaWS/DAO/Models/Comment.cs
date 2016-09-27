@@ -75,7 +75,8 @@ namespace QoalaWS.DAO
             {
                 id_comment = ID_COMMENT,
                 content = CONTENT,
-                id_post = ID_POST
+                id_post = ID_POST,
+                id_user = ID_USER
             };
         }
     }
