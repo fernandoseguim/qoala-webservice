@@ -35,32 +35,27 @@ namespace QoalaWS.Controllers
         [HttpPut]
         [Route("users/{id}")]
         [BasicAuthorization]
-        public IHttpActionResult Update(decimal id, JObject obj)
+        public IHttpActionResult Update(decimal id, User user)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            User user = DAO.User.findById(db, id);
+            User u = DAO.User.findById(db, id);
 
-            if (user == null)
+            if (u == null)
                 return NotFound();
 
-            if (!obj.HasValues)
-            {
-                return BadRequest("Object sent was received invalid!");
-            }
+            user.ID_USER = id;
 
-            string val = null;
-            val = obj.Value<string>("EMAIL");
-            if (val!=null) { user.EMAIL = val; }
-
-            val = obj.Value<String>("NAME");
-            if (val != null) { user.NAME = val; }
-
-            val = obj.Value<String>("PASSWORD");
-            if (val != null) { user.PASSWORD = val; }
-
-            val = obj.Value<String>("PERMISSION");
-            if (val != null) { user.PERMISSION = byte.Parse(val); }
-
+            if (user.EMAIL == null)
+                user.EMAIL = u.EMAIL;
+            if (user.NAME == null)
+                user.NAME = u.NAME;
+            if (user.PASSWORD == null)
+                user.PASSWORD = u.PASSWORD;
+            if (user.PERMISSION == 0)
+                user.PERMISSION = u.PERMISSION;
+            
             user.Update(db);
 
             return StatusCode(HttpStatusCode.NoContent);
