@@ -77,12 +77,12 @@ namespace QoalaWS.DAO
             };
         }
 
-        public static int CountPages(QoalaEntities context)
+        public static int totalNumberPage(QoalaEntities context)
         {
-            var count = context.POSTS.
+            decimal count = context.POSTS.
                 Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
                 Count();
-            return count / LIMIT;
+            return (int)Math.Ceiling(count / LIMIT);
         }
     }
 }
