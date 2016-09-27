@@ -23,9 +23,9 @@ namespace QoalaWS.Controllers
             return Ok(post.Serializer());
         }
 
-        [Route("posts/{pageNumber=1}")]
+        [Route("posts")]
         [HttpGet]
-        public IHttpActionResult GetPosts(int pageNumber)
+        public IHttpActionResult GetPosts(int pageNumber = 1)
         {
             List<object> posts = Post.All(db, pageNumber);
             if (posts.Count == 0)
@@ -38,8 +38,9 @@ namespace QoalaWS.Controllers
                 new
                 {   
                     posts = posts,
-                    total_number_page = totalNumberPage,
-                    has_more_pages = totalNumberPage == pageNumber
+                    total_number_pages = totalNumberPage,
+                    next_page = totalNumberPage > pageNumber,
+                    previous_page = pageNumber > 1 && pageNumber <= totalNumberPage
                 }
             );
         }
