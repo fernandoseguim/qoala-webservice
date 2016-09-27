@@ -25,22 +25,19 @@ namespace QoalaWS.Controllers
 
         [Route("posts")]
         [HttpGet]
-        public IHttpActionResult GetPosts(int pageNumber = 1)
+        public IHttpActionResult GetPosts(int page = 1)
         {
-            List<object> posts = Post.All(db, pageNumber);
-            if (posts.Count == 0)
-            {
-                return NotFound();
-            }
-
+            List<object> posts = Post.All(db, page);
+            
             var totalNumberPage = Post.totalNumberPage(db);
             return Ok(
                 new
                 {   
                     posts = posts,
                     total_number_pages = totalNumberPage,
-                    next_page = totalNumberPage > pageNumber,
-                    previous_page = pageNumber > 1 && pageNumber <= totalNumberPage
+                    next_page = totalNumberPage > page,
+                    current_page = page,
+                    previous_page = page > 1 && page <= totalNumberPage
                 }
             );
         }

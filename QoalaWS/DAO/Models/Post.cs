@@ -14,7 +14,7 @@ namespace QoalaWS.DAO
         {
             var list = context.POSTS.Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
                 OrderByDescending(p => p.PUBLISHED_AT).
-                Skip(page_number == 1 ? 0 : LIMIT * page_number - 1).
+                Skip(page_number == 1 ? 0 : LIMIT * page_number - LIMIT).
                 Take(LIMIT).
                 ToList();
             List<object> posts = new List<object>();
