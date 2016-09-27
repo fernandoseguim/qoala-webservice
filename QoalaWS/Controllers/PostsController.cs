@@ -33,11 +33,14 @@ namespace QoalaWS.Controllers
                 return NotFound();
             }
 
+            var totalPage = Post.CountPages(db);
             return Ok(
                 new
                 {   
                     posts = posts,
-                    pageNumber = pageNumber
+                    totalNumberPage = totalPage,
+                    hasMorePages = totalPage == pageNumber,
+                    pageNumber = pageNumber,
                 }
             );
         }

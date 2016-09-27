@@ -9,13 +9,13 @@ namespace QoalaWS.DAO
 {
     public partial class Post
     {
+        const int LIMIT = 10;
         public static List<object> All(QoalaEntities context, int page_number)
         {
-            var limit = 10;
             var list = context.POSTS.Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
                 OrderByDescending(p => p.PUBLISHED_AT).
-                Skip(page_number == 1 ? 0 : limit * page_number).
-                Take(limit).
+                Skip(page_number == 1 ? 0 : LIMIT * page_number).
+                Take(LIMIT).
                 ToList();
             List<object> posts = new List<object>();
             foreach(var post in list)
@@ -69,12 +69,20 @@ namespace QoalaWS.DAO
         {
             return new
             {
-                ID_POST = ID_POST,
-                TITLE = TITLE,
-                CONTENT = CONTENT,
-                PUBLISHED_AT = PUBLISHED_AT,
-                ID_USER = ID_USER,
+                id_post = ID_POST,
+                title = TITLE,
+                content = CONTENT,
+                published_at = PUBLISHED_AT,
+                id_user = ID_USER,
             };
+        }
+
+        public static int CountPages(QoalaEntities context)
+        {
+            var count = context.POSTS.
+                Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
+                Count();
+            return count / LIMIT;
         }
     }
 }
