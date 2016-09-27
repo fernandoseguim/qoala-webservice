@@ -2,13 +2,23 @@
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
+using System.Collections.Generic;
 
 namespace QoalaWS.Controllers
 {
     public class CommentsController : ApiController
     {
         private QoalaEntities db = new QoalaEntities();
-        
+
+        [HttpGet]
+        [Route("posts/{id_post}/comments")]
+        public IHttpActionResult GetComments(decimal id_post)
+        {
+            List<object> comments = Comment.findByIdPost(db, id_post);
+
+            return Ok(comments);
+        }
+
         [HttpGet]
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Get(decimal id_post, decimal id_comment)
