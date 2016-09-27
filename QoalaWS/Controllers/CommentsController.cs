@@ -23,21 +23,14 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Get(decimal id_post, decimal id_comment)
         {
-            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+            if (!Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
             Comment comment = Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 
-            return Ok(
-                new {
-                    content = comment.CONTENT,
-                    approved_at = comment.APPROVED_AT,
-                    id_post = comment.ID_POST,
-                    id_user = comment.ID_USER
-                }
-            );
+            return Ok(comment.Serializer());
         }
 
         
@@ -47,10 +40,10 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Update(decimal id_post, decimal id_comment, Comment comment)
         {
-            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+            if (!Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
-            Comment c = DAO.Comment.findById(db, id_comment);
+            Comment c = Comment.findById(db, id_comment);
 
             if (c == null)
                 return NotFound();
@@ -93,10 +86,10 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}")]
         public IHttpActionResult Delete(decimal id_post, decimal id_comment)
         {
-            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+            if (!Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
-            Comment comment = DAO.Comment.findById(db, id_comment);
+            Comment comment = Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 
@@ -110,10 +103,10 @@ namespace QoalaWS.Controllers
         [Route("posts/{id_post}/comments/{id_comment}/approve")]
         public IHttpActionResult Approve(decimal id_post, decimal id_comment)
         {
-            if (!DAO.Comment.belongsToPost(db, id_comment, id_post))
+            if (!Comment.belongsToPost(db, id_comment, id_post))
                 return NotFound();
 
-            Comment comment = DAO.Comment.findById(db, id_comment);
+            Comment comment = Comment.findById(db, id_comment);
             if (comment == null)
                 return NotFound();
 

@@ -12,7 +12,7 @@ namespace QoalaWS.DAO
     {
         public static Comment findById(QoalaEntities context, Decimal id_comment)
         {
-            return context.COMMENTS.FirstOrDefault(u => u.ID_COMMENT == id_comment && !u.DELETED_AT.HasValue && u.APPROVED_AT.HasValue);
+            return context.COMMENTS.FirstOrDefault(u => u.ID_COMMENT == id_comment && !u.DELETED_AT.HasValue);
         }
 
         public static List<object> findByIdPost(QoalaEntities context, Decimal id_post)
