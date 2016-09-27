@@ -74,7 +74,8 @@ namespace QoalaWS.DAO
                 content = CONTENT,
                 published_at = PUBLISHED_AT,
                 id_user = ID_USER,
-            };
+                comments = Comment.findByIdPost(new QoalaEntities(), ID_POST)
+        };
         }
 
         public static int totalNumberPage(QoalaEntities context)
