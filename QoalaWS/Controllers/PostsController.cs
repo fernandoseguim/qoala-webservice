@@ -23,6 +23,24 @@ namespace QoalaWS.Controllers
             return Ok(post.Serializer());
         }
 
+        [Route("users/{idUser}/posts")]
+        [HttpGet]
+        public IHttpActionResult GetUserPosts(int idUser, int page = 1)
+        {
+            List<object> posts = Post.FindByIdUser(db, idUser, page);
+            var totalNumberPage = Post.TotalNumberPageFromIdUser(db, idUser);
+            return Ok(
+                new
+                {
+                    posts = posts,
+                    total_number_pages = totalNumberPage,
+                    next_page = totalNumberPage > page,
+                    current_page = page,
+                    previous_page = page > 1 && page <= totalNumberPage
+                }
+            );
+        }
+
         [Route("posts")]
         [HttpGet]
         public IHttpActionResult GetPosts(int page = 1)
@@ -53,7 +71,7 @@ namespace QoalaWS.Controllers
                 return BadRequest(ModelState);
             }
 
-            Post p = DAO.Post.findById(db, id);
+            Post p = Post.findById(db, id);
 
             if (p == null)
                 return NotFound();
@@ -98,7 +116,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id}")]
         public IHttpActionResult Delete(decimal id)
         {
-            Post p = DAO.Post.findById(db, id);
+            Post p = Post.findById(db, id);
             if (p == null)
                 return NotFound();
 
@@ -112,7 +130,7 @@ namespace QoalaWS.Controllers
         [Route("posts/{id}/publish")]
         public IHttpActionResult Publish(decimal id)
         {
-            Post p = DAO.Post.findById(db, id);
+            Post p = Post.findById(db, id);
             if (p == null)
                 return NotFound();
 

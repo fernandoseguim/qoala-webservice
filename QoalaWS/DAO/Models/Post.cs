@@ -30,6 +30,22 @@ namespace QoalaWS.DAO
             return context.POSTS.FirstOrDefault(u => u.ID_POST == id_post && !u.DELETED_AT.HasValue);
         }
 
+        public static List<object> FindByIdUser(QoalaEntities context, Decimal id_user, int page)
+        {
+            var list = context.POSTS.Where(p => p.ID_USER == id_user && !p.DELETED_AT.HasValue).
+                OrderByDescending(p => p.PUBLISHED_AT).
+                Skip(page == 1 ? 0 : LIMIT * page - LIMIT).
+                Take(LIMIT).
+                ToList();
+
+            List<object> posts = new List<object>();
+            foreach (var post in list)
+            {
+                posts.Add(post.SerializerWithoutComments());
+            }
+            return posts;
+        }
+
         public decimal? Add(QoalaEntities context)
         {
             var outParameter = new ObjectParameter("OUT_ID_POST", typeof(decimal));
@@ -75,13 +91,33 @@ namespace QoalaWS.DAO
                 published_at = PUBLISHED_AT,
                 id_user = ID_USER,
                 comments = Comment.findByIdPost(new QoalaEntities(), ID_POST)
-        };
+            };
+        }
+
+        public object SerializerWithoutComments()
+        {
+            return new
+            {
+                id_post = ID_POST,
+                title = TITLE,
+                content = CONTENT,
+                published_at = PUBLISHED_AT,
+                id_user = ID_USER
+            };
         }
 
         public static int totalNumberPage(QoalaEntities context)
         {
             decimal count = context.POSTS.
                 Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
+                Count();
+            return (int)Math.Ceiling(count / LIMIT);
+        }
+
+        public static int TotalNumberPageFromIdUser(QoalaEntities context, int IdUser)
+        {
+            decimal count = context.POSTS.
+                Where(p => p.ID_USER == IdUser && !p.DELETED_AT.HasValue).
                 Count();
             return (int)Math.Ceiling(count / LIMIT);
         }
