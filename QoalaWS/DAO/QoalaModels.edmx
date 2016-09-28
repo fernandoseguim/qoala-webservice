@@ -199,7 +199,6 @@
         </Function>
         <Function Name="SP_INSERT_DEVICE_GEO_LOCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="PID_DEVICE" Type="number" Mode="In" />
-          <Parameter Name="PVERIFIED_AT" Type="date" Mode="In" />
           <Parameter Name="PLATITUDE" Type="number" Mode="In" />
           <Parameter Name="PLONGITUDE" Type="number" Mode="In" />
           <Parameter Name="OUT_ID_GEO" Type="number" Mode="Out" />
@@ -450,7 +449,6 @@
           </FunctionImport>
           <FunctionImport Name="SP_INSERT_DEVICE_GEO_LOCATION">
             <Parameter Name="PID_DEVICE" Mode="In" Type="Decimal" />
-            <Parameter Name="PVERIFIED_AT" Mode="In" Type="DateTime" />
             <Parameter Name="PLATITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="PLONGITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="OUT_ID_GEO" Mode="Out" Type="Decimal" />

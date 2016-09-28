@@ -46,7 +46,7 @@ namespace QoalaWS.Controllers
             AccessControl ac = user.doLogin(db);
             if (ac == null)
                 return BadRequest("Email ou senha inválido");
-
+            user = ac.GetUser(db);
             return Created("",
                 new
                 {

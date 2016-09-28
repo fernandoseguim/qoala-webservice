@@ -2,6 +2,7 @@
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
+using System.Collections.Generic;
 
 namespace QoalaWS.Controllers
 {
@@ -13,22 +14,33 @@ namespace QoalaWS.Controllers
         [HttpGet]
         public IHttpActionResult Get(decimal id)
         {
-            Post post = DAO.Post.findById(db, id);
+            Post post = Post.findById(db, id);
             if (post == null)
             {
                 return NotFound();
             }
             
+            return Ok(post.Serializer());
+        }
+
+        [Route("posts")]
+        [HttpGet]
+        public IHttpActionResult GetPosts(int page = 1)
+        {
+            List<object> posts = Post.All(db, page);
+            
+            var totalNumberPage = Post.totalNumberPage(db);
             return Ok(
                 new
-                {
-                    title = post.TITLE,
-                    content = post.CONTENT,
-                    published_at = post.PUBLISHED_AT
+                {   
+                    posts = posts,
+                    total_number_pages = totalNumberPage,
+                    next_page = totalNumberPage > page,
+                    current_page = page,
+                    previous_page = page > 1 && page <= totalNumberPage
                 }
             );
         }
-
 
         [Route("posts/{id}")]
         [HttpPut]

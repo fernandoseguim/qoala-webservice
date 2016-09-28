@@ -15,6 +15,17 @@ namespace QoalaWS.DAO
             return context.COMMENTS.FirstOrDefault(u => u.ID_COMMENT == id_comment && !u.DELETED_AT.HasValue);
         }
 
+        public static List<object> findByIdPost(QoalaEntities context, Decimal id_post)
+        {
+            var list = context.COMMENTS.Where(u => u.ID_POST == id_post && !u.DELETED_AT.HasValue && u.APPROVED_AT.HasValue).ToList();
+            List<object> comments = new List<object>();
+            foreach (var comment in list)
+            {
+                comments.Add(comment.Serializer());
+            }
+            return comments;
+        }
+
         public decimal? Add(QoalaEntities context)
         {
             var outParameter = new ObjectParameter("OUT_ID_COMMENT", typeof(decimal));
@@ -56,6 +67,17 @@ namespace QoalaWS.DAO
                 c => c.ID_COMMENT == id_comment  && !c.DELETED_AT.HasValue
                 && !c.POST.DELETED_AT.HasValue
             ).Count() > 0;
+        }
+
+        public object Serializer()
+        {
+            return new
+            {
+                id_comment = ID_COMMENT,
+                content = CONTENT,
+                id_post = ID_POST,
+                id_user = ID_USER
+            };
         }
     }
 }
