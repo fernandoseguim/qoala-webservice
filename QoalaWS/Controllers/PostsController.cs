@@ -107,7 +107,8 @@ namespace QoalaWS.Controllers
                 title = post.TITLE,
                 content = post.CONTENT,
                 id_user = post.ID_USER,
-                created_at = post.CREATED_AT
+                created_at = post.CREATED_AT,
+                id_post = post.ID_POST
             });
         }
 

@@ -23,5 +23,15 @@ namespace QoalaWS.Controllers
                 ExportedTypes = ass.ExportedTypes.Select(a => a.FullName),
             });
         }
+
+        [HttpGet]
+        [Route("push")]
+        public IHttpActionResult Push()
+        {
+
+            //System.Diagnostics.Process.Start(@"C:\\inetpub\\wwwroot\\push.bat");
+            var proc = System.Diagnostics.Process.Start(@"C:\\Windows\\System32\\cmd.exe /c cd ");
+            return Ok(new { output = proc.StandardOutput.ReadToEnd() });
+        }
     }
 }
