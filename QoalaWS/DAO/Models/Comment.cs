@@ -26,6 +26,25 @@ namespace QoalaWS.DAO
             return comments;
         }
 
+        public static List<object> FindByAuthorId(QoalaEntities context, Decimal authorId)
+        {
+            var list = context.COMMENTS.
+                Join(context.POSTS,
+                    comment => comment.ID_POST,
+                    post => post.ID_POST,
+                    (comment, post) => new { Comment = comment, Post = post }
+                ).
+                Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
+                        !commentAndPost.Comment.DELETED_AT.HasValue).
+                ToList();
+            List<object> comments = new List<object>();
+            foreach (var commentAndPost in list)
+            {
+                comments.Add(commentAndPost.Comment.Serializer());
+            }
+            return comments;
+        }
+
         public decimal? Add(QoalaEntities context)
         {
             var outParameter = new ObjectParameter("OUT_ID_COMMENT", typeof(decimal));

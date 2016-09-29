@@ -114,5 +114,15 @@ namespace QoalaWS.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        [HttpGet]
+        [Route("users/{authorID}/posts/comments")]
+        [BasicAuthorization(Permission = Permission.Editor)]
+        public IHttpActionResult PostCommentsFromAuthor(int authorId)
+        {
+            List<object> comments = Comment.FindByAuthorId(db, authorId);
+
+            return Ok(comments);
+        }
     }
 }
