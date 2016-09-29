@@ -95,7 +95,9 @@ namespace QoalaWS.DAO
                 id_comment = ID_COMMENT,
                 content = CONTENT,
                 id_post = ID_POST,
-                id_user = ID_USER
+                id_user = ID_USER,
+                created_at = CREATED_AT,
+                approved_at = APPROVED_AT
             };
         }
     }

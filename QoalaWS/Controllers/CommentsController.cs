@@ -122,7 +122,7 @@ namespace QoalaWS.Controllers
         {
             List<object> comments = Comment.FindByAuthorId(db, authorId);
 
-            return Ok(comments);
+            return Ok(new { comments = comments });
         }
     }
 }
