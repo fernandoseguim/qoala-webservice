@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,13 +27,79 @@ namespace QoalaWS.Controllers
         }
 
         [HttpGet]
-        [Route("push")]
-        public IHttpActionResult Push()
+        [Route("pull/log")]
+        public IHttpActionResult PullLog()
         {
+            String path = @"C:\\inetpub\\wwwroot\\" + "deploy.log";
+            if (File.Exists(path))
+                return Ok(File.ReadAllText(path));
+            else
+                return Ok("no log for you");
+        }
+        [HttpGet]
+        [Route("pull/log/delete")]
+        public IHttpActionResult PullLogDelete()
+        {
+            String path = @"C:\\inetpub\\wwwroot\\" + "deploy.log";
+            if (File.Exists(path))
+                File.Delete(path);
+            return Ok();
+        }
 
-            //System.Diagnostics.Process.Start(@"C:\\inetpub\\wwwroot\\push.bat");
-            var proc = System.Diagnostics.Process.Start(@"C:\\Windows\\System32\\cmd.exe /c cd ");
-            return Ok(new { output = proc.StandardOutput.ReadToEnd() });
+        [HttpGet]
+        [Route("pull")]
+        public IHttpActionResult Pull()
+        {
+            var proc = new System.Diagnostics.Process();
+            using (proc)
+                try
+                {
+                    String path = @"C:\\inetpub\\wwwroot\\";
+                    proc.StartInfo.CreateNoWindow = true;
+                    proc.StartInfo.UseShellExecute = false;
+                    proc.StartInfo.FileName = path + "deploy.cmd";
+                    proc.StartInfo.WorkingDirectory = path;
+                    proc.StartInfo.RedirectStandardError = true;
+                    proc.StartInfo.RedirectStandardOutput = true;
+
+                    Boolean iniciou = proc.Start();
+                    proc.WaitForExit(60 * 1000);
+
+                    string log = "", logerror = "", logout = "";
+
+                    try
+                    {
+                        logerror += proc.StandardOutput.ReadToEnd();
+                    }
+                    catch { }
+                    try
+                    {
+                        logout += proc.StandardError.ReadToEnd();
+                    }
+                    catch { }
+                    try
+                    {
+                        log += System.IO.File.ReadAllText(path + "deploy.log");
+                    }
+                    catch { }
+                    return Ok(new
+                    {
+                        totalTime = proc.TotalProcessorTime,
+                        exitCode = proc.ExitCode,
+                        exitTime = proc.ExitTime,
+                        logError = logerror,
+                        logOutput = logout,
+                        log = log,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new { Exception = ex });
+                }
+                finally
+                {
+                    proc.Close();
+                }
         }
     }
 }
