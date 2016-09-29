@@ -56,6 +56,8 @@ namespace QoalaWS.Controllers
                 comment.ID_USER = c.ID_USER;
             if (comment.APPROVED_AT == null)
                 comment.APPROVED_AT = c.APPROVED_AT;
+            if (comment.ID_POST == 0)
+                comment.ID_POST = c.ID_POST;
 
             comment.Update(db);
 
