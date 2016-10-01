@@ -21,15 +21,7 @@ namespace QoalaWS.Controllers
                 return NotFound();
             }
 
-            return Ok(
-                new
-                {
-                    email = user.EMAIL,
-                    name = user.NAME,
-                    permission = user.PERMISSION,
-                    created_at = user.CREATED_AT
-                }
-            );
+            return Ok(user.Serializer());
         }
         
         [HttpPut]
@@ -73,6 +65,26 @@ namespace QoalaWS.Controllers
             user.Delete(db);
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [HttpGet]
+        [Route("users")]
+        [BasicAuthorization(Permission = Permission.Admin)]
+        public IHttpActionResult GetUsers(int page = 1)
+        {
+            var totalNumberPage = DAO.User.totalNumberPage(db);
+
+            var data = new {
+                users = DAO.User.All(db, page),
+                pagination = new
+                {
+                    total_number_pages = totalNumberPage,
+                    next_page = totalNumberPage > page,
+                    current_page = page,
+                    previous_page = page > 1 && page <= totalNumberPage
+                }
+            };
+            return Ok(data);
         }
     }
 }

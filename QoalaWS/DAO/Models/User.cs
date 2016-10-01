@@ -3,11 +3,14 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using QoalaWS.Exceptions;
+using System.Collections.Generic;
 
 namespace QoalaWS.DAO
 {
     public partial class User
     {
+        const int LIMIT = 10;
+
         override
         public String ToString()
         {
@@ -15,6 +18,21 @@ namespace QoalaWS.DAO
                 "NAME: " + NAME + ", " +
                 "EMAIL: " + EMAIL + ", " +
                 "PERMISSION: " + PERMISSION + ".";
+        }
+
+        public static List<object> All(QoalaEntities context, int page)
+        {
+            var list = context.USERS.Where(u => u.DELETED_AT == null).
+                OrderByDescending(p => p.CREATED_AT).
+                Skip(page == 1 ? 0 : LIMIT * page - LIMIT).
+                Take(LIMIT).
+                ToList();
+            List<object> users = new List<object>();
+            foreach (var user in list)
+            {
+                users.Add(user.Serializer());
+            }
+            return users;
         }
 
         public static User findByEmail(QoalaEntities context, string email)
@@ -96,6 +114,25 @@ namespace QoalaWS.DAO
         {
             AccessControl ac = new AccessControl { USER = this };
             return ac.Add(context);
+        }
+
+        public object Serializer()
+        {
+            return new
+            {
+                email = EMAIL,
+                name = NAME,
+                permission = PERMISSION,
+                created_at = CREATED_AT
+            };
+        }
+
+        public static int totalNumberPage(QoalaEntities context)
+        {
+            decimal count = context.USERS.
+                Where(u => u.DELETED_AT == null).
+                Count();
+            return (int)Math.Ceiling(count / LIMIT);
         }
     }
 }
