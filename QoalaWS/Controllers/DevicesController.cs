@@ -10,25 +10,36 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [HttpGet]
+        [BasicAuthorization(Permission = Permission.Admin)]
+        [Route("devices/")]
+        public IHttpActionResult GetDevices(int page = 1)
+        {
+            var totalNumberPage = Device.totalNumberPage(db);
+            var data = new
+            {
+                users = Device.All(db, page),
+                pagination = new
+                {
+                    total_number_pages = totalNumberPage,
+                    next_page = totalNumberPage > page,
+                    current_page = page,
+                    previous_page = page > 1 && page <= totalNumberPage
+                }
+            };
+            return Ok(data);
+        }
+
+        [HttpGet]
         [BasicAuthorization]
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Get(decimal id_user, decimal id_device)
         {
-            if (!DAO.Device.belongsToUser(db, id_device, id_user))
+            if (!Device.belongsToUser(db, id_device, id_user))
                 return NotFound();
 
-            Device device = DAO.Device.findById(db, id_device);
+            Device device = Device.findById(db, id_device);
 
-            return Ok(
-                new
-                {
-                    alarm = device.ALARM,
-                    alias = device.ALIAS,
-                    color = device.COLOR,
-                    frequency_update = device.FREQUENCY_UPDATE,
-                    id_user = device.ID_USER
-                }
-            );
+            return Ok(device.Serializer());
         }
 
         [HttpPost]
@@ -48,14 +59,7 @@ namespace QoalaWS.Controllers
 
             return Created(
                 "",
-                new
-                {
-                    alarm = device.ALARM,
-                    alias = device.ALIAS,
-                    color = device.COLOR,
-                    frequency_update = device.FREQUENCY_UPDATE,
-                    id_user = device.ID_USER
-                }
+                device.Serializer()
             );
         }
 
@@ -65,10 +69,10 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Update(decimal id_user, decimal id_device, Device device)
         {
-            if (!DAO.Device.belongsToUser(db, id_device, id_user))
+            if (!Device.belongsToUser(db, id_device, id_user))
                 return NotFound();
 
-            Device d = DAO.Device.findById(db, id_device);
+            Device d = Device.findById(db, id_device);
 
             if (d == null)
                 return NotFound();
@@ -111,10 +115,10 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}/turn_alarm")]
         public IHttpActionResult TurnAlarm(decimal id_user, decimal id_device, Device device)
         {
-            if (!DAO.Device.belongsToUser(db, id_device, id_user))
+            if (!Device.belongsToUser(db, id_device, id_user))
                 return NotFound();
 
-            Device d = DAO.Device.findById(db, id_device);
+            Device d = Device.findById(db, id_device);
 
             if (d == null)
                 return NotFound();

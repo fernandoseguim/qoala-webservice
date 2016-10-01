@@ -1,15 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 using QoalaWS.Exceptions;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace QoalaWS.DAO
 {
     public partial class Device
     {
+        const int LIMIT = 10;
+        public static List<object> All(QoalaEntities context, int page_number)
+        {
+            var list = context.DEVICES.Where(d => !d.DELETED_AT.HasValue).
+                OrderByDescending(p => p.CREATED_AT).
+                Skip(page_number == 1 ? 0 : LIMIT * page_number - LIMIT).
+                Take(LIMIT).
+                ToList();
+            List<object> devices = new List<object>();
+            foreach (var device in list)
+            {
+                devices.Add(device.Serializer());
+            }
+            return devices;
+        }
+
         public static Device findById(QoalaEntities context, Decimal id_device)
         {
             return context.DEVICES.FirstOrDefault(u => u.ID_DEVICE == id_device && !u.DELETED_AT.HasValue);
@@ -69,6 +84,27 @@ namespace QoalaWS.DAO
                 d => d.ID_USER == id_user && !d.DELETED_AT.HasValue &&
                 !d.USER.DELETED_AT.HasValue
             ).Count() > 0;
+        }
+
+        public static int totalNumberPage(QoalaEntities context)
+        {
+            decimal count = context.DEVICES.
+                Where(p => !p.DELETED_AT.HasValue).
+                Count();
+            return (int)Math.Ceiling(count / LIMIT);
+        }
+
+        public object Serializer()
+        {
+            return new
+            {
+                id_device = ID_DEVICE,
+                alarm = ALARM,
+                alias = ALIAS,
+                color = COLOR,
+                frequency_update = FREQUENCY_UPDATE,
+                id_user = ID_USER
+            };
         }
     }
 }
