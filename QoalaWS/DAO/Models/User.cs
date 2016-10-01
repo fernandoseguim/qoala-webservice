@@ -120,6 +120,7 @@ namespace QoalaWS.DAO
         {
             return new
             {
+                id_user = ID_USER,
                 email = EMAIL,
                 name = NAME,
                 permission = PERMISSION,
