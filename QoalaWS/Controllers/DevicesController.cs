@@ -17,7 +17,7 @@ namespace QoalaWS.Controllers
             var totalNumberPage = Device.totalNumberPage(db);
             var data = new
             {
-                users = Device.All(db, page),
+                devices = Device.All(db, page),
                 pagination = new
                 {
                     total_number_pages = totalNumberPage,
