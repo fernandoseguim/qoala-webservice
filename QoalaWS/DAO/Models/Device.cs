@@ -97,7 +97,7 @@ namespace QoalaWS.DAO
         {
             return context.DEVICES.Where(
                 d => d.ID_USER == id_user && !d.DELETED_AT.HasValue &&
-                !d.USER().DELETED_AT.HasValue
+                !d.USER.DELETED_AT.HasValue
             ).Count() > 0;
         }
 
@@ -130,7 +130,7 @@ namespace QoalaWS.DAO
             };
         }
         
-        public User USER()
+        public User GetUser()
         {
             using(QoalaEntities db = new QoalaEntities())
             {

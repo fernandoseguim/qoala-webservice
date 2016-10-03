@@ -66,7 +66,7 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices")]
         public IHttpActionResult Create(decimal id_user, Device device)
         {
-            if (device.USER().PERMISSION != 3)
+            if (device.GetUser().PERMISSION != 3)
             {
                 if (!Device.belongsToUser(db, device.ID_DEVICE, id_user))
                     return NotFound();
@@ -91,7 +91,7 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Update(decimal id_user, decimal id_device, Device device)
         {
-            if (device.USER().PERMISSION != 3)
+            if (device.GetUser().PERMISSION != 3)
             {
                 if (!Device.belongsToUser(db, id_device, id_user))
                     return NotFound();
@@ -145,7 +145,7 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}/turn_alarm")]
         public IHttpActionResult TurnAlarm(decimal id_user, decimal id_device, Device device)
         {
-            if (device.USER().PERMISSION != 3)
+            if (device.GetUser().PERMISSION != 3)
             {
                 if (!Device.belongsToUser(db, id_device, id_user))
                     return NotFound();
