@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 using QoalaWS.Exceptions;
 using System.Data.Entity;
 
@@ -10,6 +9,7 @@ namespace QoalaWS.DAO
 {
     public partial class Comment
     {
+        const int LIMIT = 10;
         public static Comment findById(QoalaEntities context, Decimal id_comment)
         {
             return context.COMMENTS.FirstOrDefault(u => u.ID_COMMENT == id_comment && !u.DELETED_AT.HasValue);
@@ -26,17 +26,53 @@ namespace QoalaWS.DAO
             return comments;
         }
 
-        public static List<object> FindByAuthorId(QoalaEntities context, Decimal authorId)
+        public static int totalNumberPageByAuthorId(QoalaEntities context, Decimal authorId)
         {
-            var list = context.COMMENTS.
+            var query = context.COMMENTS.
+                Join(context.POSTS,
+                    comment => comment.ID_POST,
+                    post => post.ID_POST,
+                    (comment, post) => new { Comment = comment, Post = post }
+                );
+
+            User user = User.findById(context, authorId);
+
+            if (user.PERMISSION == 3)
+            {
+                query = query.Where(commentAndPost => !commentAndPost.Comment.DELETED_AT.HasValue);
+            }
+            else
+            {
+                query = query.Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
+                        !commentAndPost.Comment.DELETED_AT.HasValue);
+            }
+            decimal count = query.Count();
+            return (int)Math.Ceiling(count / LIMIT);
+        }
+        public static List<object> FindByAuthorId(QoalaEntities context, Decimal authorId, int page = 1)
+        {
+            User user = User.findById(context, authorId);
+
+            var query = context.COMMENTS.
                 Join(context.POSTS,
                     comment => comment.ID_POST,
                     post => post.ID_POST,
                     (comment, post) => new { Comment = comment, Post = post }
                 ).
-                Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
-                        !commentAndPost.Comment.DELETED_AT.HasValue).
-                ToList();
+                OrderByDescending(p => p.Comment.CREATED_AT).
+                Skip(page == 1 ? 0 : LIMIT * page - LIMIT).
+                Take(LIMIT);
+
+            if (user.PERMISSION == 3)
+            {
+                query = query.Where(commentAndPost => !commentAndPost.Comment.DELETED_AT.HasValue);
+            } else
+            {
+                query = query.Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
+                        !commentAndPost.Comment.DELETED_AT.HasValue);
+            }
+
+            var list = query.ToList();
             List<object> comments = new List<object>();
             foreach (var commentAndPost in list)
             {

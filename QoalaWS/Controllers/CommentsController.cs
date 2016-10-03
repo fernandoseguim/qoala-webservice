@@ -120,11 +120,21 @@ namespace QoalaWS.Controllers
         [HttpGet]
         [Route("users/{authorID}/posts/comments")]
         [BasicAuthorization(Permission = Permission.Editor)]
-        public IHttpActionResult PostCommentsFromAuthor(int authorId)
+        public IHttpActionResult PostCommentsFromAuthor(int authorId, int page = 1)
         {
-            List<object> comments = Comment.FindByAuthorId(db, authorId);
-
-            return Ok(new { comments = comments });
+            List<object> comments = Comment.FindByAuthorId(db, authorId, page);
+            decimal totalNumberPage = Comment.totalNumberPageByAuthorId(db, authorId);
+            return Ok(
+                new {
+                    comments = comments,
+                    pagination = new
+                    {
+                        total_number_pages = totalNumberPage,
+                        next_page = totalNumberPage > page,
+                        current_page = page,
+                        previous_page = page > 1 && page <= totalNumberPage
+                    }
+                });
         }
     }
 }
