@@ -109,6 +109,14 @@ namespace QoalaWS.DAO
             return (int)Math.Ceiling(count / LIMIT);
         }
 
+        public static int totalNumberPageByUser(QoalaEntities context, decimal idUser)
+        {
+            decimal count = context.DEVICES.
+                Where(p => !p.DELETED_AT.HasValue && p.ID_USER == idUser).
+                Count();
+            return (int)Math.Ceiling(count / LIMIT);
+        }
+
         public object Serializer()
         {
             return new
@@ -120,6 +128,14 @@ namespace QoalaWS.DAO
                 frequency_update = FREQUENCY_UPDATE,
                 id_user = ID_USER
             };
+        }
+        
+        public User USER()
+        {
+            using(QoalaEntities db = new QoalaEntities())
+            {
+                return db.USERS.FirstOrDefault(u => u.ID_USER == ID_USER);
+            }
         }
     }
 }

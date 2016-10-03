@@ -18,14 +18,17 @@ namespace QoalaWS.Controllers
             var token = Request.Headers.Authorization.Parameter;
             var accessControl = AccessControl.find(db, token);
             List<object> devices = null;
+            int totalNumberPage = 0;
             if (accessControl.GetUser(db).PERMISSION != 3)
             {
                 devices = Device.AllByUser(db, page, accessControl.ID_USER);
+                totalNumberPage = Device.totalNumberPageByUser(db, accessControl.ID_USER);
             } else
             {
                 devices = Device.All(db, page);
+                totalNumberPage = Device.totalNumberPage(db);
             }
-            var totalNumberPage = Device.totalNumberPage(db);
+            
             var data = new
             {
                 devices = devices,
@@ -45,8 +48,13 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Get(decimal id_user, decimal id_device)
         {
-            if (!Device.belongsToUser(db, id_device, id_user))
-                return NotFound();
+            var token = Request.Headers.Authorization.Parameter;
+            var accessControl = AccessControl.find(db, token);
+            if(accessControl.GetUser(db).PERMISSION != 3)
+            {
+                if (!Device.belongsToUser(db, id_device, id_user))
+                    return NotFound();
+            }
 
             Device device = Device.findById(db, id_device);
 
@@ -58,8 +66,11 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices")]
         public IHttpActionResult Create(decimal id_user, Device device)
         {
-            if (DAO.User.findById(db, id_user) == null)
-                return NotFound();
+            if (device.USER().PERMISSION != 3)
+            {
+                if (!Device.belongsToUser(db, device.ID_DEVICE, id_user))
+                    return NotFound();
+            }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -80,8 +91,11 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Update(decimal id_user, decimal id_device, Device device)
         {
-            if (!Device.belongsToUser(db, id_device, id_user))
-                return NotFound();
+            if (device.USER().PERMISSION != 3)
+            {
+                if (!Device.belongsToUser(db, id_device, id_user))
+                    return NotFound();
+            }
 
             Device d = Device.findById(db, id_device);
 
@@ -108,10 +122,15 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}")]
         public IHttpActionResult Delete(decimal id_user, decimal id_device)
         {
-            if (!DAO.Device.belongsToUser(db, id_device, id_user))
-                return NotFound();
-
-            Device device = DAO.Device.findById(db, id_device);
+            var token = Request.Headers.Authorization.Parameter;
+            var accessControl = AccessControl.find(db, token);
+            if (accessControl.GetUser(db).PERMISSION != 3)
+            {
+                if (!Device.belongsToUser(db, id_device, id_user))
+                    return NotFound();
+            }
+            
+            Device device = Device.findById(db, id_device);
             if (device == null)
                 return NotFound();
 
@@ -126,8 +145,11 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices/{id_device}/turn_alarm")]
         public IHttpActionResult TurnAlarm(decimal id_user, decimal id_device, Device device)
         {
-            if (!Device.belongsToUser(db, id_device, id_user))
-                return NotFound();
+            if (device.USER().PERMISSION != 3)
+            {
+                if (!Device.belongsToUser(db, id_device, id_user))
+                    return NotFound();
+            }
 
             Device d = Device.findById(db, id_device);
 
