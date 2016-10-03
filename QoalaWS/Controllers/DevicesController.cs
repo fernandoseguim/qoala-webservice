@@ -2,6 +2,7 @@
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
+using System.Collections.Generic;
 
 namespace QoalaWS.Controllers
 {
@@ -10,14 +11,24 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [HttpGet]
-        [BasicAuthorization(Permission = Permission.Admin)]
+        [BasicAuthorization]
         [Route("devices/")]
         public IHttpActionResult GetDevices(int page = 1)
         {
+            var token = Request.Headers.Authorization.Parameter;
+            var accessControl = AccessControl.find(db, token);
+            List<object> devices = null;
+            if (accessControl.GetUser(db).PERMISSION != 3)
+            {
+                devices = Device.AllByUser(db, page, accessControl.ID_USER);
+            } else
+            {
+                devices = Device.All(db, page);
+            }
             var totalNumberPage = Device.totalNumberPage(db);
             var data = new
             {
-                devices = Device.All(db, page),
+                devices = devices,
                 pagination = new
                 {
                     total_number_pages = totalNumberPage,

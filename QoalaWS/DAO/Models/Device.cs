@@ -25,6 +25,21 @@ namespace QoalaWS.DAO
             return devices;
         }
 
+        public static List<object> AllByUser(QoalaEntities context, int page_number, decimal idUser)
+        {
+            var list = context.DEVICES.Where(d => d.ID_USER == idUser && !d.DELETED_AT.HasValue).
+                OrderByDescending(p => p.CREATED_AT).
+                Skip(page_number == 1 ? 0 : LIMIT * page_number - LIMIT).
+                Take(LIMIT).
+                ToList();
+            List<object> devices = new List<object>();
+            foreach (var device in list)
+            {
+                devices.Add(device.Serializer());
+            }
+            return devices;
+        }
+
         public static Device findById(QoalaEntities context, Decimal id_device)
         {
             return context.DEVICES.FirstOrDefault(u => u.ID_DEVICE == id_device && !u.DELETED_AT.HasValue);
