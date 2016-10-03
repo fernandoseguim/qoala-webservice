@@ -66,13 +66,6 @@ namespace QoalaWS.Controllers
         [Route("users/{id_user}/devices")]
         public IHttpActionResult Create(decimal id_user, Device device)
         {
-            device.ID_USER = id_user;
-            if (device.GetUser().PERMISSION != 3)
-            {
-                if (!Device.belongsToUser(db, device.ID_DEVICE, id_user))
-                    return NotFound();
-            }
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
