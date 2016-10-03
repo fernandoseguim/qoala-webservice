@@ -55,10 +55,13 @@ namespace QoalaWS.Controllers
                 new
                 {   
                     posts = posts,
-                    total_number_pages = totalNumberPage,
-                    next_page = totalNumberPage > page,
-                    current_page = page,
-                    previous_page = page > 1 && page <= totalNumberPage
+                    pagination = new
+                    {
+                        total_number_pages = totalNumberPage,
+                        next_page = totalNumberPage > page,
+                        current_page = page,
+                        previous_page = page > 1 && page <= totalNumberPage
+                    }
                 }
             );
         }
