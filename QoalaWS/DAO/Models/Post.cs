@@ -90,6 +90,7 @@ namespace QoalaWS.DAO
                 content = CONTENT,
                 published_at = PUBLISHED_AT,
                 id_user = ID_USER,
+                user_name = GetUser().NAME,
                 comments = Comment.findByIdPost(new QoalaEntities(), ID_POST)
             };
         }
