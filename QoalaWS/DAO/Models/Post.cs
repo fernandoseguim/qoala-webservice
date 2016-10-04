@@ -102,7 +102,8 @@ namespace QoalaWS.DAO
                 title = TITLE,
                 content = CONTENT,
                 published_at = PUBLISHED_AT,
-                id_user = ID_USER
+                id_user = ID_USER,
+                user_name = GetUser().NAME
             };
         }
 
@@ -120,6 +121,14 @@ namespace QoalaWS.DAO
                 Where(p => p.ID_USER == IdUser && !p.DELETED_AT.HasValue).
                 Count();
             return (int)Math.Ceiling(count / LIMIT);
+        }
+
+        public User GetUser()
+        {
+            using (var db = new QoalaEntities())
+            {
+                return db.USERS.FirstOrDefault(u => u.ID_USER == ID_USER);
+            }
         }
     }
 }

@@ -133,8 +133,17 @@ namespace QoalaWS.DAO
                 id_post = ID_POST,
                 id_user = ID_USER,
                 created_at = CREATED_AT,
-                approved_at = APPROVED_AT
+                approved_at = APPROVED_AT,
+                user_name = GetUser().NAME
             };
+        }
+
+        public User GetUser()
+        {
+            using(var db = new QoalaEntities())
+            {
+                return db.USERS.FirstOrDefault(u => u.ID_USER == ID_USER);
+            }
         }
     }
 }
