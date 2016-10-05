@@ -31,6 +31,11 @@ namespace QoalaWS.DAO
         public System.DateTime CREATED_AT { get; set; }
         public Nullable<System.DateTime> UPDATED_AT { get; set; }
         public Nullable<System.DateTime> DELETED_AT { get; set; }
+        public string ADDRESS { get; set; }
+        public string DISTRICT { get; set; }
+        public string CITY { get; set; }
+        public string STATE { get; set; }
+        public string ZIPCODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> COMMENTS { get; set; }

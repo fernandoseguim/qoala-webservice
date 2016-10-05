@@ -23,7 +23,7 @@ namespace QoalaWS.Controllers
 
             return Ok(user.Serializer());
         }
-        
+
         [HttpPut]
         [Route("users/{id}")]
         [BasicAuthorization]
@@ -47,7 +47,17 @@ namespace QoalaWS.Controllers
                 user.PASSWORD = u.PASSWORD;
             if (user.PERMISSION == 0)
                 user.PERMISSION = u.PERMISSION;
-            
+            if (user.ADDRESS == null)
+                user.ADDRESS = u.ADDRESS;
+            if (user.DISTRICT == null)
+                user.DISTRICT = u.DISTRICT;
+            if (user.CITY == null)
+                user.CITY = u.CITY;
+            if (user.STATE == null)
+                user.STATE = u.STATE;
+            if (user.ZIPCODE == null)
+                user.ZIPCODE = u.ZIPCODE;
+
             user.Update(db);
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -74,7 +84,8 @@ namespace QoalaWS.Controllers
         {
             var totalNumberPage = DAO.User.totalNumberPage(db);
 
-            var data = new {
+            var data = new
+            {
                 users = DAO.User.All(db, page),
                 pagination = new
                 {

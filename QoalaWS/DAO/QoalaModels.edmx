@@ -79,6 +79,11 @@
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="255" />
+          <Property Name="DISTRICT" Type="varchar2" MaxLength="255" />
+          <Property Name="CITY" Type="varchar2" MaxLength="100" />
+          <Property Name="STATE" Type="varchar2" MaxLength="20" />
+          <Property Name="ZIPCODE" Type="varchar2" MaxLength="9" />
         </EntityType>
         <Association Name="ACCESSCONTROL_USERS_FK">
           <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
@@ -214,7 +219,12 @@
           <Parameter Name="PASSWORD" Type="varchar2" Mode="In" />
           <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="PERMISSION" Type="number" Mode="In" />
-          <Parameter Name="OUT_ID_USER" Type="number" Mode="InOut" />
+          <Parameter Name="ADDRESS" Type="varchar2" Mode="In" />
+          <Parameter Name="DISTRICT" Type="varchar2" Mode="In" />
+          <Parameter Name="CITY" Type="varchar2" Mode="In" />
+          <Parameter Name="STATE" Type="varchar2" Mode="In" />
+          <Parameter Name="ZIPCODE" Type="varchar2" Mode="In" />
+          <Parameter Name="OUT_ID_USER" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_POST_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
           <Parameter Name="LOG" Type="clob" Mode="In" />
@@ -263,6 +273,11 @@
           <Parameter Name="PPASSWORD" Type="varchar2" Mode="In" />
           <Parameter Name="PEMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="PPERMISSION" Type="number" Mode="In" />
+          <Parameter Name="PADDRESS" Type="varchar2" Mode="In" />
+          <Parameter Name="PDISTRICT" Type="varchar2" Mode="In" />
+          <Parameter Name="PCITY" Type="varchar2" Mode="In" />
+          <Parameter Name="PSTATE" Type="varchar2" Mode="In" />
+          <Parameter Name="PZIPCODE" Type="varchar2" Mode="In" />
           <Parameter Name="PROWCOUNT" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_USER_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="QOALA">
@@ -316,6 +331,11 @@
             <Parameter Name="PPASSWORD" Mode="In" Type="String" />
             <Parameter Name="PEMAIL" Mode="In" Type="String" />
             <Parameter Name="PPERMISSION" Mode="In" Type="Decimal" />
+            <Parameter Name="PADDRESS" Mode="In" Type="String" />
+            <Parameter Name="PDISTRICT" Mode="In" Type="String" />
+            <Parameter Name="PCITY" Mode="In" Type="String" />
+            <Parameter Name="PSTATE" Mode="In" Type="String" />
+            <Parameter Name="PZIPCODE" Mode="In" Type="String" />
             <Parameter Name="PROWCOUNT" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_USER_LOG">
@@ -357,7 +377,12 @@
             <Parameter Name="PASSWORD" Mode="In" Type="String" />
             <Parameter Name="EMAIL" Mode="In" Type="String" />
             <Parameter Name="PERMISSION" Mode="In" Type="Decimal" />
-            <Parameter Name="OUT_ID_USER" Mode="InOut" Type="Decimal" />
+            <Parameter Name="ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="DISTRICT" Mode="In" Type="String" />
+            <Parameter Name="CITY" Mode="In" Type="String" />
+            <Parameter Name="STATE" Mode="In" Type="String" />
+            <Parameter Name="ZIPCODE" Mode="In" Type="String" />
+            <Parameter Name="OUT_ID_USER" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_DELETE_POST">
             <Parameter Name="ID" Mode="In" Type="Decimal" />
@@ -553,6 +578,11 @@
           <NavigationProperty Name="DEVICES" Relationship="Model.DEVICES_USER_FK" FromRole="USER" ToRole="DEVICE" />
           <NavigationProperty Name="POSTS" Relationship="Model.POST_USER_FK" FromRole="USER" ToRole="POST" />
           <NavigationProperty Name="ACCESSCONTROLs" Relationship="Model.ACCESSCONTROL_USERS_FK" FromRole="USER" ToRole="ACCESSCONTROL" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DISTRICT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="COMMENTS_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
@@ -681,6 +711,11 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
                 <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
                 <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
                 <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />

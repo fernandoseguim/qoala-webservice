@@ -14,10 +14,16 @@ namespace QoalaWS.DAO
         override
         public String ToString()
         {
-            return "ID_USER: " + ID_USER + ", " +
-                "NAME: " + NAME + ", " +
-                "EMAIL: " + EMAIL + ", " +
-                "PERMISSION: " + PERMISSION + ".";
+            return "ID_USER: " + ID_USER +
+                ", NAME: " + NAME +
+                ", EMAIL: " + EMAIL +
+                ", PERMISSION: " + PERMISSION +
+                ", ADDRESS: " + ADDRESS +
+                ", DISTRICT: " + DISTRICT +
+                ", CITY: " + CITY +
+                ", STATE: " + STATE +
+                ", ZIPCODE: " + ZIPCODE +
+                ".";
         }
 
         public static List<object> All(QoalaEntities context, int page)
@@ -69,7 +75,7 @@ namespace QoalaWS.DAO
             {
                 PERMISSION = 1;
             }
-            int ret = context.SP_INSERT_USER(NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
+            int ret = context.SP_INSERT_USER(NAME, PASSWORD, EMAIL, PERMISSION, ADDRESS, DISTRICT, CITY, STATE, ZIPCODE, outParameter);
             if (outParameter.Value == DBNull.Value)
                 ID_USER = 0m;
             else
@@ -81,7 +87,7 @@ namespace QoalaWS.DAO
         public Decimal Update(QoalaEntities context)
         {
             var outParameter = new ObjectParameter("PROWCOUNT", typeof(decimal));
-            context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, outParameter);
+            context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, ADDRESS, DISTRICT, CITY, STATE, ZIPCODE, outParameter);
             return 1;
         }
 
@@ -91,7 +97,7 @@ namespace QoalaWS.DAO
             User user = findByEmail(context, EMAIL);
             if (user != null && user.PASSWORD.Equals(PASSWORD))
             {
-                AccessControl access=null;
+                AccessControl access = null;
                 //ja teve sessões, busca uma ativa
                 if (user.ACCESSCONTROLs.Count() > 0)
                 {
@@ -99,7 +105,7 @@ namespace QoalaWS.DAO
                     access = user.ACCESSCONTROLs.FirstOrDefault(ac => ac.EXPIRED_AT >= DateTime.Now);
                 }
 
-                if(access==null)
+                if (access == null)
                 {
                     access = new AccessControl { USER = user };
                     access.Add(context);
@@ -124,7 +130,12 @@ namespace QoalaWS.DAO
                 email = EMAIL,
                 name = NAME,
                 permission = PERMISSION,
-                created_at = CREATED_AT
+                created_at = CREATED_AT,
+                address = ADDRESS,
+                district = DISTRICT,
+                city = CITY,
+                state = STATE,
+                zipcode = ZIPCODE,
             };
         }
 

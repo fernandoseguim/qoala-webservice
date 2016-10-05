@@ -43,7 +43,7 @@ namespace QoalaWS.DAO
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_DELETE_USER", iDParameter, rOWCOUNT);
         }
     
-        public virtual int SP_UPDATE_USER(Nullable<decimal> pID, string pNAME, string pPASSWORD, string pEMAIL, Nullable<decimal> pPERMISSION, ObjectParameter pROWCOUNT)
+        public virtual int SP_UPDATE_USER(Nullable<decimal> pID, string pNAME, string pPASSWORD, string pEMAIL, Nullable<decimal> pPERMISSION, string pADDRESS, string pDISTRICT, string pCITY, string pSTATE, string pZIPCODE, ObjectParameter pROWCOUNT)
         {
             var pIDParameter = pID.HasValue ?
                 new ObjectParameter("PID", pID) :
@@ -65,7 +65,27 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PPERMISSION", pPERMISSION) :
                 new ObjectParameter("PPERMISSION", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", pIDParameter, pNAMEParameter, pPASSWORDParameter, pEMAILParameter, pPERMISSIONParameter, pROWCOUNT);
+            var pADDRESSParameter = pADDRESS != null ?
+                new ObjectParameter("PADDRESS", pADDRESS) :
+                new ObjectParameter("PADDRESS", typeof(string));
+    
+            var pDISTRICTParameter = pDISTRICT != null ?
+                new ObjectParameter("PDISTRICT", pDISTRICT) :
+                new ObjectParameter("PDISTRICT", typeof(string));
+    
+            var pCITYParameter = pCITY != null ?
+                new ObjectParameter("PCITY", pCITY) :
+                new ObjectParameter("PCITY", typeof(string));
+    
+            var pSTATEParameter = pSTATE != null ?
+                new ObjectParameter("PSTATE", pSTATE) :
+                new ObjectParameter("PSTATE", typeof(string));
+    
+            var pZIPCODEParameter = pZIPCODE != null ?
+                new ObjectParameter("PZIPCODE", pZIPCODE) :
+                new ObjectParameter("PZIPCODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UPDATE_USER", pIDParameter, pNAMEParameter, pPASSWORDParameter, pEMAILParameter, pPERMISSIONParameter, pADDRESSParameter, pDISTRICTParameter, pCITYParameter, pSTATEParameter, pZIPCODEParameter, pROWCOUNT);
         }
     
         public virtual int SP_USER_LOG(string lOG, Nullable<decimal> uSER_ID)
@@ -81,7 +101,7 @@ namespace QoalaWS.DAO
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_USER_LOG", lOGParameter, uSER_IDParameter);
         }
     
-        public virtual int SP_INSERT_USER(string nAME, string pASSWORD, string eMAIL, Nullable<decimal> pERMISSION, ObjectParameter oUT_ID_USER)
+        public virtual int SP_INSERT_USER(string nAME, string pASSWORD, string eMAIL, Nullable<decimal> pERMISSION, string aDDRESS, string dISTRICT, string cITY, string sTATE, string zIPCODE, ObjectParameter oUT_ID_USER)
         {
             var nAMEParameter = nAME != null ?
                 new ObjectParameter("NAME", nAME) :
@@ -99,7 +119,27 @@ namespace QoalaWS.DAO
                 new ObjectParameter("PERMISSION", pERMISSION) :
                 new ObjectParameter("PERMISSION", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_USER", nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, oUT_ID_USER);
+            var aDDRESSParameter = aDDRESS != null ?
+                new ObjectParameter("ADDRESS", aDDRESS) :
+                new ObjectParameter("ADDRESS", typeof(string));
+    
+            var dISTRICTParameter = dISTRICT != null ?
+                new ObjectParameter("DISTRICT", dISTRICT) :
+                new ObjectParameter("DISTRICT", typeof(string));
+    
+            var cITYParameter = cITY != null ?
+                new ObjectParameter("CITY", cITY) :
+                new ObjectParameter("CITY", typeof(string));
+    
+            var sTATEParameter = sTATE != null ?
+                new ObjectParameter("STATE", sTATE) :
+                new ObjectParameter("STATE", typeof(string));
+    
+            var zIPCODEParameter = zIPCODE != null ?
+                new ObjectParameter("ZIPCODE", zIPCODE) :
+                new ObjectParameter("ZIPCODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_INSERT_USER", nAMEParameter, pASSWORDParameter, eMAILParameter, pERMISSIONParameter, aDDRESSParameter, dISTRICTParameter, cITYParameter, sTATEParameter, zIPCODEParameter, oUT_ID_USER);
         }
     
         public virtual int SP_DELETE_POST(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
