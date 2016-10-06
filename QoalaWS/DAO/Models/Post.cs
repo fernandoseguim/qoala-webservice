@@ -20,7 +20,7 @@ namespace QoalaWS.DAO
             List<object> posts = new List<object>();
             foreach(var post in list)
             {
-                posts.Add(post.Serializer());
+                posts.Add(post.SerializerSummary());
             }
             return posts;
         }
@@ -41,7 +41,7 @@ namespace QoalaWS.DAO
             List<object> posts = new List<object>();
             foreach (var post in list)
             {
-                posts.Add(post.SerializerWithoutComments());
+                posts.Add(post.SerializerSummary());
             }
             return posts;
         }
@@ -95,13 +95,17 @@ namespace QoalaWS.DAO
             };
         }
 
-        public object SerializerWithoutComments()
+        public object SerializerSummary()
         {
+            string contentSummary = System.Text.RegularExpressions.Regex.Replace(CONTENT, "<(.|\\n)*?>", string.Empty); ;
+            int limit = contentSummary.Length < 50 ? contentSummary.Length : 50;
+            contentSummary = contentSummary.Substring(0, limit - 1);
+
             return new
             {
                 id_post = ID_POST,
                 title = TITLE,
-                content = CONTENT,
+                content = contentSummary,
                 published_at = PUBLISHED_AT,
                 id_user = ID_USER,
                 user_name = GetUser().NAME
