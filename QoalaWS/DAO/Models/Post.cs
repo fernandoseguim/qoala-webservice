@@ -9,7 +9,7 @@ namespace QoalaWS.DAO
 {
     public partial class Post
     {
-        const int LIMIT = 10;
+        const int LIMIT = 2;
         public static List<object> All(QoalaEntities context, int page_number)
         {
             var list = context.POSTS.Where(p => !p.DELETED_AT.HasValue && p.PUBLISHED_AT.HasValue).
@@ -98,7 +98,7 @@ namespace QoalaWS.DAO
         public object SerializerSummary()
         {
             string contentSummary = System.Text.RegularExpressions.Regex.Replace(CONTENT, "<(.|\\n)*?>", string.Empty); ;
-            int limit = contentSummary.Length < 50 ? contentSummary.Length : 50;
+            int limit = contentSummary.Length < 100 ? contentSummary.Length : 100;
             contentSummary = contentSummary.Substring(0, limit - 1);
 
             return new
