@@ -17,7 +17,11 @@ namespace QoalaWS.DAO
 
         public static List<object> findByIdPost(QoalaEntities context, Decimal id_post)
         {
-            var list = context.COMMENTS.Where(u => u.ID_POST == id_post && !u.DELETED_AT.HasValue && u.APPROVED_AT.HasValue).ToList();
+            var list = context.COMMENTS.Where(
+                    u => u.ID_POST == id_post && 
+                    !u.DELETED_AT.HasValue && 
+                    u.APPROVED_AT.HasValue
+                ).ToList();
             List<object> comments = new List<object>();
             foreach (var comment in list)
             {
@@ -37,15 +41,22 @@ namespace QoalaWS.DAO
 
             User user = User.findById(context, authorId);
 
+
             if (user.PERMISSION == 3)
             {
-                query = query.Where(commentAndPost => !commentAndPost.Comment.DELETED_AT.HasValue);
+                query = query.Where(
+                    commentAndPost =>
+                        !commentAndPost.Comment.DELETED_AT.HasValue &&
+                        !commentAndPost.Post.DELETED_AT.HasValue
+                    );
             }
             else
             {
                 query = query.Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
-                        !commentAndPost.Comment.DELETED_AT.HasValue);
+                        !commentAndPost.Comment.DELETED_AT.HasValue &&
+                        !commentAndPost.Post.DELETED_AT.HasValue);
             }
+
             decimal count = query.Count();
             return (int)Math.Ceiling(count / LIMIT);
         }
@@ -65,11 +76,16 @@ namespace QoalaWS.DAO
 
             if (user.PERMISSION == 3)
             {
-                query = query.Where(commentAndPost => !commentAndPost.Comment.DELETED_AT.HasValue);
+                query = query.Where(
+                    commentAndPost => 
+                        !commentAndPost.Comment.DELETED_AT.HasValue &&
+                        !commentAndPost.Post.DELETED_AT.HasValue
+                    );
             } else
             {
                 query = query.Where(commentAndPost => commentAndPost.Post.ID_USER == authorId &&
-                        !commentAndPost.Comment.DELETED_AT.HasValue);
+                        !commentAndPost.Comment.DELETED_AT.HasValue &&
+                        !commentAndPost.Post.DELETED_AT.HasValue);
             }
 
             var list = query.ToList();
