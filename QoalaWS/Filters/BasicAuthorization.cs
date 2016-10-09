@@ -45,8 +45,15 @@ namespace QoalaWS.Filters
         /// <summary>
         /// Regras de permissão de acesso a Action - Default QoalaWS.Filters.Permissions.Public 
         /// </summary>
+        [DefaultValue(Permission.Public)]
         public Permission Permission { get; set; }
-        
+        /// <summary>
+        /// Check if the UserID that come from route be the same de UserID from Token, 
+        /// if not do not have the right rights
+        /// </summary>
+        [DefaultValue(false)]
+        public bool PassForSameUserFromToken { get; set; }
+
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             var authHeader = actionContext.Request.Headers.Authorization;
@@ -73,11 +80,31 @@ namespace QoalaWS.Filters
                     if (ac.USER.PERMISSION.Equals(Permission.Admin))
                         return;
 
-                    if (Permission == Permission.NotSet)
-                        Permission = Permission.Public;
+                    if (this.Permission == Permission.NotSet)
+                        this.Permission = Permission.Public;
 
-                    if (!PermissionsRole.getRoles((Permission)ac.USER.PERMISSION).Contains(Permission))
-                        actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                    if (!PermissionsRole.getRoles((Permission)ac.USER.PERMISSION).Contains(this.Permission))
+                    {
+                        //verifica se é o proprio usuario quem está acessando a requisição, e neste caso permite, mesmo não tendo direitos admin
+                        if (PassForSameUserFromToken)
+                        {
+                            String user_id = "";
+                            try
+                            {
+                                //UserID from route to check de UserID from Token
+                                user_id = actionContext.ControllerContext.RouteData.Values.FirstOrDefault(v => v.Key.Equals("id")).Value.ToString();
+                            }
+                            catch { }
+                            // if not equals then it is not authorized
+                            if (!ac.USER.ID_USER.ToString().Equals(user_id))
+                                actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                        }
+                        else
+                        {
+                            //for do not pass through, do not check token user
+                            actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                        }
+                    }
                 }
             }
         }

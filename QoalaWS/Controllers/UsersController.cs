@@ -12,7 +12,7 @@ namespace QoalaWS.Controllers
         private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Admin, PassForSameUserFromToken = true)]
         public IHttpActionResult Get(decimal id)
         {
             User user = DAO.User.findById(db, id);
@@ -26,7 +26,7 @@ namespace QoalaWS.Controllers
 
         [HttpPut]
         [Route("users/{id}")]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Admin, PassForSameUserFromToken = true)]
         public IHttpActionResult Update(decimal id, User user)
         {
             if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace QoalaWS.Controllers
 
         [HttpDelete]
         [Route("users/{id}")]
-        [BasicAuthorization]
+        [BasicAuthorization(Permission = Permission.Admin, PassForSameUserFromToken = true)]
         public IHttpActionResult Delete(decimal id)
         {
             User user = DAO.User.findById(db, id);

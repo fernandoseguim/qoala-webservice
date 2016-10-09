@@ -14,7 +14,8 @@ namespace QoalaWS.DAO
         public static AccessControl find(QoalaEntities context, String token)
         {
             var now = DateTime.Now;
-            return context.ACCESSCONTROLs.FirstOrDefault(a => a.TOKEN == token && now <= a.EXPIRED_AT);
+            return context.ACCESSCONTROLs
+                .FirstOrDefault(a => a.TOKEN == token && now <= a.EXPIRED_AT);
         }
 
         public AccessControl Add(QoalaEntities context)

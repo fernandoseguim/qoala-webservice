@@ -119,6 +119,7 @@ namespace QoalaWS.Controllers
         {
             var token = Request.Headers.Authorization.Parameter;
             var accessControl = AccessControl.find(db, token);
+
             if (accessControl.GetUser(db).PERMISSION != 3)
             {
                 if (!Device.belongsToUser(db, id_device, id_user))
