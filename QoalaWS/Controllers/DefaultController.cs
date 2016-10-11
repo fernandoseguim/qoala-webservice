@@ -52,6 +52,7 @@ namespace QoalaWS.Controllers
         {
             var proc = new System.Diagnostics.Process();
             using (proc)
+            {
                 try
                 {
                     String path = @"C:\\inetpub\\wwwroot\\";
@@ -100,6 +101,7 @@ namespace QoalaWS.Controllers
                 {
                     proc.Close();
                 }
+            }
         }
     }
 }

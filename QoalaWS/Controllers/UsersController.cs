@@ -9,19 +9,22 @@ namespace QoalaWS.Controllers
 {
     public class UsersController : ApiController
     {
-        private QoalaEntities db = new QoalaEntities();
 
         [Route("users/{id}")]
         [BasicAuthorization(Permission = Permission.Admin, PassForSameUserFromToken = true)]
         public IHttpActionResult Get(decimal id)
         {
-            User user = DAO.User.findById(db, id);
-            if (user == null)
+            using (QoalaEntities db = new QoalaEntities())
             {
-                return NotFound();
-            }
+                User user = DAO.User.findById(db, id);
 
-            return Ok(user.Serializer());
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(user.Serializer());
+            }
         }
 
         [HttpPut]
@@ -32,35 +35,38 @@ namespace QoalaWS.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            User u = DAO.User.findById(db, id);
+            using (QoalaEntities db = new QoalaEntities())
+            {
+                User u = DAO.User.findById(db, id);
 
-            if (u == null)
-                return NotFound();
+                if (u == null)
+                    return NotFound();
 
-            user.ID_USER = id;
+                user.ID_USER = id;
 
-            if (user.EMAIL == null)
-                user.EMAIL = u.EMAIL;
-            if (user.NAME == null)
-                user.NAME = u.NAME;
-            if (user.PASSWORD == null)
-                user.PASSWORD = u.PASSWORD;
-            if (user.PERMISSION == 0)
-                user.PERMISSION = u.PERMISSION;
-            if (user.ADDRESS == null)
-                user.ADDRESS = u.ADDRESS;
-            if (user.DISTRICT == null)
-                user.DISTRICT = u.DISTRICT;
-            if (user.CITY == null)
-                user.CITY = u.CITY;
-            if (user.STATE == null)
-                user.STATE = u.STATE;
-            if (user.ZIPCODE == null)
-                user.ZIPCODE = u.ZIPCODE;
+                if (user.EMAIL == null)
+                    user.EMAIL = u.EMAIL;
+                if (user.NAME == null)
+                    user.NAME = u.NAME;
+                if (user.PASSWORD == null)
+                    user.PASSWORD = u.PASSWORD;
+                if (user.PERMISSION == 0)
+                    user.PERMISSION = u.PERMISSION;
+                if (user.ADDRESS == null)
+                    user.ADDRESS = u.ADDRESS;
+                if (user.DISTRICT == null)
+                    user.DISTRICT = u.DISTRICT;
+                if (user.CITY == null)
+                    user.CITY = u.CITY;
+                if (user.STATE == null)
+                    user.STATE = u.STATE;
+                if (user.ZIPCODE == null)
+                    user.ZIPCODE = u.ZIPCODE;
 
-            user.Update(db);
+                user.Update(db);
 
-            return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
         }
 
         [HttpDelete]
@@ -68,13 +74,16 @@ namespace QoalaWS.Controllers
         [BasicAuthorization(Permission = Permission.Admin, PassForSameUserFromToken = true)]
         public IHttpActionResult Delete(decimal id)
         {
-            User user = DAO.User.findById(db, id);
-            if (user == null)
-                return NotFound();
+            using (QoalaEntities db = new QoalaEntities())
+            {
+                User user = DAO.User.findById(db, id);
+                if (user == null)
+                    return NotFound();
 
-            user.Delete(db);
+                user.Delete(db);
 
-            return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
         }
 
         [HttpGet]
@@ -82,20 +91,23 @@ namespace QoalaWS.Controllers
         [BasicAuthorization(Permission = Permission.Admin)]
         public IHttpActionResult GetUsers(int page = 1)
         {
-            var totalNumberPage = DAO.User.totalNumberPage(db);
-
-            var data = new
+            using (QoalaEntities db = new QoalaEntities())
             {
-                users = DAO.User.All(db, page),
-                pagination = new
+                var totalNumberPage = DAO.User.totalNumberPage(db);
+
+                var data = new
                 {
-                    total_number_pages = totalNumberPage,
-                    next_page = totalNumberPage > page,
-                    current_page = page,
-                    previous_page = page > 1 && page <= totalNumberPage
-                }
-            };
-            return Ok(data);
+                    users = DAO.User.All(db, page),
+                    pagination = new
+                    {
+                        total_number_pages = totalNumberPage,
+                        next_page = totalNumberPage > page,
+                        current_page = page,
+                        previous_page = page > 1 && page <= totalNumberPage
+                    }
+                };
+                return Ok(data);
+            }
         }
     }
 }

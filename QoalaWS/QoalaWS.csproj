@@ -161,6 +161,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\DeviceGeoLocationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
+    <Compile Include="Controllers\InfosController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="DAO\Comment.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
@@ -171,7 +172,11 @@
     <Compile Include="DAO\DeviceGeoLocation.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAO\INFOCOMPANY.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAO\Models\Comment.cs" />
+    <Compile Include="DAO\Models\InfoCompany.cs" />
     <Compile Include="DAO\Models\Device.cs" />
     <Compile Include="DAO\Models\DeviceGeoLocation.cs" />
     <Compile Include="DAO\Models\Post.cs" />

@@ -54,6 +54,13 @@
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
+        <EntityType Name="INFOCOMPANY">
+          <Key>
+            <PropertyRef Name="KEY" />
+          </Key>
+          <Property Name="KEY" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="VALUE" Type="varchar2" MaxLength="4000" />
+        </EntityType>
         <EntityType Name="POSTS">
           <Key>
             <PropertyRef Name="ID_POST" />
@@ -289,6 +296,7 @@
           <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICE_GEO_LOCATIONS" EntityType="Self.DEVICE_GEO_LOCATIONS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="INFOCOMPANY" EntityType="Self.INFOCOMPANY" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
@@ -478,6 +486,7 @@
             <Parameter Name="PLONGITUDE" Mode="In" Type="Decimal" />
             <Parameter Name="OUT_ID_GEO" Mode="Out" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="INFOCOMPANies" EntityType="Model.INFOCOMPANY" />
         </EntityContainer>
         <EntityType Name="Comment">
           <Key>
@@ -643,6 +652,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="INFOCOMPANY">
+          <Key>
+            <PropertyRef Name="KEY" />
+          </Key>
+          <Property Name="KEY" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VALUE" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -757,6 +773,14 @@
           <FunctionImportMapping FunctionImportName="SP_UPDATE_LAST_LOCATION" FunctionName="Model.Store.SP_UPDATE_LAST_LOCATION" />
           <FunctionImportMapping FunctionImportName="SP_DEVICE_GEO_LOCATION_LOG" FunctionName="Model.Store.SP_DEVICE_GEO_LOCATION_LOG" />
           <FunctionImportMapping FunctionImportName="SP_INSERT_DEVICE_GEO_LOCATION" FunctionName="Model.Store.SP_INSERT_DEVICE_GEO_LOCATION" />
+          <EntitySetMapping Name="INFOCOMPANies">
+            <EntityTypeMapping TypeName="Model.INFOCOMPANY">
+              <MappingFragment StoreEntitySet="INFOCOMPANY">
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="KEY" ColumnName="KEY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

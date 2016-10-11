@@ -17,6 +17,7 @@
         <AssociationConnector Association="Model.POST_USER_FK" />
         <EntityTypeShape EntityType="Model.AccessControl" Width="1.5" PointX="3" PointY="5" />
         <AssociationConnector Association="Model.ACCESSCONTROL_USERS_FK" />
+        <EntityTypeShape EntityType="Model.INFOCOMPANY" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

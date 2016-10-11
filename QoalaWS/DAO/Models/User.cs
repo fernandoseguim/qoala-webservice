@@ -88,6 +88,7 @@ namespace QoalaWS.DAO
         {
             var outParameter = new ObjectParameter("PROWCOUNT", typeof(decimal));
             context.SP_UPDATE_USER(ID_USER, NAME, PASSWORD, EMAIL, PERMISSION, ADDRESS, DISTRICT, CITY, STATE, ZIPCODE, outParameter);
+            context.Entry(this).State = EntityState.Unchanged;
             return 1;
         }
 
