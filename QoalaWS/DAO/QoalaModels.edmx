@@ -65,7 +65,7 @@
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="PRICE_CENTS" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LEFT" Type="number" Precision="38" Scale="0" Nullable="false" />
@@ -73,6 +73,8 @@
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.PLANS_REWARDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PLANS_REWARDS">
           <Key>
             <PropertyRef Name="ID_PLAN" />
@@ -81,8 +83,6 @@
           <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_REWARD" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="POSTS">
           <Key>
             <PropertyRef Name="ID_POST" />
@@ -100,7 +100,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_REWARD" />
           </Key>
-          <Property Name="ID_REWARD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_REWARD" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
           <Property Name="UPDATED_AT" Type="date" />
@@ -110,7 +110,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_SPONSOR" />
           </Key>
-          <Property Name="ID_SPONSOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_SPONSOR" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
           <Property Name="PASSWORD" Type="varchar2" MaxLength="255" Nullable="false" />
           <Property Name="EMAIL" Type="varchar2" MaxLength="255" Nullable="false" />
@@ -119,6 +119,8 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QOALA.SPONSORS_PLANS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SPONSORS_PLANS">
           <Key>
             <PropertyRef Name="ID_SPONSOR" />
@@ -399,12 +401,22 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="INFOCOMPANY" EntityType="Self.INFOCOMPANY" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="PLANS" EntityType="Self.PLANS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="PLANS_REWARDS" EntityType="Self.PLANS_REWARDS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="REWARDS" EntityType="Self.REWARDS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="SPONSORS" EntityType="Self.SPONSORS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="SPONSORS_PLANS" EntityType="Self.SPONSORS_PLANS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="PLANS_REWARDS" EntityType="Self.PLANS_REWARDS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"PLANS_REWARDS"."ID_PLAN" AS "ID_PLAN", 
+"PLANS_REWARDS"."ID_REWARD" AS "ID_REWARD"
+FROM "QOALA"."PLANS_REWARDS" "PLANS_REWARDS"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SPONSORS_PLANS" EntityType="Self.SPONSORS_PLANS" store:Type="Tables" store:Schema="QOALA">
+            <DefiningQuery>SELECT 
+"SPONSORS_PLANS"."ID_SPONSOR" AS "ID_SPONSOR", 
+"SPONSORS_PLANS"."ID_PLAN" AS "ID_PLAN"
+FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="ACCESSCONTROL" EntitySet="ACCESSCONTROL" />
@@ -620,7 +632,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
             <End Role="PLAN" EntitySet="PLANS" />
             <End Role="SPONSOR" EntitySet="SPONSORS" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="ID_COMMENT" />
@@ -796,7 +808,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Scale="0" Precision="38" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PRICE_CENTS" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="LEFT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
@@ -810,7 +822,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_REWARD" />
           </Key>
-          <Property Name="ID_REWARD" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_REWARD" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
           <Property Name="UPDATED_AT" Type="DateTime" />
@@ -821,7 +833,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <Key>
             <PropertyRef Name="ID_SPONSOR" />
           </Key>
-          <Property Name="ID_SPONSOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_SPONSOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -839,7 +851,7 @@ warning 6002: The table/view 'QOALA.POST_LOGS' does not have a primary key defin
           <End Type="Model.Plan" Role="PLAN" Multiplicity="*" />
           <End Type="Model.Sponsor" Role="SPONSOR" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

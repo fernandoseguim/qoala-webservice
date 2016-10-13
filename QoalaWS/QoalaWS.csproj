@@ -162,7 +162,11 @@
     <Compile Include="Controllers\DeviceGeoLocationsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\InfosController.cs" />
+    <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="DAO\AccessControl.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAO\Comment.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
@@ -176,11 +180,24 @@
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Models\Comment.cs" />
+    <Compile Include="DAO\Models\Plan.cs" />
     <Compile Include="DAO\Models\InfoCompany.cs" />
     <Compile Include="DAO\Models\Device.cs" />
     <Compile Include="DAO\Models\DeviceGeoLocation.cs" />
     <Compile Include="DAO\Models\Post.cs" />
+    <Compile Include="DAO\Plan.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAO\Post.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Reward.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\Sponsor.cs">
+      <DependentUpon>QoalaModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\User.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\CreateRecordException.cs" />
@@ -191,13 +208,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="DAO\AccessControl.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAO\Tests\ConnectionTest.cs" />
-    <Compile Include="DAO\User.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Extensions\DataReaderExtensions.cs" />
     <Compile Include="DAO\Tests\AccessControlTest.cs" />
     <Compile Include="DAO\QoalaModels.Context.cs">
