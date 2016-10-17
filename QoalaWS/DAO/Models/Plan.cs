@@ -6,7 +6,7 @@ namespace QoalaWS.DAO
 {
     public partial class Plan
     {
-         public static List<object> All()
+        public static List<object> All()
         {
             using(QoalaEntities qe = new QoalaEntities())
             {
