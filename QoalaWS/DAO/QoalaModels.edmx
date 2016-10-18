@@ -70,11 +70,7 @@
           <Property Name="PRICE_CENTS" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LEFT" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="date" />
-          <Property Name="DELETED_AT" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QOALA.PLANS_REWARDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PLANS_REWARDS">
           <Key>
             <PropertyRef Name="ID_PLAN" />
@@ -106,27 +102,12 @@ warning 6002: The table/view 'QOALA.PLANS_REWARDS' does not have a primary key d
           <Property Name="UPDATED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
         </EntityType>
-        <EntityType Name="SPONSORS">
-          <Key>
-            <PropertyRef Name="ID_SPONSOR" />
-          </Key>
-          <Property Name="ID_SPONSOR" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
-          <Property Name="PASSWORD" Type="varchar2" MaxLength="255" Nullable="false" />
-          <Property Name="EMAIL" Type="varchar2" MaxLength="255" Nullable="false" />
-          <Property Name="DOCUMENT" Type="varchar2" MaxLength="12" Nullable="false" />
-          <Property Name="CREATED_AT" Type="date" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="date" />
-          <Property Name="DELETED_AT" Type="date" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QOALA.SPONSORS_PLANS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SPONSORS_PLANS">
           <Key>
-            <PropertyRef Name="ID_SPONSOR" />
+            <PropertyRef Name="ID_USER" />
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_SPONSOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="USERS">
@@ -256,14 +237,14 @@ warning 6002: The table/view 'QOALA.SPONSORS_PLANS' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <Association Name="SPONSORS_PLANS_ID_SPONSOR_FK">
-          <End Role="SPONSORS" Type="Self.SPONSORS" Multiplicity="1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
           <End Role="SPONSORS_PLANS" Type="Self.SPONSORS_PLANS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SPONSORS">
-              <PropertyRef Name="ID_SPONSOR" />
+            <Principal Role="USERS">
+              <PropertyRef Name="ID_USER" />
             </Principal>
             <Dependent Role="SPONSORS_PLANS">
-              <PropertyRef Name="ID_SPONSOR" />
+              <PropertyRef Name="ID_USER" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,22 +382,11 @@ warning 6002: The table/view 'QOALA.SPONSORS_PLANS' does not have a primary key 
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="INFOCOMPANY" EntityType="Self.INFOCOMPANY" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="PLANS" EntityType="Self.PLANS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="PLANS_REWARDS" EntityType="Self.PLANS_REWARDS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="REWARDS" EntityType="Self.REWARDS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="SPONSORS" EntityType="Self.SPONSORS" Schema="QOALA" store:Type="Tables" />
+          <EntitySet Name="SPONSORS_PLANS" EntityType="Self.SPONSORS_PLANS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="PLANS_REWARDS" EntityType="Self.PLANS_REWARDS" store:Type="Tables" store:Schema="QOALA">
-            <DefiningQuery>SELECT 
-"PLANS_REWARDS"."ID_PLAN" AS "ID_PLAN", 
-"PLANS_REWARDS"."ID_REWARD" AS "ID_REWARD"
-FROM "QOALA"."PLANS_REWARDS" "PLANS_REWARDS"</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="SPONSORS_PLANS" EntityType="Self.SPONSORS_PLANS" store:Type="Tables" store:Schema="QOALA">
-            <DefiningQuery>SELECT 
-"SPONSORS_PLANS"."ID_SPONSOR" AS "ID_SPONSOR", 
-"SPONSORS_PLANS"."ID_PLAN" AS "ID_PLAN"
-FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="ACCESSCONTROL" EntitySet="ACCESSCONTROL" />
@@ -454,7 +424,7 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
             <End Role="SPONSORS_PLANS" EntitySet="SPONSORS_PLANS" />
           </AssociationSet>
           <AssociationSet Name="SPONSORS_PLANS_ID_SPONSOR_FK" Association="Self.SPONSORS_PLANS_ID_SPONSOR_FK">
-            <End Role="SPONSORS" EntitySet="SPONSORS" />
+            <End Role="USERS" EntitySet="USERS" />
             <End Role="SPONSORS_PLANS" EntitySet="SPONSORS_PLANS" />
           </AssociationSet>
         </EntityContainer>
@@ -623,14 +593,13 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
           <EntitySet Name="INFOCOMPANies" EntityType="Model.INFOCOMPANY" />
           <EntitySet Name="PLANS" EntityType="Model.Plan" />
           <EntitySet Name="REWARDS" EntityType="Model.Reward" />
-          <EntitySet Name="SPONSORS" EntityType="Model.Sponsor" />
           <AssociationSet Name="PLANS_REWARDS" Association="Model.PLANS_REWARDS">
             <End Role="PLAN" EntitySet="PLANS" />
             <End Role="REWARD" EntitySet="REWARDS" />
           </AssociationSet>
           <AssociationSet Name="SPONSORS_PLANS" Association="Model.SPONSORS_PLANS">
             <End Role="PLAN" EntitySet="PLANS" />
-            <End Role="SPONSOR" EntitySet="SPONSORS" />
+            <End Role="User" EntitySet="USERS" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Comment">
@@ -737,6 +706,7 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
           <Property Name="CITY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ZIPCODE" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PLANS" Relationship="Model.SPONSORS_PLANS" FromRole="User" ToRole="PLAN" />
         </EntityType>
         <Association Name="COMMENTS_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
@@ -808,15 +778,13 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Scale="0" Precision="38" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PRICE_CENTS" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="LEFT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="DateTime" />
-          <Property Name="DELETED_AT" Type="DateTime" />
           <NavigationProperty Name="REWARDS" Relationship="Model.PLANS_REWARDS" FromRole="PLAN" ToRole="REWARD" />
-          <NavigationProperty Name="SPONSORS" Relationship="Model.SPONSORS_PLANS" FromRole="PLAN" ToRole="SPONSOR" />
+          <NavigationProperty Name="USERS" Relationship="Model.SPONSORS_PLANS" FromRole="PLAN" ToRole="User" />
         </EntityType>
         <EntityType Name="Reward">
           <Key>
@@ -829,27 +797,13 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
           <Property Name="DELETED_AT" Type="DateTime" />
           <NavigationProperty Name="PLANS" Relationship="Model.PLANS_REWARDS" FromRole="REWARD" ToRole="PLAN" />
         </EntityType>
-        <EntityType Name="Sponsor">
-          <Key>
-            <PropertyRef Name="ID_SPONSOR" />
-          </Key>
-          <Property Name="ID_SPONSOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DOCUMENT" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="DateTime" />
-          <Property Name="DELETED_AT" Type="DateTime" />
-          <NavigationProperty Name="PLANS" Relationship="Model.SPONSORS_PLANS" FromRole="SPONSOR" ToRole="PLAN" />
-        </EntityType>
         <Association Name="PLANS_REWARDS">
           <End Type="Model.Plan" Role="PLAN" Multiplicity="*" />
           <End Type="Model.Reward" Role="REWARD" Multiplicity="*" />
         </Association>
         <Association Name="SPONSORS_PLANS">
           <End Type="Model.Plan" Role="PLAN" Multiplicity="*" />
-          <End Type="Model.Sponsor" Role="SPONSOR" Multiplicity="*" />
+          <End Type="Model.User" Role="User" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -976,8 +930,6 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
           <EntitySetMapping Name="PLANS">
             <EntityTypeMapping TypeName="Model.Plan">
               <MappingFragment StoreEntitySet="PLANS">
-                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
-                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
                 <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
                 <ScalarProperty Name="LEFT" ColumnName="LEFT" />
                 <ScalarProperty Name="PRICE_CENTS" ColumnName="PRICE_CENTS" />
@@ -997,20 +949,6 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SPONSORS">
-            <EntityTypeMapping TypeName="Model.Sponsor">
-              <MappingFragment StoreEntitySet="SPONSORS">
-                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
-                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
-                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
-                <ScalarProperty Name="DOCUMENT" ColumnName="DOCUMENT" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="ID_SPONSOR" ColumnName="ID_SPONSOR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="PLANS_REWARDS" TypeName="Model.PLANS_REWARDS" StoreEntitySet="PLANS_REWARDS">
             <EndProperty Name="REWARD">
               <ScalarProperty Name="ID_REWARD" ColumnName="ID_REWARD" />
@@ -1020,8 +958,8 @@ FROM "QOALA"."SPONSORS_PLANS" "SPONSORS_PLANS"</DefiningQuery>
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="SPONSORS_PLANS" TypeName="Model.SPONSORS_PLANS" StoreEntitySet="SPONSORS_PLANS">
-            <EndProperty Name="SPONSOR">
-              <ScalarProperty Name="ID_SPONSOR" ColumnName="ID_SPONSOR" />
+            <EndProperty Name="User">
+              <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
             </EndProperty>
             <EndProperty Name="PLAN">
               <ScalarProperty Name="ID_PLAN" ColumnName="ID_PLAN" />

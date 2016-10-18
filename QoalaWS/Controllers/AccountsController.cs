@@ -3,7 +3,6 @@ using System.Net;
 using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
-using System.Net.Http.Headers;
 
 namespace QoalaWS.Controllers
 {

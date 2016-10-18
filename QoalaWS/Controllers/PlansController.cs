@@ -46,6 +46,8 @@ namespace QoalaWS.Controllers
                 plan.NAME = p.NAME;
             if (plan.PRICE_CENTS == 0)
                 plan.PRICE_CENTS = p.PRICE_CENTS;
+            if(plan.REWARDS == null)
+                plan.REWARDS = p.REWARDS;
 
             plan.Update();
             return StatusCode(HttpStatusCode.NoContent);
@@ -80,5 +82,6 @@ namespace QoalaWS.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
     }
 }

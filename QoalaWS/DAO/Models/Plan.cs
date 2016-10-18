@@ -10,7 +10,7 @@ namespace QoalaWS.DAO
         {
             using(QoalaEntities qe = new QoalaEntities())
             {
-                var list = qe.PLANS.Where(d => !d.DELETED_AT.HasValue).
+                var list = qe.PLANS.
                 OrderByDescending(p => p.CREATED_AT).
                 ToList();
                 List<object> plans = new List<object>();
@@ -27,7 +27,7 @@ namespace QoalaWS.DAO
         {
             using(QoalaEntities qe = new QoalaEntities())
             {
-                return qe.PLANS.FirstOrDefault(u => u.ID_PLAN == id_plan && !u.DELETED_AT.HasValue);
+                return qe.PLANS.FirstOrDefault(u => u.ID_PLAN == id_plan);
             }
         }
 
@@ -52,12 +52,8 @@ namespace QoalaWS.DAO
         {
             using(QoalaEntities qe = new QoalaEntities())
             {
-                var plan = Find(ID_PLAN);
-                plan.NAME = this.NAME;
-                plan.LEFT = this.LEFT;
-                plan.PRICE_CENTS = this.PRICE_CENTS;
-
-                qe.Entry(plan).State = System.Data.Entity.EntityState.Modified;
+                qe.Entry(this).State = System.Data.Entity.EntityState.Modified;
+                qe.Entry(this.REWARDS).State = System.Data.Entity.EntityState.Modified;
 
                 qe.SaveChanges();
             }

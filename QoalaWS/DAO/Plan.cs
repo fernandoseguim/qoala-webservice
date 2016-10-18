@@ -18,7 +18,7 @@ namespace QoalaWS.DAO
         public Plan()
         {
             this.REWARDS = new HashSet<Reward>();
-            this.SPONSORS = new HashSet<Sponsor>();
+            this.USERS = new HashSet<User>();
         }
     
         public decimal ID_PLAN { get; set; }
@@ -26,12 +26,10 @@ namespace QoalaWS.DAO
         public decimal PRICE_CENTS { get; set; }
         public decimal LEFT { get; set; }
         public System.DateTime CREATED_AT { get; set; }
-        public Nullable<System.DateTime> UPDATED_AT { get; set; }
-        public Nullable<System.DateTime> DELETED_AT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reward> REWARDS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sponsor> SPONSORS { get; set; }
+        public virtual ICollection<User> USERS { get; set; }
     }
 }

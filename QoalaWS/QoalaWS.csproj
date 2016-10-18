@@ -196,9 +196,6 @@
     <Compile Include="DAO\Reward.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\Sponsor.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAO\User.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
