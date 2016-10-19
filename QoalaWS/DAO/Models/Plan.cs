@@ -8,7 +8,7 @@ namespace QoalaWS.DAO
     {
         public static List<object> All()
         {
-            using(QoalaEntities qe = new QoalaEntities())
+            using (QoalaEntities qe = new QoalaEntities())
             {
                 var list = qe.PLANS.
                 OrderByDescending(p => p.CREATED_AT).
@@ -22,7 +22,61 @@ namespace QoalaWS.DAO
             }
         }
 
-        
+        public static List<object> Report(int id_plan)
+        {
+            using (QoalaEntities qe = new QoalaEntities())
+            {
+                List<object> items = new List<object>();
+
+                if (id_plan > 0)
+                {
+                    var list = qe.PLANS.
+                            Join(qe.USERS,
+                            plan => plan.ID_PLAN,
+                            user => user.ID_USER,
+                            (plan, user) => new { Plan = plan, User = user }
+                    ).Where(i => i.Plan.ID_PLAN == id_plan).OrderByDescending(p => p.Plan.CREATED_AT).ToList();
+
+                    foreach (var item in list)
+                    {
+                        items.Add(
+                            new
+                            {
+                                id_plan = item.Plan.ID_PLAN,
+                                id_user = item.User.ID_USER,
+                                user_name = item.User.NAME,
+                                plan_qnt_left = item.Plan.LEFT
+                            }
+                        );
+                    }
+                } else
+                {
+                    var list = qe.PLANS.
+                            Join(qe.USERS,
+                            plan => plan.ID_PLAN,
+                            user => user.ID_USER,
+                            (plan, user) => new { Plan = plan, User = user }
+                    ).OrderByDescending(p => p.Plan.CREATED_AT).ToList();
+
+                    foreach (var item in list)
+                    {
+                        items.Add(
+                            new
+                            {
+                                id_plan = item.Plan.ID_PLAN,
+                                id_user = item.User.ID_USER,
+                                user_name = item.User.NAME,
+                                left_qnt_plan = item.Plan.LEFT
+                            }
+                        );
+                    }
+                }
+                
+                return items;
+            }
+        }
+
+
         public static Plan Find(Decimal id_plan)
         {
             using(QoalaEntities qe = new QoalaEntities())

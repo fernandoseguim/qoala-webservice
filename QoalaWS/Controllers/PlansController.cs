@@ -17,6 +17,16 @@ namespace QoalaWS.Controllers
         }
 
         [HttpGet]
+        [Route("plans/reports")]
+        public IHttpActionResult Reports(int id_plan = 0)
+        {
+            return Ok(new
+            {
+                report = Plan.Report(id_plan)
+            });
+        }
+
+        [HttpGet]
         [Route("plans/{id}")]
         [BasicAuthorization]
         public IHttpActionResult Show(decimal id)
@@ -27,7 +37,7 @@ namespace QoalaWS.Controllers
 
             return Ok(plan.Serializer());
         }
-
+        
         [HttpPut]
         [Route("plans/{id}")]
         [BasicAuthorization]
