@@ -21,7 +21,6 @@ namespace QoalaWS.DAO
             this.DEVICES = new HashSet<Device>();
             this.POSTS = new HashSet<Post>();
             this.ACCESSCONTROLs = new HashSet<AccessControl>();
-            this.PLANS = new HashSet<Plan>();
         }
     
         public decimal ID_USER { get; set; }
@@ -37,6 +36,8 @@ namespace QoalaWS.DAO
         public string CITY { get; set; }
         public string STATE { get; set; }
         public string ZIPCODE { get; set; }
+        public string DOCUMENT { get; set; }
+        public Nullable<decimal> ID_PLAN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> COMMENTS { get; set; }
@@ -46,7 +47,5 @@ namespace QoalaWS.DAO
         public virtual ICollection<Post> POSTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessControl> ACCESSCONTROLs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Plan> PLANS { get; set; }
     }
 }

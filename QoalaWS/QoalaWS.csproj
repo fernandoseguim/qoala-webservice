@@ -164,7 +164,6 @@
     <Compile Include="Controllers\InfosController.cs" />
     <Compile Include="Controllers\PlansController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\RewardsController.cs" />
     <Compile Include="DAO\AccessControl.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
@@ -186,14 +185,10 @@
     <Compile Include="DAO\Models\Device.cs" />
     <Compile Include="DAO\Models\DeviceGeoLocation.cs" />
     <Compile Include="DAO\Models\Post.cs" />
-    <Compile Include="DAO\Models\Reward.cs" />
     <Compile Include="DAO\Plan.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\Post.cs">
-      <DependentUpon>QoalaModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Reward.cs">
       <DependentUpon>QoalaModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\User.cs">

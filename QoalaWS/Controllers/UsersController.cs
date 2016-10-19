@@ -4,6 +4,7 @@ using System.Web.Http;
 using QoalaWS.DAO;
 using QoalaWS.Filters;
 using Newtonsoft.Json.Linq;
+using System.Data.Entity;
 
 namespace QoalaWS.Controllers
 {
@@ -25,6 +26,33 @@ namespace QoalaWS.Controllers
 
                 return Ok(user.Serializer());
             }
+        }
+
+        [HttpPost]
+        [Route("users/{id}/plans/{plan_id}/{qnt}")]
+        public IHttpActionResult AddPlansUser(int id, int plan_id, int qnt)
+        {
+            QoalaEntities db = new QoalaEntities();
+
+            User u = DAO.User.findById(db, id);
+            if(u == null)
+                return NotFound();
+            Plan plan = Plan.Find(plan_id);
+            if (plan == null)
+                return NotFound();
+            if (plan.LEFT < qnt)
+                return BadRequest();
+            u.ID_PLAN = plan_id;
+            db.Entry(u).State = EntityState.Modified;
+            db.SaveChanges();
+
+            plan.LEFT = plan.LEFT - qnt;
+            db.Entry(plan).State = EntityState.Modified;
+            db.SaveChanges();
+            //u.AddPlan(qnt);
+
+
+            return Ok(u.Serializer());
         }
 
         [HttpPut]

@@ -65,19 +65,12 @@
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="PRICE_CENTS" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LEFT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="REWARDS" Type="varchar2" MaxLength="350" Nullable="false" />
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PLANS_REWARDS">
-          <Key>
-            <PropertyRef Name="ID_PLAN" />
-            <PropertyRef Name="ID_REWARD" />
-          </Key>
-          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_REWARD" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="POSTS">
           <Key>
@@ -91,24 +84,6 @@
           <Property Name="PUBLISHED_AT" Type="date" />
           <Property Name="DELETED_AT" Type="date" />
           <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" />
-        </EntityType>
-        <EntityType Name="REWARDS">
-          <Key>
-            <PropertyRef Name="ID_REWARD" />
-          </Key>
-          <Property Name="ID_REWARD" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="CREATED_AT" Type="date" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="date" />
-          <Property Name="DELETED_AT" Type="date" />
-        </EntityType>
-        <EntityType Name="SPONSORS_PLANS">
-          <Key>
-            <PropertyRef Name="ID_USER" />
-            <PropertyRef Name="ID_PLAN" />
-          </Key>
-          <Property Name="ID_USER" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="USERS">
           <Key>
@@ -127,6 +102,8 @@
           <Property Name="CITY" Type="varchar2" MaxLength="100" />
           <Property Name="STATE" Type="varchar2" MaxLength="20" />
           <Property Name="ZIPCODE" Type="varchar2" MaxLength="9" />
+          <Property Name="DOCUMENT" Type="varchar2" MaxLength="20" />
+          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <Association Name="ACCESSCONTROL_USERS_FK">
           <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
@@ -188,30 +165,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="PLAN_REWARD_ID_PLAN_FK">
-          <End Role="PLANS" Type="Self.PLANS" Multiplicity="1" />
-          <End Role="PLANS_REWARDS" Type="Self.PLANS_REWARDS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PLANS">
-              <PropertyRef Name="ID_PLAN" />
-            </Principal>
-            <Dependent Role="PLANS_REWARDS">
-              <PropertyRef Name="ID_PLAN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PLAN_REWARD_ID_REWARD_FK">
-          <End Role="REWARDS" Type="Self.REWARDS" Multiplicity="1" />
-          <End Role="PLANS_REWARDS" Type="Self.PLANS_REWARDS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="REWARDS">
-              <PropertyRef Name="ID_REWARD" />
-            </Principal>
-            <Dependent Role="PLANS_REWARDS">
-              <PropertyRef Name="ID_REWARD" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="POST_USER_FK">
           <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
           <End Role="POSTS" Type="Self.POSTS" Multiplicity="*" />
@@ -220,30 +173,6 @@
               <PropertyRef Name="ID_USER" />
             </Principal>
             <Dependent Role="POSTS">
-              <PropertyRef Name="ID_USER" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SPONSORS_PLANS_ID_PLAN_FK">
-          <End Role="PLANS" Type="Self.PLANS" Multiplicity="1" />
-          <End Role="SPONSORS_PLANS" Type="Self.SPONSORS_PLANS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PLANS">
-              <PropertyRef Name="ID_PLAN" />
-            </Principal>
-            <Dependent Role="SPONSORS_PLANS">
-              <PropertyRef Name="ID_PLAN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SPONSORS_PLANS_ID_SPONSOR_FK">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
-          <End Role="SPONSORS_PLANS" Type="Self.SPONSORS_PLANS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USERS">
-              <PropertyRef Name="ID_USER" />
-            </Principal>
-            <Dependent Role="SPONSORS_PLANS">
               <PropertyRef Name="ID_USER" />
             </Dependent>
           </ReferentialConstraint>
@@ -382,10 +311,7 @@
           <EntitySet Name="DEVICES" EntityType="Self.DEVICES" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="INFOCOMPANY" EntityType="Self.INFOCOMPANY" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="PLANS" EntityType="Self.PLANS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="PLANS_REWARDS" EntityType="Self.PLANS_REWARDS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="POSTS" EntityType="Self.POSTS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="REWARDS" EntityType="Self.REWARDS" Schema="QOALA" store:Type="Tables" />
-          <EntitySet Name="SPONSORS_PLANS" EntityType="Self.SPONSORS_PLANS" Schema="QOALA" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="QOALA" store:Type="Tables" />
           <AssociationSet Name="ACCESSCONTROL_USERS_FK" Association="Self.ACCESSCONTROL_USERS_FK">
             <End Role="USERS" EntitySet="USERS" />
@@ -407,25 +333,9 @@
             <End Role="USERS" EntitySet="USERS" />
             <End Role="DEVICES" EntitySet="DEVICES" />
           </AssociationSet>
-          <AssociationSet Name="PLAN_REWARD_ID_PLAN_FK" Association="Self.PLAN_REWARD_ID_PLAN_FK">
-            <End Role="PLANS" EntitySet="PLANS" />
-            <End Role="PLANS_REWARDS" EntitySet="PLANS_REWARDS" />
-          </AssociationSet>
-          <AssociationSet Name="PLAN_REWARD_ID_REWARD_FK" Association="Self.PLAN_REWARD_ID_REWARD_FK">
-            <End Role="REWARDS" EntitySet="REWARDS" />
-            <End Role="PLANS_REWARDS" EntitySet="PLANS_REWARDS" />
-          </AssociationSet>
           <AssociationSet Name="POST_USER_FK" Association="Self.POST_USER_FK">
             <End Role="USERS" EntitySet="USERS" />
             <End Role="POSTS" EntitySet="POSTS" />
-          </AssociationSet>
-          <AssociationSet Name="SPONSORS_PLANS_ID_PLAN_FK" Association="Self.SPONSORS_PLANS_ID_PLAN_FK">
-            <End Role="PLANS" EntitySet="PLANS" />
-            <End Role="SPONSORS_PLANS" EntitySet="SPONSORS_PLANS" />
-          </AssociationSet>
-          <AssociationSet Name="SPONSORS_PLANS_ID_SPONSOR_FK" Association="Self.SPONSORS_PLANS_ID_SPONSOR_FK">
-            <End Role="USERS" EntitySet="USERS" />
-            <End Role="SPONSORS_PLANS" EntitySet="SPONSORS_PLANS" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -592,15 +502,6 @@
           </FunctionImport>
           <EntitySet Name="INFOCOMPANies" EntityType="Model.INFOCOMPANY" />
           <EntitySet Name="PLANS" EntityType="Model.Plan" />
-          <EntitySet Name="REWARDS" EntityType="Model.Reward" />
-          <AssociationSet Name="PLANS_REWARDS" Association="Model.PLANS_REWARDS">
-            <End Role="PLAN" EntitySet="PLANS" />
-            <End Role="REWARD" EntitySet="REWARDS" />
-          </AssociationSet>
-          <AssociationSet Name="SPONSORS_PLANS" Association="Model.SPONSORS_PLANS">
-            <End Role="PLAN" EntitySet="PLANS" />
-            <End Role="User" EntitySet="USERS" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Comment">
           <Key>
@@ -706,7 +607,8 @@
           <Property Name="CITY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ZIPCODE" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PLANS" Relationship="Model.SPONSORS_PLANS" FromRole="User" ToRole="PLAN" />
+          <Property Name="DOCUMENT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_PLAN" Type="Decimal" />
         </EntityType>
         <Association Name="COMMENTS_USER_FK">
           <End Type="Model.User" Role="USER" Multiplicity="1" />
@@ -778,33 +680,13 @@
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PRICE_CENTS" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="LEFT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="REWARDS" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="REWARDS" Relationship="Model.PLANS_REWARDS" FromRole="PLAN" ToRole="REWARD" />
-          <NavigationProperty Name="USERS" Relationship="Model.SPONSORS_PLANS" FromRole="PLAN" ToRole="User" />
         </EntityType>
-        <EntityType Name="Reward">
-          <Key>
-            <PropertyRef Name="ID_REWARD" />
-          </Key>
-          <Property Name="ID_REWARD" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
-          <Property Name="UPDATED_AT" Type="DateTime" />
-          <Property Name="DELETED_AT" Type="DateTime" />
-          <NavigationProperty Name="PLANS" Relationship="Model.PLANS_REWARDS" FromRole="REWARD" ToRole="PLAN" />
-        </EntityType>
-        <Association Name="PLANS_REWARDS">
-          <End Type="Model.Plan" Role="PLAN" Multiplicity="*" />
-          <End Type="Model.Reward" Role="REWARD" Multiplicity="*" />
-        </Association>
-        <Association Name="SPONSORS_PLANS">
-          <End Type="Model.Plan" Role="PLAN" Multiplicity="*" />
-          <End Type="Model.User" Role="User" Multiplicity="*" />
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -873,6 +755,8 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ID_PLAN" ColumnName="ID_PLAN" />
+                <ScalarProperty Name="DOCUMENT" ColumnName="DOCUMENT" />
                 <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
                 <ScalarProperty Name="STATE" ColumnName="STATE" />
                 <ScalarProperty Name="CITY" ColumnName="CITY" />
@@ -931,6 +815,7 @@
             <EntityTypeMapping TypeName="Model.Plan">
               <MappingFragment StoreEntitySet="PLANS">
                 <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
+                <ScalarProperty Name="REWARDS" ColumnName="REWARDS" />
                 <ScalarProperty Name="LEFT" ColumnName="LEFT" />
                 <ScalarProperty Name="PRICE_CENTS" ColumnName="PRICE_CENTS" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
@@ -938,33 +823,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="REWARDS">
-            <EntityTypeMapping TypeName="Model.Reward">
-              <MappingFragment StoreEntitySet="REWARDS">
-                <ScalarProperty Name="DELETED_AT" ColumnName="DELETED_AT" />
-                <ScalarProperty Name="UPDATED_AT" ColumnName="UPDATED_AT" />
-                <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="ID_REWARD" ColumnName="ID_REWARD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="PLANS_REWARDS" TypeName="Model.PLANS_REWARDS" StoreEntitySet="PLANS_REWARDS">
-            <EndProperty Name="REWARD">
-              <ScalarProperty Name="ID_REWARD" ColumnName="ID_REWARD" />
-            </EndProperty>
-            <EndProperty Name="PLAN">
-              <ScalarProperty Name="ID_PLAN" ColumnName="ID_PLAN" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="SPONSORS_PLANS" TypeName="Model.SPONSORS_PLANS" StoreEntitySet="SPONSORS_PLANS">
-            <EndProperty Name="User">
-              <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
-            </EndProperty>
-            <EndProperty Name="PLAN">
-              <ScalarProperty Name="ID_PLAN" ColumnName="ID_PLAN" />
-            </EndProperty>
-          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

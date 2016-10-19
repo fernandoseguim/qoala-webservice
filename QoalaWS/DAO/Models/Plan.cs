@@ -53,8 +53,6 @@ namespace QoalaWS.DAO
             using(QoalaEntities qe = new QoalaEntities())
             {
                 qe.Entry(this).State = System.Data.Entity.EntityState.Modified;
-                qe.Entry(this.REWARDS).State = System.Data.Entity.EntityState.Modified;
-
                 qe.SaveChanges();
             }
         }
@@ -66,6 +64,7 @@ namespace QoalaWS.DAO
                 id = ID_PLAN,
                 name = NAME,
                 left = LEFT,
+                rewards = REWARDS,
                 prince_cents = PRICE_CENTS
             };
         }

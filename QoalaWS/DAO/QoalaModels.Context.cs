@@ -35,7 +35,6 @@ namespace QoalaWS.DAO
         public virtual DbSet<AccessControl> ACCESSCONTROLs { get; set; }
         public virtual DbSet<INFOCOMPANY> INFOCOMPANies { get; set; }
         public virtual DbSet<Plan> PLANS { get; set; }
-        public virtual DbSet<Reward> REWARDS { get; set; }
     
         public virtual int SP_DELETE_USER(Nullable<decimal> iD, ObjectParameter rOWCOUNT)
         {

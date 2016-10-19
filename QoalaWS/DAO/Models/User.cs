@@ -147,5 +147,18 @@ namespace QoalaWS.DAO
                 Count();
             return (int)Math.Ceiling(count / LIMIT);
         }
+
+        public void AddPlan(int QntPlans)
+        {
+            QoalaEntities qe = new QoalaEntities();
+            qe.Entry(this).State = EntityState.Modified;
+            qe.SaveChanges();
+
+            Plan p = qe.PLANS.Find(ID_PLAN);
+            p.LEFT = p.LEFT - QntPlans;
+            qe.Entry(p).State = EntityState.Modified;
+            qe.SaveChanges();
+            
+        }
     }
 }
