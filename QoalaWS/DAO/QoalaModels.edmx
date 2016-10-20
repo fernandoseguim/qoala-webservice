@@ -65,7 +65,7 @@
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_PLAN" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="PRICE_CENTS" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="LEFT" Type="number" Precision="38" Scale="0" Nullable="false" />
@@ -680,7 +680,7 @@
           <Key>
             <PropertyRef Name="ID_PLAN" />
           </Key>
-          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_PLAN" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PRICE_CENTS" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="LEFT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />

@@ -89,6 +89,7 @@ namespace QoalaWS.DAO
         {
             using(QoalaEntities qe = new QoalaEntities())
             {
+                this.CREATED_AT = DateTime.Now;
                 qe.PLANS.Add(this);
                 qe.SaveChanges();
             }
