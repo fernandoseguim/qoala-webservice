@@ -115,11 +115,11 @@ namespace QoalaWS.DAO
         {
             return new
             {
-                id = ID_PLAN,
+                id_plan = ID_PLAN,
                 name = NAME,
                 left = LEFT,
                 rewards = REWARDS,
-                prince_cents = PRICE_CENTS
+                price_cents = PRICE_CENTS
             };
         }
     }
