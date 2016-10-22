@@ -29,8 +29,8 @@ namespace QoalaWS.Controllers
         }
 
         [HttpPost]
-        [Route("users/{id}/plans/{plan_id}/{qnt}")]
-        public IHttpActionResult AddPlansUser(int id, int plan_id, int qnt)
+        [Route("users/{id}/plans/{plan_id}/{qnt}/{document}")]
+        public IHttpActionResult AddPlansUser(int id, int plan_id, int qnt, string document)
         {
             QoalaEntities db = new QoalaEntities();
 
@@ -43,14 +43,13 @@ namespace QoalaWS.Controllers
             if (plan.LEFT < qnt)
                 return BadRequest();
             u.ID_PLAN = plan_id;
+            u.DOCUMENT = document;
             db.Entry(u).State = EntityState.Modified;
             db.SaveChanges();
 
             plan.LEFT = plan.LEFT - qnt;
             db.Entry(plan).State = EntityState.Modified;
             db.SaveChanges();
-            //u.AddPlan(qnt);
-
 
             return Ok(u.Serializer());
         }
