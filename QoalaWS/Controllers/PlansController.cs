@@ -19,11 +19,15 @@ namespace QoalaWS.Controllers
 
         [HttpGet]
         [Route("plans/reports")]
-        public IHttpActionResult Reports(int id_plan=0)
+        public IHttpActionResult Reports(string name = "", 
+            int id_plan=0, int id_plan2=0,
+            int plan_left = 0, int plan_left2 = 0,
+            int plan_sold = 0, int plan_sold2 = 0
+            )
         {
             return Ok(new
             {
-                report = Plan.Report(id_plan)
+                report = Plan.Report(name, id_plan, id_plan2, plan_left, plan_left2, plan_sold, plan_sold2)
             });
         }
 

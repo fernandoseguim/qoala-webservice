@@ -51,56 +51,56 @@ namespace QoalaWS.Controllers
         public IHttpActionResult Pull()
         {
             var proc = new System.Diagnostics.Process();
-            using (proc)
+
+            try
             {
+                String path = @"C:\\inetpub\\wwwroot\\";
+                proc.StartInfo.CreateNoWindow = true;
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.FileName = path + "deploy.cmd";
+                proc.StartInfo.WorkingDirectory = path;
+                proc.StartInfo.RedirectStandardError = true;
+                proc.StartInfo.RedirectStandardOutput = true;
+
+                Boolean iniciou = proc.Start();
+                proc.WaitForExit(60 * 1000);
+
+                string log = "", logerror = "", logout = "";
+
                 try
                 {
-                    String path = @"C:\\inetpub\\wwwroot\\";
-                    proc.StartInfo.CreateNoWindow = true;
-                    proc.StartInfo.UseShellExecute = false;
-                    proc.StartInfo.FileName = path + "deploy.cmd";
-                    proc.StartInfo.WorkingDirectory = path;
-                    proc.StartInfo.RedirectStandardError = true;
-                    proc.StartInfo.RedirectStandardOutput = true;
-
-                    Boolean iniciou = proc.Start();
-                    proc.WaitForExit(60 * 1000);
-
-                    string log = "", logerror = "", logout = "";
-
-                    try
-                    {
-                        logerror += proc.StandardOutput.ReadToEnd();
-                    }
-                    catch { }
-                    try
-                    {
-                        logout += proc.StandardError.ReadToEnd();
-                    }
-                    catch { }
-                    try
-                    {
-                        log += System.IO.File.ReadAllText(path + "deploy.log");
-                    }
-                    catch { }
-                    return Ok(new
-                    {
-                        totalTime = proc.TotalProcessorTime,
-                        exitCode = proc.ExitCode,
-                        exitTime = proc.ExitTime,
-                        logError = logerror,
-                        logOutput = logout,
-                        log = log,
-                    });
+                    logerror += proc.StandardOutput.ReadToEnd();
                 }
-                catch (Exception ex)
+                catch { }
+                try
                 {
-                    return Ok(new { Exception = ex });
+                    logout += proc.StandardError.ReadToEnd();
                 }
-                finally
+                catch { }
+                try
                 {
-                    if (proc != null)
-                        proc.Close();
+                    log += System.IO.File.ReadAllText(path + "deploy.log");
+                }
+                catch { }
+                return Ok(new
+                {
+                    totalTime = proc.TotalProcessorTime,
+                    exitCode = proc.ExitCode,
+                    exitTime = proc.ExitTime,
+                    logError = logerror,
+                    logOutput = logout,
+                    log = log,
+                });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Exception = ex });
+            }
+            finally
+            {
+                if (proc != null)
+                {
+                    proc.Close();
                 }
             }
         }
