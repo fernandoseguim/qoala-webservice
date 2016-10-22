@@ -11,14 +11,15 @@ namespace QoalaWS.Controllers
         [Route("plans/")]
         public IHttpActionResult All()
         {
-            return Ok(new {
+            return Ok(new
+            {
                 plans = Plan.All()
             });
         }
 
         [HttpGet]
         [Route("plans/reports")]
-        public IHttpActionResult Reports(int id_plan = 0)
+        public IHttpActionResult Reports(int id_plan=0)
         {
             return Ok(new
             {
@@ -37,7 +38,7 @@ namespace QoalaWS.Controllers
 
             return Ok(plan.Serializer());
         }
-        
+
         [HttpPut]
         [Route("plans/{id}")]
         [BasicAuthorization]
@@ -49,14 +50,14 @@ namespace QoalaWS.Controllers
 
             if (p == null)
                 return NotFound();
-            
-            plan.ID_PLAN= id;
+
+            plan.ID_PLAN = id;
 
             if (plan.NAME == null)
                 plan.NAME = p.NAME;
             if (plan.PRICE_CENTS == 0)
                 plan.PRICE_CENTS = p.PRICE_CENTS;
-            if(plan.REWARDS == null)
+            if (plan.REWARDS == null)
                 plan.REWARDS = p.REWARDS;
 
             plan.Update();

@@ -22,56 +22,36 @@ namespace QoalaWS.DAO
             }
         }
 
-        public static List<object> Report(int id_plan)
+        public static List<object> Report(int id_plan = 0, int page = 1)
         {
             using (QoalaEntities qe = new QoalaEntities())
             {
                 List<object> items = new List<object>();
 
+                var list = qe.PLANS.AsParallel().AsQueryable();
+
                 if (id_plan > 0)
-                {
-                    var list = qe.PLANS.
-                            Join(qe.USERS,
-                            plan => plan.ID_PLAN,
-                            user => user.ID_USER,
-                            (plan, user) => new { Plan = plan, User = user }
-                    ).Where(i => i.Plan.ID_PLAN == id_plan).OrderByDescending(p => p.Plan.CREATED_AT).ToList();
+                    list = list.Where(i => i.ID_PLAN == id_plan);
 
-                    foreach (var item in list)
-                    {
-                        items.Add(
-                            new
-                            {
-                                id_plan = item.Plan.ID_PLAN,
-                                id_user = item.User.ID_USER,
-                                user_name = item.User.NAME,
-                                plan_qnt_left = item.Plan.LEFT
-                            }
-                        );
-                    }
-                } else
-                {
-                    var list = qe.PLANS.
-                            Join(qe.USERS,
-                            plan => plan.ID_PLAN,
-                            user => user.ID_USER,
-                            (plan, user) => new { Plan = plan, User = user }
-                    ).OrderByDescending(p => p.Plan.CREATED_AT).ToList();
+                list = list.OrderByDescending(p => p.CREATED_AT);
 
-                    foreach (var item in list)
-                    {
-                        items.Add(
-                            new
-                            {
-                                id_plan = item.Plan.ID_PLAN,
-                                id_user = item.User.ID_USER,
-                                user_name = item.User.NAME,
-                                left_qnt_plan = item.Plan.LEFT
-                            }
-                        );
-                    }
+                int vendidos = 0;
+                foreach (var item in list)
+                {
+                    vendidos = qe.USERS.Count(u => u.ID_PLAN == item.ID_PLAN);
+                    items.Add(
+                        new
+                        {
+                            id_plan = item.ID_PLAN,
+                            name_plan = item.NAME,
+                            plan_left = item.LEFT,
+                            plan_solds = vendidos,
+                            price_cents = item.PRICE_CENTS,
+                        }
+                    );
                 }
-                
+
+
                 return items;
             }
         }
@@ -79,7 +59,7 @@ namespace QoalaWS.DAO
 
         public static Plan Find(Decimal id_plan)
         {
-            using(QoalaEntities qe = new QoalaEntities())
+            using (QoalaEntities qe = new QoalaEntities())
             {
                 return qe.PLANS.FirstOrDefault(u => u.ID_PLAN == id_plan);
             }
@@ -87,7 +67,7 @@ namespace QoalaWS.DAO
 
         public void Add()
         {
-            using(QoalaEntities qe = new QoalaEntities())
+            using (QoalaEntities qe = new QoalaEntities())
             {
                 this.CREATED_AT = DateTime.Now;
                 qe.PLANS.Add(this);
@@ -97,7 +77,7 @@ namespace QoalaWS.DAO
 
         public void Delete()
         {
-            using(QoalaEntities qe = new QoalaEntities())
+            using (QoalaEntities qe = new QoalaEntities())
             {
                 qe.Entry(this).State = System.Data.Entity.EntityState.Deleted;
                 qe.SaveChanges();
@@ -105,7 +85,7 @@ namespace QoalaWS.DAO
         }
         public void Update()
         {
-            using(QoalaEntities qe = new QoalaEntities())
+            using (QoalaEntities qe = new QoalaEntities())
             {
                 qe.Entry(this).State = System.Data.Entity.EntityState.Modified;
                 qe.SaveChanges();

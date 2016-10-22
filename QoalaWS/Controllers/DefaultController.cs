@@ -99,7 +99,8 @@ namespace QoalaWS.Controllers
                 }
                 finally
                 {
-                    proc.Close();
+                    if (proc != null)
+                        proc.Close();
                 }
             }
         }
