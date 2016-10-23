@@ -20,5 +20,6 @@ namespace QoalaWS.DAO
         public decimal LEFT { get; set; }
         public string REWARDS { get; set; }
         public System.DateTime CREATED_AT { get; set; }
+        public Nullable<decimal> TOTAL { get; set; }
     }
 }

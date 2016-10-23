@@ -71,6 +71,7 @@
           <Property Name="LEFT" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="REWARDS" Type="varchar2" MaxLength="350" Nullable="false" />
           <Property Name="CREATED_AT" Type="date" Nullable="false" />
+          <Property Name="TOTAL" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="POSTS">
           <Key>
@@ -686,6 +687,7 @@
           <Property Name="LEFT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="REWARDS" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
           <Property Name="CREATED_AT" Type="DateTime" Nullable="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -814,6 +816,7 @@
           <EntitySetMapping Name="PLANS">
             <EntityTypeMapping TypeName="Model.Plan">
               <MappingFragment StoreEntitySet="PLANS">
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
                 <ScalarProperty Name="CREATED_AT" ColumnName="CREATED_AT" />
                 <ScalarProperty Name="REWARDS" ColumnName="REWARDS" />
                 <ScalarProperty Name="LEFT" ColumnName="LEFT" />

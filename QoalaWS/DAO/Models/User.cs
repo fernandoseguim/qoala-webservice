@@ -71,7 +71,7 @@ namespace QoalaWS.DAO
                 throw new UserEmailExistsException();
 
             var outParameter = new ObjectParameter("OUT_ID_USER", typeof(decimal));
-            if (!(PERMISSION > 0 && PERMISSION <= 3))
+            if (!(PERMISSION > 0 && PERMISSION <= 4))
             {
                 PERMISSION = 1;
             }

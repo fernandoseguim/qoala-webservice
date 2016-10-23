@@ -104,6 +104,7 @@ namespace QoalaWS.DAO
             using (QoalaEntities qe = new QoalaEntities())
             {
                 this.CREATED_AT = DateTime.Now;
+                this.TOTAL = LEFT;
                 qe.PLANS.Add(this);
                 qe.SaveChanges();
             }
@@ -136,7 +137,7 @@ namespace QoalaWS.DAO
                 left = LEFT,
                 rewards = REWARDS,
                 price_cents = PRICE_CENTS,
-                sold = qe.USERS.Count(u => u.ID_PLAN == ID_PLAN)
+                sold = TOTAL
             };
         }
     }
