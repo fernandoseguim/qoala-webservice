@@ -24,6 +24,7 @@ namespace QoalaWS.Controllers
             int plan_left = 0, int plan_left2 = 0,
             int plan_sold = 0, int plan_sold2 = 0
             )
+
         {
             return Ok(new
             {

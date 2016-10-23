@@ -59,19 +59,19 @@ namespace QoalaWS.DAO
                 
                 foreach (var item in list)
                 {
-                    int vendidos = qe.USERS.Count(u => u.ID_PLAN == item.ID_PLAN);
+                    int sold = qe.USERS.Count(u => u.ID_PLAN == item.ID_PLAN);
 
                     if (plan_sold > 0 && plan_sold2 == 0)
                     {
-                        if (vendidos != plan_sold) continue;
+                        if (sold != plan_sold) continue;
                     }
                     else if (plan_sold > 0 && plan_sold2 > 0)
                     {
-                        if (vendidos < plan_sold || vendidos > plan_sold2) continue;
+                        if (sold < plan_sold || sold > plan_sold2) continue;
                     }
                     else if (plan_sold == 0 && plan_sold2 > 0)
                     {
-                        if (vendidos > plan_sold2) continue;
+                        if (sold > plan_sold2) continue;
                     }
 
                     items.Add(
@@ -80,7 +80,7 @@ namespace QoalaWS.DAO
                             id_plan = item.ID_PLAN,
                             name_plan = item.NAME,
                             plan_left = item.LEFT,
-                            plan_solds = vendidos,
+                            plan_solds = sold,
                             price_cents = item.PRICE_CENTS,
                         }
                     );
@@ -128,13 +128,15 @@ namespace QoalaWS.DAO
 
         public object Serializer()
         {
+            QoalaEntities qe = new QoalaEntities();
             return new
             {
                 id_plan = ID_PLAN,
                 name = NAME,
                 left = LEFT,
                 rewards = REWARDS,
-                price_cents = PRICE_CENTS
+                price_cents = PRICE_CENTS,
+                sold = qe.USERS.Count(u => u.ID_PLAN == ID_PLAN)
             };
         }
     }
