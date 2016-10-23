@@ -11,6 +11,7 @@ namespace QoalaWS.DAO
             using (QoalaEntities qe = new QoalaEntities())
             {
                 var list = qe.PLANS.
+                    Where(i => i.LEFT > 0).
                 OrderByDescending(p => p.CREATED_AT).
                 ToList();
                 List<object> plans = new List<object>();

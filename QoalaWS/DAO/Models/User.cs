@@ -137,6 +137,8 @@ namespace QoalaWS.DAO
                 city = CITY,
                 state = STATE,
                 zipcode = ZIPCODE,
+                id_plan = ID_PLAN,
+                document = DOCUMENT
             };
         }
 

@@ -98,7 +98,8 @@ namespace QoalaWS.Controllers
                     email = user.EMAIL,
                     name = user.NAME,
                     permission = user.PERMISSION,
-                    id_plan = user.ID_PLAN
+                    id_plan = user.ID_PLAN,
+                    document = user.DOCUMENT
                 }
             );
 
