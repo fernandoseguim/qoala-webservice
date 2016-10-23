@@ -33,32 +33,33 @@ namespace QoalaWS.DAO
 
                 var list = qe.PLANS.AsParallel().AsQueryable();
 
-                //if (name.Trim() == "")
-                //    list = list.Where(i => i.NAME.ToUpper().Contains(name.ToUpper().Trim()));
-
-                foreach (var nome in name.ToUpper().Trim().Split(new string[] { ",", " ", ";" }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (nome.Length > 2)
-                        list = list.Where(i => i.NAME.ToUpper().Contains(nome));
-                }
+                if (name != null && name.Length > 0)
+                    foreach (var nome in name.ToUpper().Trim().Split(new string[] { ",", " ", ";" }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (nome.Length > 2)
+                            list = list.Where(i => i.NAME.ToUpper().Contains(nome));
+                    }
 
 
                 if (id_plan > 0 && id_plan2 == 0)
                     list = list.Where(i => i.ID_PLAN == id_plan);
                 else if (id_plan > 0 && id_plan2 > 0)
                     list = list.Where(i => i.ID_PLAN >= id_plan && i.ID_PLAN <= id_plan2);
+                else if (id_plan == 0 && id_plan2 > 0)
+                    list = list.Where(i => i.ID_PLAN <= id_plan2);
 
                 if (plan_left > 0 && plan_left2 == 0)
                     list = list.Where(i => i.LEFT == plan_left);
                 else if (plan_left > 0 && plan_left2 > 0)
                     list = list.Where(i => i.LEFT >= plan_left && i.LEFT <= plan_left2);
+                else if (plan_left == 0 && plan_left2 > 0)
+                    list = list.Where(i => i.LEFT <= plan_left2);
 
                 list = list.OrderByDescending(p => p.CREATED_AT);
-
-                int vendidos = 0;
+                
                 foreach (var item in list)
                 {
-                    vendidos = qe.USERS.Count(u => u.ID_PLAN == item.ID_PLAN);
+                    int vendidos = qe.USERS.Count(u => u.ID_PLAN == item.ID_PLAN);
 
                     if (plan_sold > 0 && plan_sold2 == 0)
                     {
@@ -66,8 +67,13 @@ namespace QoalaWS.DAO
                     }
                     else if (plan_sold > 0 && plan_sold2 > 0)
                     {
-                        if (vendidos < plan_sold && vendidos > plan_sold2) continue;
+                        if (vendidos < plan_sold || vendidos > plan_sold2) continue;
                     }
+                    else if (plan_sold == 0 && plan_sold2 > 0)
+                    {
+                        if (vendidos > plan_sold2) continue;
+                    }
+
                     items.Add(
                         new
                         {

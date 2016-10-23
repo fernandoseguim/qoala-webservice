@@ -27,7 +27,7 @@ namespace QoalaWS.Controllers
         {
             return Ok(new
             {
-                report = Plan.Report(name, id_plan, id_plan2, plan_left, plan_left2, plan_sold, plan_sold2)
+                report = Plan.Report(name, id_plan, id_plan2, plan_sold, plan_sold2, plan_left, plan_left2)
             });
         }
 
